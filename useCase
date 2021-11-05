@@ -1,0 +1,95 @@
+@startuml
+left to right direction
+
+actor Citoyen as CI
+actor "Citoyen Connecté" as CiC
+actor Administrateur as Adm
+actor SuperAdmin as Su
+actor Moderateur as Modo
+
+package "Acces aux ressources" {
+usecase "Lister les ressources" as UC1
+usecase "Lister les ressources restreintes" as UC2
+usecase "Filtrer et trier les ressources" as UC3
+usecase "Afficher le contenu d’une ressource" as UC4
+}
+
+package "Référentiel de ressources" {
+usecase "Lister / Filtrer les ressources en Back Office" as UC5
+usecase "Ajouter / Editer une ressource" as UC6
+usecase "Supprimer / Suspendre une ressource" as UC7
+usecase "Ajouter / Editer une catégorie de ressources" as UC8
+usecase "Supprimer une catégorie de ressources" as UC9
+}
+
+package "Comptes utilisateurs"{
+    usecase "Création d’un compte citoyen" as UC10
+    usecase "Désactivation / Réactivation d’un compte citoyen" as UC11
+    usecase "Création d’un compte modérateur / administrateur / \n super- administrateur" as UC12
+}
+
+package "Création de ressources" {
+    usecase "Création / Edition d’une ressource" as UC13
+    usecase "Validation d’une ressource pour publication" as UC14
+    usecase "Partage d’une publication" as UC15
+}
+
+package "Echanges" {
+    usecase "Ajout d’un commentaire sur une ressource" as UC16
+    usecase "Modération des commentaires" as UC17
+    usecase "Réponse à un commentaire" as UC18
+}
+
+package "Progression" {
+    usecase "Ajouter / Retirer une ressource de ses favorites" as UC19
+    usecase "Indiquer une ressource comme exploitée / non exploitée" as UC20
+    usecase "Mettre de côté une ressource / Annuler" as UC21
+    usecase "Afficher un tableau de bord de progression" as UC22
+    usecase "Démarrer une ressource de type Activité/Jeu" as UC23
+    usecase "Inviter d’autres participants" as UC24
+    usecase "Echanger des messages dans le cadre de la ressource \n avec les autres participants" as UC25
+}
+
+package "Statistiques" {
+    usecase "Afficher le tableau de bord statistiques (consultation, \n recherche, exploitations, créations)" as UC26
+    usecase "Filtrer les statistiques (périodes, catégories, \n types de relations, de ressources, zones géographiques, etc.)" as UC27
+    usecase "Exporter les statistiques" as UC28
+}
+
+CI --> UC1
+CI --> UC2
+CI --> UC3
+CI --> UC4
+CI --> UC10
+CI --> UC18
+
+Adm --> UC5
+Adm --> UC6
+Adm --> UC7
+Adm --> UC8
+Adm --> UC9
+Adm --> UC11
+Adm --> UC26
+Adm --> UC27
+Adm --> UC28
+
+Su --> UC12
+
+CiC --> UC13
+CiC --> UC15
+CiC --> UC16
+CiC --> UC19
+CiC --> UC20
+CiC --> UC21
+CiC --> UC22
+CiC --> UC23
+CiC --> UC24
+CiC --> UC25
+
+Modo --> UC14
+Modo --> UC17
+Modo --> UC18
+
+
+
+@enduml
