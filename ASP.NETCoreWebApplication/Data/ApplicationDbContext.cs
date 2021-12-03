@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ASP.NETCoreWebApplication.Models.Comments;
 
 namespace ASP.NETCoreWebApplication.Data
 {
@@ -17,5 +18,9 @@ namespace ASP.NETCoreWebApplication.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+        
+        public DbSet<Debate> Debate { get; set; }
+        public DbSet<MainComment> MainComments { get; set; }
+        public DbSet<SubComment> SubComments { get; set; }
     }
 }
