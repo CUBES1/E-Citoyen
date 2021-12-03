@@ -3,6 +3,8 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 import { Link } from 'react-router-dom';
 import { LoginMenu } from '../api-authorization/LoginMenu';
 import './NavMenu.css';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import Avatar from '../../assets/avatar.png'
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
