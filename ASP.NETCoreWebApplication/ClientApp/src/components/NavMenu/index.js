@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Navbar, Container, Button, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { LoginMenu } from '../api-authorization/LoginMenu';
 import './NavMenu.css';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Avatar from '../../assets/avatar.png'
+import { ReactComponent as Logo } from '../../assets/wave.svg';
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
@@ -18,37 +19,41 @@ export class NavMenu extends Component {
     };
   }
 
-  toggleNavbar () {
+  toggleNavbar() {
     this.setState({
       collapsed: !this.state.collapsed
     });
   }
 
-  render () {
+  render() {
     return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
+      <div>
+        <Logo fill={"#00cba9"} className="background" />
+        <Navbar>
           <Container>
-            <NavbarBrand tag={Link} to="/">ASP.NETCoreWebApplication</NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-              <ul className="navbar-nav flex-grow">
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
-                </NavItem>
-                <LoginMenu>
-                </LoginMenu>
-              </ul>
-            </Collapse>
+            <Navbar.Brand>
+              <a href="/" style={{color: 'black', textDecoration: "none"}}>
+                <p className="mainTitle">{this.props.title}</p>
+                <p className="subTitle">{this.props.subtitle}</p>
+              </a>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+              <Nav>
+                {!this.props.isConnected ?
+                  <LoginMenu>
+                  </LoginMenu>
+                  :
+                  [<Button variant="secondary"><AddCircleOutlineIcon fontSize="medium" /> Ajouter un ressource</Button>,
+                  <img alt="user_profil" src={Avatar} className="avatarNavBar" />]
+                }
+              </Nav>
+
+            </Navbar.Collapse>
+
           </Container>
         </Navbar>
-      </header>
+      </div>
     );
   }
 }

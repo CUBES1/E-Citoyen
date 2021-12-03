@@ -13,6 +13,48 @@ html {
   }
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+
+.mainTitle {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 42px;
+  padding-top: 10px;
+}
+
+.subTitle {
+  font-size: 24px;
+}
+
+
+.avatarNavBar {
+  height: 60px;
+  width: auto;
+  margin: 0px 0px 0px 30px;
+  border: 2px solid lighten(var(--bs-secondary), 15%);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: ease all 0.25s;
+}
+
+
+@media screen and (max-width: 576px){
+  .subTitle {
+      display: none;
+  }
+  
+  
+}
+
+.background {
+  height: 300px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -10;
+}
+
+.customNav {
+  background-color: transparent;
+  border: none;
 }
