@@ -32,7 +32,7 @@ export class NavMenu extends Component {
         <Navbar>
           <Container>
             <Navbar.Brand>
-              <a href="/" style={{color: 'black', textDecoration: "none"}}>
+              <a href="/" style={{ color: 'black', textDecoration: "none" }}>
                 <p className="mainTitle">{this.props.title}</p>
                 <p className="subTitle">{this.props.subtitle}</p>
               </a>
