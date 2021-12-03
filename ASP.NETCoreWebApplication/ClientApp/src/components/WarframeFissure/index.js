@@ -1,5 +1,7 @@
 ﻿import React, { Component } from 'react'
 import authService from '../api-authorization/AuthorizeService'
+import { Loading } from "../Loading";
+
 import './style.css'
 
 export class WarframeFissure extends Component {
@@ -16,7 +18,7 @@ export class WarframeFissure extends Component {
         return (
             <table className='table table-striped'>
                 <thead>
-                    <tr>
+                    <tr className="wf-list-element">
                         <th>Activation</th>
                         <th>Expiration</th>
                         <th>Tier</th>
@@ -25,8 +27,8 @@ export class WarframeFissure extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {fissures.map( fissure =>
-                        <tr key={fissure.id}>
+                    {fissures.map(fissure =>
+                        <tr key={fissure.id} className="wf-list-element">
                             <td>{fissure.startTime}</td>
                             <td>{fissure.endTime}</td>
                             <td>{fissure.tier}</td>
@@ -41,13 +43,13 @@ export class WarframeFissure extends Component {
     
     render() {
         let contents = this.state.loading ?
-            <p><em>Loading...</em></p> :
+            <Loading /> :
             WarframeFissure.renderWarframeFissure(this.state.fissures);
         
         return (
             <div>
                 <h1 id="tabelLabel">Warframe Available Fissures</h1>
-                <p>This component hahaha lol jpp 🤣🤣🤣🤣🤣🤣🤣</p>
+                <p>This component shows all available fissure missions in-game.</p>
                 {contents}
             </div>
         );
