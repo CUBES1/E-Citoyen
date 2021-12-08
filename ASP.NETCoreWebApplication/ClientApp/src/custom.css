@@ -27,30 +27,44 @@ code {
 .cardContainer {
   position: relative;
   width: 100%;
-  padding: 0px 20px 0px 20px;
+  margin: auto;
+  /* padding: 0px 20px 0px 10px; */
   justify-content: center;
 }
 
 .mainContainer {
-  width: 80% !important;
+  width: 75% !important;
 }
 
 .sideContainer {
-  width: 22% !important;
+  width: 27% !important;
   height: 700px;
-  padding-left: 20px !important;
   padding-top: 24px !important;
+  padding-right: 25px;
   left: 79%;
+  position: sticky; top: 0;
 }
 
 
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 800px) {
   .mainContainer {
     width: auto !important;
   }
+  
   .sideContainer {
     display: none !important;
   }
 }
+
+@media screen and (max-width: 1308px) {
+  .mainContainer {
+    width: auto !important;
+  }
+  
+  .sideContainer {
+    display: none !important;
+  }
+}
+
 

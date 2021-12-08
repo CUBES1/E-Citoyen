@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import authService from './AuthorizeService';
 import { ApplicationPaths } from './ApiAuthorizationConstants';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 export class LoginMenu extends Component {
     constructor(props) {
@@ -47,11 +48,17 @@ export class LoginMenu extends Component {
 
     authenticatedView(userName, profilePath, logoutPath) {
         return (<Fragment>
+
+
+
             <NavItem>
-                <NavLink tag={Link} className="text-dark" to={profilePath}>Hello {userName}</NavLink>
+                <NavLink tag={Link} className="text-dark" to={profilePath}><img alt="user_profil" src={this.props.avatar} className="avatarNavBar" /></NavLink>
             </NavItem>
             <NavItem>
-                <NavLink tag={Link} className="text-dark" to={logoutPath}>Logout</NavLink>
+                <NavLink tag={Link} className="text-dark" to={profilePath}><Button variant="secondary"><AddCircleOutlineIcon fontSize="medium" /> Ajouter un ressource</Button></NavLink>
+            </NavItem>
+            <NavItem>
+                <NavLink tag={Link} className="text-dark" to={logoutPath}><Button variant="primary">Deconnexion</Button></NavLink>
             </NavItem>
         </Fragment>);
 

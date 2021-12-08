@@ -1,0 +1,85 @@
+.SideBarCardStyle {
+    height: auto;
+    width: 100%;
+    box-shadow: rgb(0 0 0 / 5%) 0rem 1.25rem 1.6875rem 0rem;
+    border-radius: 1rem !important;
+    overflow-wrap: break-word;
+    background-color: rgb(255, 255, 255);
+    background-clip: border-box;
+    border: 0px solid rgba(0, 0, 0, 0.125);
+    margin-top: 10px;
+}
+
+.cardContainer-sidebar {
+    display: flex;
+    flex-direction: row;
+    /* background-color: yellow; */
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 0px 15px;
+    line-height: 14px;
+    font-size: 15px;
+    /* background-color: red; */
+}
+
+.textContainer .topTitle {
+    font-weight: bold;
+}
+
+.textContainer .topUserName {
+    font-weight: 500;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: -10px;
+}
+
+.textContainer .topLike {
+    font-weight: 400;
+    font-size: 12px;
+    margin-top: -10px;
+
+}
+
+.avatarOnSidbar {
+    height: 45px;
+    margin: auto;
+    left: 0;
+    border: 2px solid lighten(var(--bs-secondary), 15%);
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: ease all 0.25s;
+}
+
+
+.containerUser {
+    padding-left: 15px;
+}
+
+.userName {
+    margin-left: 10px;
+    line-height: 35px;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.ressourceTitle {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border: 1px solid var(--primary-wAlpha);
+    /* opacity: .44;     */
+    height: auto;
+    line-height: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 5px 10px 5px 10px;
+}
+
+
+.footerCard {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -15px;
+}
