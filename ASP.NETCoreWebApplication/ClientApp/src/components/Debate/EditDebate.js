@@ -12,7 +12,6 @@ class Edit extends React.Component {
 
         this.state = {
             Title: '',
-            ReleaseDate: '',
             Genre: ''
         }
     }

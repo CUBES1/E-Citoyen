@@ -44,14 +44,14 @@ namespace ASP.NETCoreWebApplication.Controllers
 
         // PUT: api/Debat/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut("{id:guid}")]
         public async Task<IActionResult> PutDebate(Guid id, Debate debate)
         {
             if (id != debate.Id)
             {
                 return BadRequest();
             }
-
+            
             _context.Entry(debate).State = EntityState.Modified;
 
             try
@@ -69,7 +69,7 @@ namespace ASP.NETCoreWebApplication.Controllers
                     throw;
                 }
             }
-
+        
             return NoContent();
         }
 
@@ -78,6 +78,7 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Debate>> PostDebate(Debate debate)
         {
+            debate.ReleaseDate = DateTime.Now;
             _context.Debate.Add(debate);
             await _context.SaveChangesAsync();
 
