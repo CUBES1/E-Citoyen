@@ -28,7 +28,7 @@ namespace ASP.NETCoreWebApplication
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("AxelConnexion")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
