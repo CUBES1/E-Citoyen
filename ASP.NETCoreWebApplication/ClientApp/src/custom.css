@@ -1,70 +1,81 @@
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 code {
-  color: #E01A76;
+    color: #E01A76;
 }
 
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont,'Roboto',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(248, 249, 250);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: rgb(248, 249, 250);
 }
 
 code {
-  font-family: 'Roboto',
+    font-family: 'Roboto',
     monospace;
 }
 
 
-
 .cardContainer {
-  position: relative;
-  width: 100%;
-  margin: auto;
-  /* padding: 0px 20px 0px 10px; */
-  justify-content: center;
+    position: relative;
+    width: 100%;
+    margin: auto;
+    /* padding: 0px 20px 0px 10px; */
+    justify-content: center;
 }
 
 .mainContainer {
-  width: 75% !important;
+    width: 75% !important;
 }
 
 .sideContainer {
-  width: 27% !important;
-  height: 700px;
-  padding-top: 24px !important;
-  padding-right: 25px;
-  left: 79%;
-  position: sticky; top: 0;
+    width: 27% !important;
+    height: 700px;
+    padding-top: 24px !important;
+    padding-right: 25px;
+    left: 79%;
+    position: sticky;
+    top: 0;
 }
-
 
 
 @media screen and (max-width: 800px) {
-  .mainContainer {
-    width: auto !important;
-  }
-  
-  .sideContainer {
-    display: none !important;
-  }
+    .mainContainer {
+        width: auto !important;
+    }
+
+    .sideContainer {
+        display: none !important;
+    }
 }
 
 @media screen and (max-width: 1308px) {
-  .mainContainer {
-    width: auto !important;
-  }
-  
-  .sideContainer {
-    display: none !important;
-  }
+    .mainContainer {
+        width: auto !important;
+    }
+
+    .sideContainer {
+        display: none !important;
+    }
 }
 
 
+.dropdown-toggle:after {
+    display: none !important;
+}
+
+.addRessources {
+    margin: auto;
+}
+
+
+.iconAddMargin {
+    margin-right: 5px;
+}
