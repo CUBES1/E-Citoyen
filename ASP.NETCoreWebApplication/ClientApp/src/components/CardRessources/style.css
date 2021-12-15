@@ -51,7 +51,7 @@
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     /* height: auto; */
-    max-height: 160px;
+    max-height: 197px;
     object-fit: fit;
 }
 
@@ -70,6 +70,7 @@
 
 .footerCard {
     display: flex;
+    width: 100%;
     justify-content: space-between;
     margin-bottom: -15px;
 }

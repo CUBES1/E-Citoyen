@@ -8,6 +8,7 @@ export default class DebateList extends Component {
         debate: []
     }
 
+
     componentDidMount() {
         axios.get(`https://localhost:5001/api/Debat`)
             .then(res => {

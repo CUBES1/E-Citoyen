@@ -28,7 +28,8 @@ namespace ASP.NETCoreWebApplication
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    /* Changer par default connexion ou mettre votre connexion a votre db perso */
+                    Configuration.GetConnectionString("AxelConnexion")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -38,6 +39,8 @@ namespace ASP.NETCoreWebApplication
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
+            services.AddCors();
+            
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
@@ -62,12 +65,16 @@ namespace ASP.NETCoreWebApplication
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
             app.UseRouting();
+            
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .WithHeaders("authorization", "accept", "content-type", "origin", "common"));
 
             app.UseAuthentication();
             app.UseIdentityServer();
