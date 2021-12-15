@@ -10,6 +10,7 @@ export default class AddDebate extends React.Component{
             Genre:''
         }
     }
+    
     Adddebate=()=>{
         axios.post('https://localhost:5001/api/Debat', {Title:this.state.Title, Genre:this.state.Genre})
             .then(json => {
