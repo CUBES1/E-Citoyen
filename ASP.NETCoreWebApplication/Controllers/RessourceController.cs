@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ASP.NETCoreWebApplication.Data;
@@ -11,47 +12,47 @@ namespace ASP.NETCoreWebApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DebatController : ControllerBase
+    public class RessourceController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public DebatController(ApplicationDbContext context)
+        public RessourceController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Debat
+        // GET: api/Ressource
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Debate>>> GetDebate()
+        public async Task<ActionResult<IEnumerable<Ressource>>> GetRessources()
         {
-            return await _context.Debate.ToListAsync();
+            return await _context.Ressources.ToListAsync();
         }
 
-        // GET: api/Debat/5
+        // GET: api/Ressource/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Debate>> GetDebate(Guid id)
+        public async Task<ActionResult<Ressource>> GetRessource(Guid id)
         {
-            var debate = await _context.Debate.FindAsync(id);
+            var ressource = await _context.Ressources.FindAsync(id);
 
-            if (debate == null)
+            if (ressource == null)
             {
                 return NotFound();
             }
 
-            return debate;
+            return ressource;
         }
 
-        // PUT: api/Debat/5
+        // PUT: api/Ressource/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id:guid}")]
-        public async Task<IActionResult> PutDebate(Guid id, Debate debate)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutRessource(Guid id, Ressource ressource)
         {
-            if (id != debate.Id)
+            if (id != ressource.Id)
             {
                 return BadRequest();
             }
-            
-            _context.Entry(debate).State = EntityState.Modified;
+
+            _context.Entry(ressource).State = EntityState.Modified;
 
             try
             {
@@ -59,7 +60,7 @@ namespace ASP.NETCoreWebApplication.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DebateExists(id))
+                if (!RessourceExists(id))
                 {
                     return NotFound();
                 }
@@ -68,41 +69,40 @@ namespace ASP.NETCoreWebApplication.Controllers
                     throw;
                 }
             }
-        
+
             return NoContent();
         }
 
-        // POST: api/Debat
+        // POST: api/Ressource
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Debate>> PostDebate(Debate debate)
+        public async Task<ActionResult<Ressource>> PostRessource(Ressource ressource)
         {
-            debate.ReleaseDate = DateTime.Now;
-            _context.Debate.Add(debate);
+            _context.Ressources.Add(ressource);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDebate", new { id = debate.Id }, debate);
+            return CreatedAtAction("GetRessource", new { id = ressource.Id }, ressource);
         }
 
-        // DELETE: api/Debat/5
+        // DELETE: api/Ressource/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDebate(Guid id)
+        public async Task<IActionResult> DeleteRessource(Guid id)
         {
-            var debate = await _context.Ressources.FindAsync(id);
-            if (debate == null)
+            var ressource = await _context.Ressources.FindAsync(id);
+            if (ressource == null)
             {
                 return NotFound();
             }
 
-            _context.Ressources.Remove(debate);
+            _context.Ressources.Remove(ressource);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool DebateExists(Guid id)
+        private bool RessourceExists(Guid id)
         {
-            return _context.Debate.Any(e => e.Id == id);
+            return _context.Ressources.Any(e => e.Id == id);
         }
     }
 }

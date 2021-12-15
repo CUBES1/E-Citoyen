@@ -19,7 +19,13 @@ namespace ASP.NETCoreWebApplication.Data
         {
         }
         
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
+        
         public DbSet<Debate> Debate { get; set; }
+        public DbSet<Ressource> Ressources { get; set; }
         public DbSet<MainComment> MainComments { get; set; }
         public DbSet<SubComment> SubComments { get; set; }
     }
