@@ -6,17 +6,8 @@ using ASP.NETCoreWebApplication.Models.Comments;
 
 namespace ASP.NETCoreWebApplication.Models
 {
-    public class Debate
+    public class Debate : Ressource
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-
-        [DataType(DataType.Date)]
-        public DateTime? ReleaseDate { get; set; }
         public string? Genre { get; set; }
-
-        //public List<MainComment>? MainComments { get; set; }
     }
 }

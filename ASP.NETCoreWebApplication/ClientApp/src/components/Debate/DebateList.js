@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
 import {Link} from "react-router-dom";
+import './debate.css';
 
 export default class DebateList extends Component {
     state = {
@@ -28,8 +29,6 @@ export default class DebateList extends Component {
     }
     
     render() {
-        const {debate} = this.state
-
         return (
                 this.state.debate
                     .map(debate =>
@@ -42,6 +41,12 @@ export default class DebateList extends Component {
                             </td>
                             <td>
                                 {debate.genre}
+                            </td>
+                            <td>
+                                {debate.age}
+                            </td>
+                            <td>
+                                {debate.visibility}
                             </td>
                             <td>
                                 <Link to={"/edit/"+this.state.debate.Id} className="btn btn-success">Edit</Link>
