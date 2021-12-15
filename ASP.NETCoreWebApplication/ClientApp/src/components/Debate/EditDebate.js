@@ -12,13 +12,12 @@ class Edit extends React.Component {
 
         this.state = {
             Title: '',
-            ReleaseDate: '',
             Genre: ''
         }
     }
 
     componentDidMount() {
-        axios.get('https://localhost:5001/api/Debate/detailById?id='+this.props.match.params.id)
+        axios.get('https://localhost:5001/api/Debate/?id='+this.props.match.params.id)
             .then(response => {
                 this.setState({
                     Title: response.data.Title,

@@ -1,49 +1,63 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
-import Table from './Table';
+import {Link} from "react-router-dom";
+import './debate.css';
 
 export default class DebateList extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {business: []};
+    state = {
+        debate: []
     }
-    componentDidMount(){
-        debugger;
-        axios.get('https://localhost:5001/api/debat')
-            .then(response => {
-                this.setState({ business: response.data });
-                debugger;
 
-            }) 
-            .catch(function (error) {
-                console.log(error);
+
+    componentDidMount() {
+        axios.get(`https://localhost:5001/api/Debat`)
+            .then(res => {
+                const debate = res.data;
+                this.setState({ debate });
             })
     }
 
-    tabRow(){
-        return this.state.business.map(function(object, i){
-            return <Table obj={object} key={i} />;
-        });
+    deleteContact (id) {
+        axios.delete(`https://localhost:5001/api/Debat/${id}`)
+            .then(() => {
+                return axios.get(`https://localhost:5001/api/Debat/`)
+            })
+            .then(res => {
+                // Update users in state as per-usual
+                const debate = res.data;
+                this.setState({ debate });
+            })
     }
-
+    
     render() {
         return (
-            <div>
-                <h4 align="center">Debate List</h4>
-                <table className="table table-striped" style={{ marginTop: 10 }}>
-                    <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Release date</th>
-                        <th>Genre</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    { this.tabRow() }
-                    </tbody>
-                </table>
-            </div>
-        );
-    }
+                this.state.debate
+                    .map(debate =>
+                        <table key={debate.id}>
+                            <td>
+                                {debate.title}
+                            </td>
+                            <td>
+                                {debate.releaseDate}
+                            </td>
+                            <td>
+                                {debate.genre}
+                            </td>
+                            <td>
+                                {debate.age}
+                            </td>
+                            <td>
+                                {debate.visibility}
+                            </td>
+                            <td>
+                                <Link to={"/edit/"+this.state.debate.Id} className="btn btn-success">Edit</Link>
+                            </td>
+                            
+                            <td>
+                                <button onClick={ () => this.deleteContact(debate.id) } className="btn btn-success">Remove</button>
+                            </td>
+                            
+                        </table>
+                    ))
+            }
 }  

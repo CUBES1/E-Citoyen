@@ -7,14 +7,15 @@ export default class AddDebate extends React.Component{
         super(props)
         this.state = {
             Title:'',
-            Genre:''
+            Genre:'',
+            Age:''
         }
     }
+    
     Adddebate=()=>{
-        axios.post('https://localhost:5001/api/Debat', {Title:this.state.Title, Genre:this.state.Genre})
-            .then(json => {
+        axios.post('https://localhost:5001/api/Debat', {Title:this.state.Title, Genre:this.state.Genre, Age:this.state.Age})
+            .then(() => {
                 {
-                    console.log(json.data.Status);
                     alert("Data Save Successfully");
                 }
             })
@@ -40,6 +41,12 @@ export default class AddDebate extends React.Component{
                             <Label for="Genre" sm={2}>Genre</Label>
                             <Col sm={10}>
                                 <Input type="text" name="Genre" onChange={this.handleChange} value={this.state.Genre} placeholder="Enter Genre" />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label for="Age" sm={2}>Age</Label>
+                            <Col sm={10}>
+                                <Input type="number" name="Age" onChange={this.handleChange} value={this.state.Age} placeholder="Enter Age" />
                             </Col>
                         </FormGroup>
                     </Col>
