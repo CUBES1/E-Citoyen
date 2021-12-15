@@ -15,7 +15,7 @@ export default class DebateList extends Component {
                 this.setState({ business: response.data });
                 debugger;
 
-            })
+            }) 
             .catch(function (error) {
                 console.log(error);
             })
