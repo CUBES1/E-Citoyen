@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ASP.NETCoreWebApplication.Data.Migrations
+namespace ASP.NETCoreWebApplication.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,37 +47,71 @@ namespace ASP.NETCoreWebApplication.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Debate",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Debate", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DeviceCodes",
                 columns: table => new
                 {
-                    UserCode = table.Column<string>(type: "nvarchar(450)", maxLength: 200, nullable: false),
-                    DeviceCode = table.Column<string>(type: "nvarchar(450)", maxLength: 200, nullable: false),
-                    SubjectId = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    SessionId = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
-                    ClientId = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Expiration = table.Column<DateTime>(type: "DateTime", nullable: false),
-                    Data = table.Column<string>(type: "TEXT", maxLength: 50000, nullable: false)
+                    UserCode = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    DeviceCode = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    SubjectId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    SessionId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    ClientId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Data = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false)
                 },
-                constraints: table => { table.PrimaryKey("PK_DeviceCodes", x => x.UserCode); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DeviceCodes", x => x.UserCode);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MainComments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MainComments", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "PersistedGrants",
                 columns: table => new
                 {
-                    Key = table.Column<string>(type: "nvarchar(450)", maxLength: 200, nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(450)", maxLength: 50, nullable: false),
-                    SubjectId = table.Column<string>(type: "nvarchar(450)", maxLength: 200, nullable: true),
-                    SessionId = table.Column<string>(type: "nvarchar(450)", maxLength: 100, nullable: true),
-                    ClientId = table.Column<string>(type: "nvarchar(450)", maxLength: 200, nullable: false),
-                    Description = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "DateTime", nullable: false),
-                    Expiration = table.Column<DateTime>(type: "DateTime", nullable: true),
-                    ConsumedTime = table.Column<DateTime>(type: "DateTime", nullable: true),
-                    Data = table.Column<string>(type: "TEXT", maxLength: 50000, nullable: false)
+                    Key = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    SubjectId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    SessionId = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    ClientId = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ConsumedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Data = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false)
                 },
-                constraints: table => { table.PrimaryKey("PK_PersistedGrants", x => x.Key); });
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersistedGrants", x => x.Key);
+                });
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -185,6 +219,27 @@ namespace ASP.NETCoreWebApplication.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SubComments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MainCommentId = table.Column<int>(type: "int", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubComments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SubComments_MainComments_MainCommentId",
+                        column: x => x.MainCommentId,
+                        principalTable: "MainComments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -194,7 +249,8 @@ namespace ASP.NETCoreWebApplication.Data.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -220,7 +276,8 @@ namespace ASP.NETCoreWebApplication.Data.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DeviceCodes_DeviceCode",
@@ -247,6 +304,11 @@ namespace ASP.NETCoreWebApplication.Data.Migrations
                 name: "IX_PersistedGrants_SubjectId_SessionId_Type",
                 table: "PersistedGrants",
                 columns: new[] { "SubjectId", "SessionId", "Type" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubComments_MainCommentId",
+                table: "SubComments",
+                column: "MainCommentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -267,16 +329,25 @@ namespace ASP.NETCoreWebApplication.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Debate");
+
+            migrationBuilder.DropTable(
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
                 name: "PersistedGrants");
 
             migrationBuilder.DropTable(
+                name: "SubComments");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "MainComments");
         }
     }
 }

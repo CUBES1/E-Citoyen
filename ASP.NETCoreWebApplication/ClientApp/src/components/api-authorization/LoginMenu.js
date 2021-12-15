@@ -75,3 +75,4 @@ export class LoginMenu extends Component {
         </Fragment>);
     }
 }
+
