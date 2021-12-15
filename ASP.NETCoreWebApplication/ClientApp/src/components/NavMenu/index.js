@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Navbar, Container, Button, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import { LoginMenu } from '../api-authorization/LoginMenu';
 import './NavMenu.css';
 import Avatar from '../../assets/avatar.png'
+import {Debate} from "../Debate";
 import { ReactComponent as Logo } from '../../assets/wave.svg';
 
 export class NavMenu extends Component {
@@ -47,6 +48,19 @@ export class NavMenu extends Component {
 
           </Container>
         </Navbar>
+        <Router>
+          <div className="container">
+            <ul >
+              <li>
+                <Link to={'/Debate'}>Debate</Link>
+              </li>
+            </ul>
+          </div>
+          <br/>
+          <Switch>
+            <Route exact path='/Debate' component={Debate}/>
+          </Switch>
+        </Router>
       </div>
     );
   }
