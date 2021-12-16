@@ -48,19 +48,7 @@ export class NavMenu extends Component {
 
           </Container>
         </Navbar>
-        <Router>
-          <div className="container">
-            <ul >
-              <li>
-                <Link to={'/Debate'}>Debate</Link>
-              </li>
-            </ul>
-          </div>
-          <br/>
-          <Switch>
-            <Route exact path='/Debate' component={Debate}/>
-          </Switch>
-        </Router>
+       
       </div>
     );
   }
