@@ -11,26 +11,30 @@ namespace ASP.NETCoreWebApplication.Models
         Private = 2,
         Archived = 3
     }
-    
+
     public class Ressource
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        
+
         public Guid Id { get; set; }
-        
+
         public string Title { get; set; }
-        
+
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? ReleaseDate { get; set; }
+
         public DateTime? UpdatedAt { get; set; }
         public int? Age { get; set; }
-        
+
         public Visibility Visibility { get; set; } = Visibility.Public;
 
-        public ApplicationUser User { get; set; } 
+        public String UserId { get; set; }
         
-        [NotMapped] public string DisplayState => Visibility switch
+        public ApplicationUser User { get; set; }
+
+        [NotMapped]
+        public string DisplayState => Visibility switch
         {
             Visibility.Public => "Public",
             Visibility.Protected => "Protégé",
