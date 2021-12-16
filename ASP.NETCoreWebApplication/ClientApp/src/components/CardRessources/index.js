@@ -30,7 +30,7 @@ export default class CardRessources extends Component {
                 <Card.Body>
                     <div className="containerUser">
                         <img alt="toto" src={Avatar} className="avatarOnRessource" />
-                        <p className="userName">{this.props.username}</p>
+                        <p className="userName">{this.props.username.substring(0,15)}</p>
                     </div>
 
                     <div className="imageContainer">

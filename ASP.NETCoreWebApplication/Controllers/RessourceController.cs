@@ -25,7 +25,7 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ressource>>> GetRessources()
         {
-            return await _context.Ressources.ToListAsync();
+            return await _context.Ressources.OrderByDescending(b => b.ReleaseDate).ToListAsync();
         }
 
         // GET: api/Ressource/5

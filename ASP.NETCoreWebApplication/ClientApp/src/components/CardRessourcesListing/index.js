@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import {Col} from "react-bootstrap"
+import {Col, Spinner} from "react-bootstrap"
 import CardCustom from "../CardRessources";
 import CardRessources from "../CardRessources";
 
@@ -39,7 +39,9 @@ class Index extends Component {
                         </Col>
                     )
                     :
-                    'Loading'
+                    <div className="customLoadingSection">
+                        <Spinner className="customLoading" animation="grow" size="xs" variant="secondary"/>
+                    </div>
                 }
             </>
         );

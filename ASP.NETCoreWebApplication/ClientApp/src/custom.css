@@ -79,3 +79,20 @@ code {
 .iconAddMargin {
     margin-right: 5px;
 }
+
+
+@media screen and (min-width: 1308px) {
+    .customLoading {
+        margin-left: 45%;
+    }
+}
+
+.customLoading {
+    font-size: 40px;
+    width: 100px;
+    height: 100px;
+}
+
+.customLoadingSection {
+    margin: auto;
+}
