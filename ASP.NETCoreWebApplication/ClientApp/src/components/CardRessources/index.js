@@ -17,7 +17,7 @@ export default class CardRessources extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            
         }
     }
     

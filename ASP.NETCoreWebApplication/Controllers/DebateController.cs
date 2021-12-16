@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ASP.NETCoreWebApplication.Data;
 using ASP.NETCoreWebApplication.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ASP.NETCoreWebApplication.Controllers
 {
@@ -14,6 +15,9 @@ namespace ASP.NETCoreWebApplication.Controllers
     public class DebatController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        
+        protected UserManager<ApplicationUser> UserManager { get; set; }
+        
 
         public DebatController(ApplicationDbContext context)
         {
