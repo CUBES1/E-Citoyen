@@ -8,14 +8,22 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ReplyIcon from '@mui/icons-material/Reply';
+import moment from 'moment';
+moment().format();
+let iamDate = "";
 
-export default class CardCustom extends Component {
+export default class CardRessources extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
 
         }
     }
+    
+   
+  
+
     render() {
         return (
             <Card className="cardStyle" >
@@ -46,7 +54,7 @@ export default class CardCustom extends Component {
                             <Card.Link href="#"><ReplyIcon sx={{ color: "#022922" }} fontSize="medium" /></Card.Link>
                         </div>
                         <div>
-                            <p>{this.props.dateTime}</p>
+                            <p>{moment(this.props.dateTime, 'YYYY-MM-DD[T]HH:mm:ss').format("DD/MM/YYYY HH:mm")}</p>
                         </div>
                     </div>
                 </Card.Body>
