@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import axios from 'axios';
 import { Container, Col, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+
 export default class AddDebate extends React.Component{
     
     constructor(props){
@@ -13,7 +14,8 @@ export default class AddDebate extends React.Component{
     }
     
     Adddebate=()=>{
-        axios.post('https://localhost:5001/api/Debat', {Title:this.state.Title, Genre:this.state.Genre, Age:this.state.Age})
+        const userId = localStorage.getItem('userId');
+        axios.post('https://localhost:5001/api/Debat', {Title:this.state.Title, Genre:this.state.Genre, Age:this.state.Age, UserId: userId})
             .then(() => {
                 {
                     alert("Data Save Successfully");

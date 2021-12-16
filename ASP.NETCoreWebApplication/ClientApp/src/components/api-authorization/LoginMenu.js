@@ -13,7 +13,8 @@ export class LoginMenu extends Component {
 
         this.state = {
             isAuthenticated: false,
-            userName: null
+            userName: null,
+            userId: null,
         };
     }
 
@@ -30,55 +31,57 @@ export class LoginMenu extends Component {
         const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
         this.setState({
             isAuthenticated,
-            userName: user && user.name
+            userName: user && user.name,
+            userId: user && user.sub
         });
     }
 
     render() {
-        const {isAuthenticated, userName} = this.state;
+        const {isAuthenticated, userName, userId} = this.state;
         if (!isAuthenticated) {
             const registerPath = `${ApplicationPaths.Register}`;
             const loginPath = `${ApplicationPaths.Login}`;
+            localStorage.removeItem('userId');
             return this.anonymousView(registerPath, loginPath);
         } else {
             const profilePath = `${ApplicationPaths.Profile}`;
             const logoutPath = {pathname: `${ApplicationPaths.LogOut}`, state: {local: true}};
+            localStorage.setItem('userId', userId);
             return this.authenticatedView(userName, profilePath, logoutPath);
         }
     }
 
     authenticatedView(userName, profilePath, logoutPath) {
         return (<Fragment>
+                    <NavItem className="addRessources">
+                        <NavLink tag={Link}>
+                            <Button variant="secondary">
+                                <AddCircleOutlineIcon fontSize="medium" className="iconAddMargin"/>
+                                Ajouter un ressource
+                            </Button>
+                        </NavLink>
+                    </NavItem>
+                    <NavDropdown eventKey={1}
+                                 title={
+                                     <div className="pull-left">
+                                         <img className="avatarNavBar"
+                                              src={this.props.avatar}
+                                              alt="user pic"
+                                         />
+                                     </div>
+                                 }
+                                 id="basic-nav-dropdown">
 
-            <NavItem className="addRessources">
-                <NavLink tag={Link} >
-                    <Button variant="secondary">
-                        <AddCircleOutlineIcon fontSize="medium" className="iconAddMargin"/>
-                        Ajouter un ressource
-                    </Button>
-                </NavLink>
-            </NavItem>
-            <NavDropdown eventKey={1}
-                         title={
-                             <div className="pull-left">
-                                 <img className="avatarNavBar"
-                                      src={this.props.avatar}
-                                      alt="user pic"
-                                 />
-                             </div>
-                         }
-                         id="basic-nav-dropdown">
-
-                <MenuItem eventKey={1.1}>
-                    <NavLink tag={Link} className="text-dark" to={profilePath}>Profile</NavLink>
-                </MenuItem>
-                <MenuItem eventKey={1.2}>
-                    <NavLink tag={Link} className="text-dark" to={logoutPath}><Button
-                        variant="primary">Deconnexion</Button></NavLink>
-                </MenuItem>
-            </NavDropdown>
-
-        </Fragment>);
+                        <MenuItem eventKey={1.1}>
+                            <NavLink tag={Link} className="text-dark" to={profilePath}>Profile</NavLink>
+                        </MenuItem>
+                        <MenuItem eventKey={1.2}>
+                            <NavLink tag={Link} className="text-dark" to={logoutPath}><Button
+                                variant="primary">Deconnexion</Button></NavLink>
+                        </MenuItem>
+                    </NavDropdown>
+            </Fragment>
+        );
 
     }
 
