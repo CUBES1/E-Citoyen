@@ -24,7 +24,7 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Debate>>> GetDebate()
         {
-            return await _context.Debate.ToListAsync();
+            return await _context.Debate.OrderByDescending(b => b.ReleaseDate).ToListAsync();
         }
 
         // GET: api/Debat/5
