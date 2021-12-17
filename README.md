@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/CUBES1/E-Citoyen">
-    <img src="/ASP.NETCoreWebApplication/ClientApp/src/assets/logo.png" alt="Logo" width="80" height="80">
+    <img src="/ASP.NETCoreWebApplication/ClientApp/src/assets/logo.png" alt="Logo" width="200" height="200">
   </a>
 
 <h3 align="center">E-Citoyen</h3>
