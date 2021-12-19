@@ -1,0 +1,12 @@
+.wf-component {
+    width: 50rem;
+    padding: 1rem;
+    
+    border-radius: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px -5px black;
+}
+
+.wf-component h1 {
+    text-align: center;
+}

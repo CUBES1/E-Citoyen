@@ -1,0 +1,40 @@
+﻿.wf-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+}
+
+.wf-list-element {
+    box-shadow: 0 0 10px -5px black, inset 0 -0.5em lightgreen;
+    border-radius: 5rem;
+}
+
+.wf-list-element th, .wf-list-element td {
+    padding: 0;
+    margin: 0;
+    
+}
+
+.wf-list-element th div, .wf-list-element td div {
+    color: black;
+    background-color: white;
+
+    /*margin-top: 0.5rem;
+    margin-bottom: 0.5rem;*/
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+
+    text-align: center;
+    
+    box-shadow: inset 0 -0.25em lightgreen;;
+}
+
+.wf-list-element th:first-child div, .wf-list-element td:first-child div {
+    border-top-left-radius: 1.75rem;
+    border-bottom-left-radius: 1.75rem;
+}
+
+.wf-list-element th:last-child div, .wf-list-element td:last-child div {
+    border-top-right-radius: 1.75rem;
+    border-bottom-right-radius: 1.75rem;
+}
