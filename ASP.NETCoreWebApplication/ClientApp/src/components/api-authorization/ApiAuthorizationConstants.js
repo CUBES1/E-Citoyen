@@ -11,6 +11,11 @@ export const LogoutActions = {
   LoggedOut: 'logged-out'
 };
 
+export const UsageActions = {
+  RessourcesManagement: 'mes-ressources',
+
+};
+
 export const LoginActions = {
   Login: 'login',
   LoginCallback: 'login-callback',
@@ -34,5 +39,6 @@ export const ApplicationPaths = {
   LoggedOut: `${prefix}/${LogoutActions.LoggedOut}`,
   LogOutCallback: `${prefix}/${LogoutActions.LogoutCallback}`,
   IdentityRegisterPath: 'Identity/Account/Register',
-  IdentityManagePath: 'Identity/Account/Manage'
+  IdentityManagePath: 'Identity/Account/Manage',
+  MyRessources: `${UsageActions.RessourcesManagement}`
 };

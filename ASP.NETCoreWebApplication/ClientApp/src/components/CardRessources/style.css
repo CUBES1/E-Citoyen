@@ -1,0 +1,77 @@
+.cardStyle {
+    min-width: 320px;
+    max-width: 460px;
+    height: auto;
+    width: auto;
+    box-shadow: rgb(0 0 0 / 5%) 0rem 1.25rem 1.6875rem 0rem;
+    border-radius: 1rem !important;
+    overflow-wrap: break-word;
+    background-color: rgb(255, 255, 255);
+    background-clip: border-box;
+    border: 0px solid rgba(0, 0, 0, 0.125);
+}
+
+
+.avatarOnRessource {
+    height: 35px;
+    margin: 0px 0px 0px 0px;
+    border: 2px solid lighten(var(--bs-secondary), 15%);
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: ease all 0.25s;
+}
+
+
+.containerUser {
+    display: flex;
+    flex-direction: row;
+    line-height: 36px;
+    margin-top: -5px;
+    padding-left: 7px;
+    margin-bottom: -8px;
+}
+
+.userName {
+    margin-left: 10px;
+    line-height: 35px;
+    font-size: 18px;
+    font-weight:400;
+}
+
+.imageContainer  {
+    border-radius: 1rem;
+    margin: 0px 5px 0px 5px;
+    position: inherit;
+    height: auto;
+   
+}
+
+.imageContainer img {
+    border-radius: 1rem;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    /* height: auto; */
+    max-height: 197px;
+    object-fit: fit;
+}
+
+.ressourceTitle {
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border: 1px solid var(--primary-wAlpha);
+    /* opacity: .44;     */
+    height: auto;
+    line-height: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: left;
+    padding: 5px 10px 5px 10px;
+} 
+
+
+.footerCard {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: -15px;
+}
