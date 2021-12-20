@@ -16,6 +16,7 @@
 }
 
 .wf-list-element th div, .wf-list-element td div {
+    font-size: 0.9rem;
     color: black;
     background-color: white;
 

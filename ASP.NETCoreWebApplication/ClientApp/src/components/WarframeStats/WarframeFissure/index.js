@@ -2,7 +2,8 @@
 import { WarframeComponent } from "../WarframeComponent";
 import { CountdownTimer } from "../../CountdownTimer";
 
-import './style.css'
+import './style.css';
+import '../WarframeComponent/style.css';
 
 export class WarframeFissure extends WarframeComponent {
     constructor(props) {
