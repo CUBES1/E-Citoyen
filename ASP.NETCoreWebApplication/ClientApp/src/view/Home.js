@@ -12,7 +12,7 @@ export class Home extends Component {
       <div>
         <Row className="cardContainer">
           <Row className="mainContainer">
-            <CardRessourcesListing />
+            <CardRessourcesListing userOnly={false}/>
           </Row>
           <Row className="sideContainer">
 
