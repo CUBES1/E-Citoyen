@@ -54,36 +54,38 @@ export class LoginMenu extends Component {
 
     authenticatedView(userName, profilePath, logoutPath, ressourcesPath) {
         return (<Fragment>
-                    <NavItem className="addRessources">
-                        <NavLink tag={Link}>
+                <NavItem className="addRessources">
+                    <NavLink tag={Link}>
+                        <Link to={"/new-ressource"}>
                             <Button variant="secondary">
                                 <AddCircleOutlineIcon fontSize="medium" className="iconAddMargin"/>
                                 Ajouter un ressource
                             </Button>
-                        </NavLink>
-                    </NavItem>
-                    <NavDropdown eventKey={1}
-                                 title={
-                                     <div className="pull-left">
-                                         <img className="avatarNavBar"
-                                              src={this.props.avatar}
-                                              alt="user pic"
-                                         />
-                                     </div>
-                                 }
-                                 id="basic-nav-dropdown">
+                        </Link>
+                    </NavLink>
+                </NavItem>
+                <NavDropdown eventKey={1}
+                             title={
+                                 <div className="pull-left">
+                                     <img className="avatarNavBar"
+                                          src={this.props.avatar}
+                                          alt="user pic"
+                                     />
+                                 </div>
+                             }
+                             id="basic-nav-dropdown">
 
-                        <MenuItem eventKey={1.1}>
-                            <NavLink tag={Link} className="text-dark" to={profilePath}>Profile</NavLink>
-                        </MenuItem>
-                        <MenuItem eventKey={1.1}>
-                            <NavLink tag={Link} className="text-dark" to={ressourcesPath}>Mes ressources</NavLink>
-                        </MenuItem>
-                        <MenuItem eventKey={1.2}>
-                            <NavLink tag={Link} className="text-dark" to={logoutPath}><Button
-                                variant="primary">Deconnexion</Button></NavLink>
-                        </MenuItem>
-                    </NavDropdown>
+                    <MenuItem eventKey={1.1}>
+                        <NavLink tag={Link} className="text-dark" to={profilePath}>Profile</NavLink>
+                    </MenuItem>
+                    <MenuItem eventKey={1.1}>
+                        <NavLink tag={Link} className="text-dark" to={ressourcesPath}>Mes ressources</NavLink>
+                    </MenuItem>
+                    <MenuItem eventKey={1.2}>
+                        <NavLink tag={Link} className="text-dark" to={logoutPath}><Button
+                            variant="primary">Deconnexion</Button></NavLink>
+                    </MenuItem>
+                </NavDropdown>
             </Fragment>
         );
 
