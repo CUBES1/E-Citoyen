@@ -7,23 +7,25 @@ import React, {Component} from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {Button, Row} from "react-bootstrap";
 import CardRessourcesListing from "../../components/CardRessourcesListing";
+import {Layout} from "../Layout"
+export class Ressources extends Component {
+    static displayName = Ressources.name;
 
-export class Debate extends Component {
-    static displayName = Debate.name;
 
     render() {
         return (
             <div>
-                <Row style={{margin: "20px"}}>
-                    <CardRessourcesListing userOnly={true}/>
-                </Row>
-                {/*<Link to={"/new-ressource"}>
+                <Layout title={"Mes ressources"} subtitle={"Administrez vos ressources d'un simple coup d'oeil"}>
+                    <Row style={{margin: "20px"}}>
+                        <CardRessourcesListing userOnly={true}/>
+                    </Row>
+                    {/*<Link to={"/new-ressource"}>
                     <Button variant="secondary" to={"/AddDebate"}>
                         <AddCircleOutlineIcon fontSize="medium" className="iconAddMargin"/>
                         Ajouter un ressource
                     </Button>
                 </Link>*/}
-                {/* <div className="container">
+                    {/* <div className="container">
                     <nav className="navbar navbar-expand-lg navheader">
                         <div className="collapse navbar-collapse">
                             <ul className="navbar-nav mr-auto">
@@ -37,7 +39,8 @@ export class Debate extends Component {
                         </div>
                     </nav>
                 </div>*/
-                }
+                    }
+                </Layout>
             </div>
         )
             ;

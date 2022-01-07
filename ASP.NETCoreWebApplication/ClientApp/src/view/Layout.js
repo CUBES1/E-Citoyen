@@ -9,7 +9,7 @@ export class Layout extends Component {
     render() {
         return (
             <div>
-                <NavMenu title={"Aujourd'hui"} subtitle={"Les ressources dont vous avez besoin"} isConnected={false}/>
+                <NavMenu title={this.props.title} subtitle={this.props.subtitle} isConnected={false}/>
                 <div className="mainContent">
                     {this.props.children}
                 </div>

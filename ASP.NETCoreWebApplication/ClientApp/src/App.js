@@ -8,7 +8,7 @@ import {ApplicationPaths} from './components/api-authorization/ApiAuthorizationC
 import './App.scss';
 import './custom.css'
 import {BrowserRouter as Router, Switch} from "react-router-dom";
-import {Debate} from "./view/MesRessources";
+import {Ressources} from "./view/MesRessources";
 import AddDebate from "./view/MesRessources/AddRessource";
 import EditDebate from "./view/MesRessources/EditRessource";
 import DebateList from "./view/MesRessources/DebateList";
@@ -18,16 +18,16 @@ export default class App extends Component {
 
     render() {
         return (
-            <Layout>
+            <>
                 <Route exact path='/' component={Home}/>
                 <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes}/>
 
                 
-                <Route exact path='/mes-ressources' component={Debate}/>
+                <Route exact path='/mes-ressources' component={Ressources}/>
                 <Route exact path='/new-ressource' component={AddDebate}/>
                 <Route path='/edit-ressource/:id' component={EditDebate}/>
                 
-            </Layout>
+            </>
         );
     }
 }

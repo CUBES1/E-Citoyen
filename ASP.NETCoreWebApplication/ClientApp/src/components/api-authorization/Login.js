@@ -47,7 +47,11 @@ export class Login extends Component {
         const action = this.props.action;
         const {message} = this.state;
         const Loading = (
-            <div className="identityLoading" style={{justifyContent: "center"}}>
+            <div className="identityLoading" style={{
+                display: "block",
+                marginRight: "auto",
+                marginLeft: "-20px"
+            }}>
                 <Spinner className="customLoading" animation="grow" size="xs" variant="secondary"/>
             </div>
         )
