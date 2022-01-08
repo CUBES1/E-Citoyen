@@ -1,8 +1,9 @@
 import React from 'react'
-import { Component } from 'react';
+import {Component} from 'react';
 import authService from './AuthorizeService';
-import { AuthenticationResultStatus } from './AuthorizeService';
-import { LoginActions, QueryParameterNames, ApplicationPaths } from './ApiAuthorizationConstants';
+import {AuthenticationResultStatus} from './AuthorizeService';
+import {LoginActions, QueryParameterNames, ApplicationPaths} from './ApiAuthorizationConstants';
+import {Spinner} from "react-bootstrap";
 
 // The main responsibility of this component is to handle the user's login process.
 // This is the starting point for the login process. Any component that needs to authenticate
@@ -29,7 +30,7 @@ export class Login extends Component {
             case LoginActions.LoginFailed:
                 const params = new URLSearchParams(window.location.search);
                 const error = params.get(QueryParameterNames.Message);
-                this.setState({ message: error });
+                this.setState({message: error});
                 break;
             case LoginActions.Profile:
                 this.redirectToProfile();
@@ -44,16 +45,24 @@ export class Login extends Component {
 
     render() {
         const action = this.props.action;
-        const { message } = this.state;
-
+        const {message} = this.state;
+        const Loading = (
+            <div className="identityLoading" style={{
+                display: "block",
+                marginRight: "auto",
+                marginLeft: "-20px"
+            }}>
+                <Spinner className="customLoading" animation="grow" size="xs" variant="secondary"/>
+            </div>
+        )
         if (!!message) {
             return <div>{message}</div>
         } else {
             switch (action) {
                 case LoginActions.Login:
-                    return (<div>Redirection vers login</div>);
+                    return (Loading);
                 case LoginActions.LoginCallback:
-                    return (<div>Validation du login</div>);
+                    return (Loading);
                 case LoginActions.Profile:
                 case LoginActions.Register:
                     return (<div></div>);
@@ -64,7 +73,7 @@ export class Login extends Component {
     }
 
     async login(returnUrl) {
-        const state = { returnUrl };
+        const state = {returnUrl};
         const result = await authService.signIn(state);
         switch (result.status) {
             case AuthenticationResultStatus.Redirect:
@@ -73,7 +82,7 @@ export class Login extends Component {
                 await this.navigateToReturnUrl(returnUrl);
                 break;
             case AuthenticationResultStatus.Fail:
-                this.setState({ message: result.message });
+                this.setState({message: result.message});
                 break;
             default:
                 throw new Error(`Invalid status result ${result.status}.`);
@@ -92,7 +101,7 @@ export class Login extends Component {
                 await this.navigateToReturnUrl(this.getReturnUrl(result.state));
                 break;
             case AuthenticationResultStatus.Fail:
-                this.setState({ message: result.message });
+                this.setState({message: result.message});
                 break;
             default:
                 throw new Error(`Invalid authentication result status '${result.status}'.`);

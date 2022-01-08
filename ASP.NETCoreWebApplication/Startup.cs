@@ -44,8 +44,11 @@ namespace ASP.NETCoreWebApplication
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            services
+                .AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
+            /*services.AddControllersWithViews();
+            services.AddRazorPages();*/
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });

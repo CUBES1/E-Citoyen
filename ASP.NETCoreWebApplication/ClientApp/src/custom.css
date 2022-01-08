@@ -49,6 +49,7 @@ code {
 @media screen and (max-width: 800px) {
     .mainContainer {
         width: auto !important;
+        justify-content: center;
     }
 
     .sideContainer {
@@ -95,4 +96,12 @@ code {
 
 .customLoadingSection {
     margin: auto;
+}
+
+.identityLoading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
 }

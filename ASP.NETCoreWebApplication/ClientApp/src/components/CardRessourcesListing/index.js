@@ -14,11 +14,24 @@ class Index extends Component {
 
 
     componentDidMount() {
-        axios.get(`https://localhost:5001/api/Debat`)
-            .then(res => {
-                const debate = res.data;
-                this.setState({ressources_data: debate});
-            })
+        /*const userOnly = this.props.userOnly;*/
+        const userOnly = false;
+        var user_id = localStorage.getItem('userId');
+
+        /*Is true*/
+        if (userOnly) {
+            axios.get(`https://localhost:5001/api/Ressource/${user_id}`)
+                .then(res => {
+                    const debate = res.data;
+                    this.setState({ressources_data: debate});
+                })
+        } else {
+            axios.get(`https://localhost:5001/api/Ressource`)
+                .then(res => {
+                    const debate = res.data;
+                    this.setState({ressources_data: debate});
+                })
+        }
     }
 
 
