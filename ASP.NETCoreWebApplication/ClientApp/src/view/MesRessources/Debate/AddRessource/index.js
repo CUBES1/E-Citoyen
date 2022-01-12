@@ -2,7 +2,7 @@
 import axios from 'axios';
 import {Row} from "react-bootstrap"
 import {Container, Col, Form, FormGroup, Label, Input, Button} from 'reactstrap';
-import {Layout} from "../../Layout"
+import {Layout} from "../../../Layout"
 
 export default class AddDebate extends React.Component {
 

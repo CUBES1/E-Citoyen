@@ -8,10 +8,10 @@ import {ApplicationPaths} from './components/api-authorization/ApiAuthorizationC
 import './App.scss';
 import './custom.css'
 import {BrowserRouter as Router, Switch} from "react-router-dom";
-import {Ressources} from "./view/MesRessources";
-import AddDebate from "./view/MesRessources/AddRessource";
-import EditDebate from "./view/MesRessources/EditRessource";
-import DebateList from "./view/MesRessources/DebateList";
+import {Ressources} from "./view/MesRessources/Debate";
+import AddDebate from "./view/MesRessources/Debate/AddRessource";
+import EditDebate from "./view/MesRessources/Debate/EditRessource";
+import DebateList from "./view/MesRessources/Debate/DebateList";
 
 export default class App extends Component {
     static displayName = App.name;
