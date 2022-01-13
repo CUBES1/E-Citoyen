@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ASP.NETCoreWebApplication.Models
 {
@@ -31,6 +32,7 @@ namespace ASP.NETCoreWebApplication.Models
 
         public String UserId { get; set; }
         
+        [JsonIgnore]
         public ApplicationUser User { get; set; }
 
         [NotMapped]
@@ -42,6 +44,8 @@ namespace ASP.NETCoreWebApplication.Models
             Visibility.Archived => "Archivé",
             _ => throw new ArgumentOutOfRangeException()
         };
+        
+        [NotMapped] public string UserName => User.UserName;
         //public List<MainComment>? MainComments { get; set; }
     }
 }

@@ -42,7 +42,7 @@ class Index extends Component {
                     this.state.ressources_data.map((data, i) =>
                         <Col xs={11} md={4} className="g-4" align="center">
                             <CardRessources
-                                username={data.userId}
+                                username={data.userName}
                                 img={"https://via.placeholder.com/800x400.png/24A5AD/FFFFFF"}
                                 title={data.title}
                                 isLiked={i % 2 == 0 ? true : false}

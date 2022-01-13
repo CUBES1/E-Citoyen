@@ -25,14 +25,14 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ressource>>> GetRessources()
         {
-            return await _context.Ressources.OrderByDescending(b => b.ReleaseDate).ToListAsync();
+            return await _context.Ressources.Include(a=>a.User).OrderByDescending(b => b.ReleaseDate).ToListAsync();
         }
 
         // GET: api/Ressource/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Ressource>> GetRessource(Guid id)
         {
-            var ressource = await _context.Ressources.FindAsync(id);
+            var ressource = await _context.Ressources.Include(a=>a.User).SingleAsync(a => a.Id == id);
 
             if (ressource == null)
             {

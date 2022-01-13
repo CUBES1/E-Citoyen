@@ -6,8 +6,8 @@ import './debate.css';
 import React, {Component} from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {Button, Row} from "react-bootstrap";
-import CardRessourcesListing from "../../components/CardRessourcesListing";
-import {Layout} from "../Layout"
+import CardRessourcesListing from "../../../components/CardRessourcesListing";
+import {Layout} from "../../Layout"
 export class Ressources extends Component {
     static displayName = Ressources.name;
 

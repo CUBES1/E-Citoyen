@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import { LoginMenu } from '../api-authorization/LoginMenu';
 import './NavMenu.css';
 import Avatar from '../../assets/avatar.png'
-import {Debate} from "../../view/MesRessources";
+import {Debate} from "../../view/MesRessources/Debate";
 import { ReactComponent as Logo } from '../../assets/wave.svg';
 
 export class NavMenu extends Component {
