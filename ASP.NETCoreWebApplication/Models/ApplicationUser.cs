@@ -16,7 +16,8 @@ namespace ASP.NETCoreWebApplication.Models
         public bool? Sex { get; set; }
 
         public List<Ressource>? Ressources { get; set; }
-
+        public List<Favorite>? Favorites { get; set; }
+        
         [NotMapped] public string FullName => UserName;
 
 

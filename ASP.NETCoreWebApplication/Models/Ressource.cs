@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -34,6 +35,8 @@ namespace ASP.NETCoreWebApplication.Models
         
         [JsonIgnore]
         public ApplicationUser User { get; set; }
+
+        public List<Favorite> Favorites { get; set; }
 
         [NotMapped]
         public string DisplayState => Visibility switch

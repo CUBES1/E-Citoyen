@@ -29,7 +29,7 @@ namespace ASP.NETCoreWebApplication
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     /* Changer par default connexion ou mettre votre connexion a votre db perso */
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("KillianConnexion")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
