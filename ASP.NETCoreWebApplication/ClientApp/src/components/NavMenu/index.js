@@ -39,15 +39,13 @@ export class NavMenu extends Component {
                         <Navbar.Brand>
                             {this.props.goBack ?
                                 <Link to="/" style={{color: 'black', textDecoration: "none"}}>
-                                    <ArrowBackIcon style={{display: "inline-block"}}/>
-                                    <p className="mainTitle" style={{display: "inline-block"}}>{this.props.title}</p>
-                                    <p className="subTitle">{this.props.subtitle}</p>
+                                        <ArrowBackIcon style={{display: "inline-block", fontSize: "38px"}}/>
                                 </Link>
                                 :
                                 <Link to="/" style={{color: 'black', textDecoration: "none"}}>
-                                    <HomeIcon style={{display: "inline-block"}}/>
-                                    <p className="mainTitle" style={{display: "inline-block"}}>{this.props.title}</p>
-                                    <p className="subTitle">{this.props.subtitle}</p>
+                                        <p className="mainTitle" style={{display: "inline-block"}}>{this.props.title}</p>
+                                        <p className="subTitle">{this.props.subtitle}</p>
+                                  
                                 </Link>}
 
                         </Navbar.Brand>

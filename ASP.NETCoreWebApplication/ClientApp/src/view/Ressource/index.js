@@ -46,7 +46,7 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <Layout title={"Ressource"} subtitle={" "} isBack={true} goBack={() => this.props.history.goBack()}>
+                <Layout title={"Ressource"} subtitle={" "} goBack={() => this.props.history.goBack()} >
                     {
                         this.state.isLoading ?
                             <Spinner className="customLoading2" animation="grow" size="sm" variant="secondary"/>

@@ -36,7 +36,7 @@ export default class AddDebate extends React.Component {
 
     render() {
         return (
-            <Layout title={"Créer une ressource"} subtitle={"Partager avec qui vous voulez ce que vous souhaitez"}>
+            <Layout title={"Créer une ressource"} subtitle={"Partager avec qui vous voulez ce que vous souhaitez"} >
                 <Row style={{margin: "20px"}}>
                     <h4 className="PageHeading">Enter Debate Informations</h4>
                     <Form className="form">
