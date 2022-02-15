@@ -22,14 +22,14 @@ class Index extends Component {
         }
     }
 
-    
 
     componentDidMount() {
+        console.log(this.props)
         const id = this.props.match.params.id;
         console.log(id);
 
         window.scrollTo(0, 0);
-        
+
         axios.get(`https://localhost:5001/api/Ressource/${id}`)
             .then(res => {
                 const debate = res.data;
@@ -37,7 +37,7 @@ class Index extends Component {
                     data: debate,
                     isLoading: false,
                 })
-               
+
             })
 
     }
@@ -46,7 +46,7 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <Layout title={"Ressource"} subtitle={" "} isBack={true}>
+                <Layout title={"Ressource"} subtitle={" "} isBack={true} goBack={() => this.props.history.goBack()}>
                     {
                         this.state.isLoading ?
                             <Spinner className="customLoading2" animation="grow" size="sm" variant="secondary"/>
@@ -76,7 +76,7 @@ class Index extends Component {
                                     </div>*/}
                                         </div>
                                     </div>
-                                    <div className="row justify-content-md-center ressourcePropSection" >
+                                    <div className="row justify-content-md-center ressourcePropSection">
                                         <div className="col-md-auto">
                                             <div className="row justify-content-md-center">
                                                 <div className="col-md-12">
@@ -138,55 +138,55 @@ class Index extends Component {
                                                     </p>
 
                                                 </div>
-                                         
-
-                                            <div className="row justify-content-md-center">
-                                                <div className="col-md-7 ressourcePropDate">
-                                                    <p> 07/01/2022 10:44 &#8226; Modifié</p>
-                                                </div>
-                                            </div>
-                                            <div className="row justify-content-md-center">
-                                                <div className="col-md-7 ressourcePropContent">
-                                                    <div>
-                                                        {!this.props.isLiked ?
-                                                            <Card.Link href="#"><FavoriteBorderIcon
-                                                                sx={{color: "#022922"}}
-                                                                fontSize="medium"/></Card.Link>
-                                                            :
-                                                            <Card.Link href="#"><FavoriteIcon
-                                                                sx={{color: "#E45E66"}}
-                                                                fontSize="medium"/></Card.Link>
-                                                        }
-
-                                                        {!this.props.isBookmark ?
-                                                            <Card.Link href="#"><BookmarkBorderIcon
-                                                                sx={{color: "#022922"}}
-                                                                fontSize="medium"/></Card.Link>
-                                                            :
-                                                            <Card.Link href="#"><BookmarkIcon
-                                                                sx={{color: "#022922"}}
-                                                                fontSize="medium"/></Card.Link>
-                                                        }
-
-                                                        <Card.Link href="#"><ReplyIcon sx={{color: "#022922"}}
-                                                                                       fontSize="medium"/></Card.Link>
 
 
-                                                        <Button className={"btn buttonDownloadRess"}>
-                                                            <DownloadIcon sx={{color: "#022922"}}
-                                                                          fontSize="medium"/>
-                                                            <span>Telecharger la ressource</span>
-                                                        </Button>
-                                                        {/*Si sa ressource, alors la modifier a la place de signalement*/}
-                                                        <Button className={"buttonDownloadRess btn btn-secondary"}>
-                                                            <ReportIcon sx={{color: "#022922"}} fontSize="medium"/>
-                                                            <span>Signaler</span>
-                                                        </Button>
+                                                <div className="row justify-content-md-center">
+                                                    <div className="col-md-7 ressourcePropDate">
+                                                        <p> 07/01/2022 10:44 &#8226; Modifié</p>
                                                     </div>
                                                 </div>
+                                                <div className="row justify-content-md-center">
+                                                    <div className="col-md-7 ressourcePropContent">
+                                                        <div>
+                                                            {!this.props.isLiked ?
+                                                                <Card.Link href="#"><FavoriteBorderIcon
+                                                                    sx={{color: "#022922"}}
+                                                                    fontSize="medium"/></Card.Link>
+                                                                :
+                                                                <Card.Link href="#"><FavoriteIcon
+                                                                    sx={{color: "#E45E66"}}
+                                                                    fontSize="medium"/></Card.Link>
+                                                            }
+
+                                                            {!this.props.isBookmark ?
+                                                                <Card.Link href="#"><BookmarkBorderIcon
+                                                                    sx={{color: "#022922"}}
+                                                                    fontSize="medium"/></Card.Link>
+                                                                :
+                                                                <Card.Link href="#"><BookmarkIcon
+                                                                    sx={{color: "#022922"}}
+                                                                    fontSize="medium"/></Card.Link>
+                                                            }
+
+                                                            <Card.Link href="#"><ReplyIcon sx={{color: "#022922"}}
+                                                                                           fontSize="medium"/></Card.Link>
+
+
+                                                            <Button className={"btn buttonDownloadRess"}>
+                                                                <DownloadIcon sx={{color: "#022922"}}
+                                                                              fontSize="medium"/>
+                                                                <span>Telecharger la ressource</span>
+                                                            </Button>
+                                                            {/*Si sa ressource, alors la modifier a la place de signalement*/}
+                                                            <Button className={"buttonDownloadRess btn btn-secondary"}>
+                                                                <ReportIcon sx={{color: "#022922"}} fontSize="medium"/>
+                                                                <span>Signaler</span>
+                                                            </Button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                          
+
                                         </div>
                                     </div>
 

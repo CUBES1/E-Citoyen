@@ -10,7 +10,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ReplyIcon from '@mui/icons-material/Reply';
 import EditIcon from '@mui/icons-material/Edit';
 import moment from 'moment';
-import Link from "react-router-dom/es/Link";
+import { Link } from "react-router-dom";
 
 moment().format();
 let iamDate = "";

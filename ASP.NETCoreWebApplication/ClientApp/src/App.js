@@ -31,7 +31,7 @@ export default class App extends Component {
                 <Route path='/edit-ressource/:id' component={EditDebate}/>
                 
                 
-                <Route exact path='/ressource/:id' component={Ressource}/>
+                <Route path='/ressource/:id' component={Ressource}/>
                 
             </>
         );
