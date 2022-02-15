@@ -29,7 +29,7 @@ namespace ASP.NETCoreWebApplication.Controllers
         }
 
         // GET: api/Ressource/user/5
-        [HttpGet("user/{userId}")]
+        [HttpGet("usr/{userId}")]
         public async Task<ActionResult<IEnumerable<Ressource>>> GetUserRessources(Guid userId)
         {
             var query = await _context.Ressources

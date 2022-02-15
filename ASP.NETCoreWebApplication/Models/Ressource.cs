@@ -35,7 +35,7 @@ namespace ASP.NETCoreWebApplication.Models
         
         [JsonIgnore] public ApplicationUser User { get; set; }
 
-        [JsonIgnore] public List<Favorite> Favorites { get; set; }
+        [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
 
         [NotMapped]
         public string DisplayState => Visibility switch

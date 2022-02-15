@@ -11,18 +11,18 @@ namespace ASP.NETCoreWebApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FavoriteController : Controller
+    public class UserInteractionController : Controller
     {
         private readonly ApplicationDbContext _context;
         
-        public FavoriteController(ApplicationDbContext context)
+        public UserInteractionController(ApplicationDbContext context)
         {
             _context = context;
         }
         
-        // GET: api/Favorite/5/4
+        // GET: api/UserInteraction/5/4
         [HttpGet("{userId}/{ressourceId}")]
-        public async Task<ActionResult<Favorite>> GetFavorite(string userId, Guid ressourceId)
+        public async Task<ActionResult<UserInteraction>> GetFavorite(string userId, Guid ressourceId)
         {
             var query = await _context.Favorite
                 .Include(f => f.User)
@@ -32,9 +32,9 @@ namespace ASP.NETCoreWebApplication.Controllers
             return query;
         }
         
-        // GET: api/Favorite/user/5
-        [HttpGet("user/{userId}")]
-        public async Task<ActionResult<IEnumerable<Favorite>>> GetUserFavorites(string userId)
+        // GET: api/UserInteraction/usr/5
+        [HttpGet("usr/{userId}")]
+        public async Task<ActionResult<IEnumerable<UserInteraction>>> GetUserFavorites(string userId)
         {
             var query = await _context.Favorite
                 .Include(f => f.User)
@@ -46,9 +46,9 @@ namespace ASP.NETCoreWebApplication.Controllers
             return query;
         }
 
-        // GET: api/Favorite/ressource/5
-        [HttpGet("ressource/{ressourceId}")]
-        public async Task<ActionResult<IEnumerable<Favorite>>> GetRessourceFavorites(Guid ressourceId)
+        // GET: api/UserInteraction/ressource/5
+        [HttpGet("rsc/{ressourceId}")]
+        public async Task<ActionResult<IEnumerable<UserInteraction>>> GetRessourceFavorites(Guid ressourceId)
         {
             var query = await _context.Favorite
                 .Include(f => f.User)
@@ -60,17 +60,17 @@ namespace ASP.NETCoreWebApplication.Controllers
             return query;
         }
         
-        // POST: api/Favorite
+        // POST: api/UserInteraction
         [HttpPost]
-        public async Task<ActionResult<Favorite>> PostFavorite(Favorite favorite)
+        public async Task<ActionResult<UserInteraction>> PostFavorite(UserInteraction userInteraction)
         {
-            _context.Favorite.Add(favorite);
+            _context.Favorite.Add(userInteraction);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFavorite", new { userId = favorite.UserId, ressourceId = favorite.RessourceId }, favorite);
+            return CreatedAtAction("GetFavorite", new { userId = userInteraction.UserId, ressourceId = userInteraction.RessourceId }, userInteraction);
         }
 
-        // DELETE: api/Favorite/5/4
+        // DELETE: api/UserInteraction/5/4
         [HttpDelete("{userId}/{ressourceId}")]
         public async Task<IActionResult> DeleteFavorite(string userId, Guid ressourceId)
         {

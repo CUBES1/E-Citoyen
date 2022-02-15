@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace ASP.NETCoreWebApplication.Models
 {
-    public class Favorite
+    public class UserInteraction
     {
         [JsonIgnore] public ApplicationUser User { get; set; }
         [JsonIgnore] public Ressource Ressource { get; set; }

@@ -16,7 +16,7 @@ namespace ASP.NETCoreWebApplication.Data
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Favorite>(mb =>
+            modelBuilder.Entity<UserInteraction>(mb =>
             {
                 mb.HasKey(f => new { f.UserId, f.RessourceId });
                 mb  
@@ -42,6 +42,6 @@ namespace ASP.NETCoreWebApplication.Data
         public DbSet<Ressource> Ressources { get; set; }
         public DbSet<MainComment> MainComments { get; set; }
         public DbSet<SubComment> SubComments { get; set; }
-        public DbSet<Favorite> Favorite { get; set; }
+        public DbSet<UserInteraction> Favorite { get; set; }
     }
 }
