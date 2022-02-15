@@ -48,6 +48,7 @@ class Index extends Component {
                                 isLiked={i % 2 == 0 ? true : false}
                                 isBookmark={i % 2 != 0 ? true : false}
                                 dateTime={data.releaseDate}
+                                id={data.id}
                             />
                         </Col>
                     )
