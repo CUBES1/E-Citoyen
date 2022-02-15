@@ -10,7 +10,8 @@ namespace ASP.NETCoreWebApplication.Models
         [JsonIgnore] public ApplicationUser User { get; set; }
         [JsonIgnore] public Ressource Ressource { get; set; }
 
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
         public Guid RessourceId { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
     }
 }

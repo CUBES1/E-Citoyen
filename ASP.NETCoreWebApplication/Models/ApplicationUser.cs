@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ASP.NETCoreWebApplication.Models
@@ -16,7 +17,7 @@ namespace ASP.NETCoreWebApplication.Models
         public bool? Sex { get; set; }
 
         public List<Ressource>? Ressources { get; set; }
-        public List<Favorite>? Favorites { get; set; }
+        [JsonIgnore] public List<Favorite>? Favorites { get; set; }
         
         [NotMapped] public string FullName => UserName;
 
