@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -30,7 +31,7 @@ namespace ASP.NETCoreWebApplication.Models
 
         public Visibility Visibility { get; set; } = Visibility.Public;
 
-        public String UserId { get; set; }
+        public string UserId { get; set; }
         
         [JsonIgnore]
         public ApplicationUser User { get; set; }
