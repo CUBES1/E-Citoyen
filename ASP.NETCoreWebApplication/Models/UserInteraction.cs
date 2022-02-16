@@ -1,25 +1,25 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace ASP.NETCoreWebApplication.Models
 {
     public class UserInteraction
     {
         [JsonIgnore] public ApplicationUser User { get; set; }
-        [JsonIgnore] public Ressource Ressource { get; set; }
+        public Ressource Ressource { get; set; }
 
         public string UserId { get; set; }
         public Guid RessourceId { get; set; }
-
         public UserInteractionType Type { get; set; } = UserInteractionType.None;
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
+
         [NotMapped] public string StringType
         {
             get => Type.ToString();
             set => Type = StringToUserInteractionType(value);
         }
-        public DateTime? CreatedAt { get; set; } = DateTime.Now;
+        [NotMapped] public Int32 Iterator => HashCode.Combine(UserId, RessourceId, Type);
 
         /// <summary>
         /// Parse a string to an UserInteractionType object.

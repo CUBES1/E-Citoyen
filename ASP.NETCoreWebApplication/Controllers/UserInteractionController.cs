@@ -20,50 +20,70 @@ namespace ASP.NETCoreWebApplication.Controllers
             _context = context;
         }
         
-        // GET: api/UserInteraction/5/4
-        [HttpGet("{userId}/{ressourceId}")]
-        public async Task<ActionResult<UserInteraction>> GetFavorite(string userId, Guid ressourceId)
+        // GET: api/UserInteraction/Like/5/4
+        [HttpGet("{type}/{usrId}/{rscId}")]
+        public async Task<ActionResult<UserInteraction>> GetFavorite(string type, string usrId, Guid rscId)
         {
+            // On check si le type spécifié existe
+            UserInteraction.UserInteractionType uiType = UserInteraction.StringToUserInteractionType(type);
+            if (uiType == UserInteraction.UserInteractionType.None)
+                return BadRequest();
+            
             var query = await _context.UserInteraction
-                .Include(f => f.User)
-                .Include(f => f.Ressource)
-                .SingleAsync(f => f.User.Id == userId && f.Ressource.Id == ressourceId);
+                .Include(ui => ui.User)
+                .Include(ui => ui.Ressource)
+                .Where(ui => ui.Type == uiType)
+                .SingleAsync(ui => ui.User.Id == usrId && ui.Ressource.Id == rscId);
 
             return query;
         }
         
-        // GET: api/UserInteraction/usr/5
-        [HttpGet("usr/{userId}")]
-        public async Task<ActionResult<IEnumerable<UserInteraction>>> GetUserFavorites(string userId)
+        // GET: api/UserInteraction/Like/usr/5
+        [HttpGet("{type}/usr/{usrId}")]
+        public async Task<ActionResult<IEnumerable<UserInteraction>>> GetUserFavorites(string type, string usrId)
         {
+            // On check si le type spécifié existe
+            UserInteraction.UserInteractionType uiType = UserInteraction.StringToUserInteractionType(type);
+            if (uiType == UserInteraction.UserInteractionType.None)
+                return BadRequest();
+            
             var query = await _context.UserInteraction
-                .Include(f => f.User)
-                .Include(f => f.Ressource)
-                .Where(f => f.User.Id == userId)
-                .OrderByDescending(f => f.CreatedAt)
+                .Include(ui => ui.User)
+                .Include(ui => ui.Ressource)
+                .Where(ui => ui.User.Id == usrId && ui.Type == uiType)
+                .OrderByDescending(ui => ui.CreatedAt)
                 .ToListAsync();
 
             return query;
         }
 
-        // GET: api/UserInteraction/ressource/5
-        [HttpGet("rsc/{ressourceId}")]
-        public async Task<ActionResult<IEnumerable<UserInteraction>>> GetRessourceFavorites(Guid ressourceId)
+        // GET: api/UserInteraction/Like/rsc/5
+        [HttpGet("{type}/rsc/{rscId}")]
+        public async Task<ActionResult<IEnumerable<UserInteraction>>> GetRessourceFavorites(string type, Guid rscId)
         {
+            // On check si le type spécifié existe
+            UserInteraction.UserInteractionType uiType = UserInteraction.StringToUserInteractionType(type);
+            if (uiType == UserInteraction.UserInteractionType.None) 
+                return BadRequest();
+            
             var query = await _context.UserInteraction
-                .Include(f => f.User)
-                .Include(f => f.Ressource)
-                .Where(f => f.Ressource.Id == ressourceId)
-                .OrderByDescending(f => f.CreatedAt)
+                .Include(ui => ui.User)
+                .Include(ui => ui.Ressource)
+                .Where(ui => ui.Ressource.Id == rscId && ui.Type == uiType)
+                .OrderByDescending(ui => ui.CreatedAt)
                 .ToListAsync();
 
             return query;
         }
         
-        // POST: api/UserInteraction
-        [HttpPost]
-        public async Task<ActionResult<UserInteraction>> PostFavorite(UserInteraction userInteraction)
+        // POST: api/UserInteraction/Like
+        [HttpPost("{type}")]
+        public async Task<ActionResult<UserInteraction>> PostFavorite(string type, UserInteraction userInteraction)
         {
+            // On check si le type spécifié existe
+            if ((userInteraction.Type = UserInteraction.StringToUserInteractionType(type)) == UserInteraction.UserInteractionType.None)
+                return BadRequest();
+
             _context.UserInteraction.Add(userInteraction);
             await _context.SaveChangesAsync();
 
@@ -71,14 +91,19 @@ namespace ASP.NETCoreWebApplication.Controllers
         }
 
         // DELETE: api/UserInteraction/5/4
-        [HttpDelete("{userId}/{ressourceId}")]
-        public async Task<IActionResult> DeleteFavorite(string userId, Guid ressourceId)
+        [HttpDelete("{type}/{usrId}/{rscId}")]
+        public async Task<IActionResult> DeleteUserInteraction(string type, string usrId, Guid rscId)
         {
-            var favorite = await _context.UserInteraction.FindAsync(userId, ressourceId);
+            // On check si le type spécifié existe
+            UserInteraction.UserInteractionType uiType = UserInteraction.StringToUserInteractionType(type);
+            if (uiType == UserInteraction.UserInteractionType.None) 
+                return BadRequest();
+
+            var userInteraction = await _context.UserInteraction.FindAsync(usrId, rscId, uiType);
             
-            if (favorite == null) return NotFound();
+            if (userInteraction == null) return NotFound();
             
-            _context.UserInteraction.Remove(favorite);
+            _context.UserInteraction.Remove(userInteraction);
             await _context.SaveChangesAsync();
             
             return NoContent();
