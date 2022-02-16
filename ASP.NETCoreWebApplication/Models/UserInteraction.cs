@@ -13,7 +13,7 @@ namespace ASP.NETCoreWebApplication.Models
         public string UserId { get; set; }
         public Guid RessourceId { get; set; }
 
-        public UserInteractionType Type { get; set; }
+        public UserInteractionType Type { get; set; } = UserInteractionType.None;
         [NotMapped] public string StringType
         {
             get => Type.ToString();
@@ -21,6 +21,11 @@ namespace ASP.NETCoreWebApplication.Models
         }
         public DateTime? CreatedAt { get; set; } = DateTime.Now;
 
+        /// <summary>
+        /// Parse a string to an UserInteractionType object.
+        /// </summary>
+        /// <param name="type">String of the name of the corresponding enum field.</param>
+        /// <returns>UserInteractionType object corresponding to the enum, or UserInteractionType.None if it doesn't exists.</returns>
         public static UserInteractionType StringToUserInteractionType(string type)
         {
             UserInteractionType res;
