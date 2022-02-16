@@ -45,7 +45,7 @@ class Index extends Component {
             <>
                 {this.state.ressources_data != null ?
                     this.state.ressources_data.map((data, i) =>
-                        <Col xs={11} md={4} className="g-4" align="center">
+                        <Col xs={11} md={4} className="g-4" align="center" key={data.id}>
                             <CardRessources
                                 username={data.userName}
                                 isUserRess={data.userId === this.state.aUserId}
@@ -55,6 +55,7 @@ class Index extends Component {
                                 isBookmark={i % 2 != 0 ? true : false}
                                 dateTime={data.releaseDate}
                                 id={data.id}
+                                key={data.id + '_content'}
                             />
                         </Col>
                     )

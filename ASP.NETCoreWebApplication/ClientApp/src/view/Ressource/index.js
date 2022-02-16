@@ -24,9 +24,7 @@ class Index extends Component {
 
 
     componentDidMount() {
-        console.log(this.props)
         const id = this.props.match.params.id;
-        console.log(id);
 
         window.scrollTo(0, 0);
 

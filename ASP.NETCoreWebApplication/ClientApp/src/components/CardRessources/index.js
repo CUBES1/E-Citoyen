@@ -29,7 +29,6 @@ export default class CardRessources extends Component {
             <Link to={`/ressource/${this.props.id}`} className={"linkBlank"}>
                 <Card className="cardStyle">
                     <Card.Body>
-
                         <div className="containerUser">
                             <Link to={`/profile/`} className={"linkBlank"}>
                                 <img alt="toto" src={Avatar} className="avatarOnRessource"/>
