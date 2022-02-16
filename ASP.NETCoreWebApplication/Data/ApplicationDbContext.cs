@@ -3,10 +3,6 @@ using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ASP.NETCoreWebApplication.Models.Comments;
 using Microsoft.AspNetCore.Builder;
 
@@ -43,5 +39,7 @@ namespace ASP.NETCoreWebApplication.Data
         public DbSet<MainComment> MainComments { get; set; }
         public DbSet<SubComment> SubComments { get; set; }
         public DbSet<UserInteraction> UserInteraction { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<Post> Posts { get; set; }
     }
 }

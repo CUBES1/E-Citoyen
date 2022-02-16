@@ -4,14 +4,16 @@ using ASP.NETCoreWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASP.NETCoreWebApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220216135957_Post")]
+    partial class Post
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,27 +180,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.ToTable("Ressources");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Ressource");
-                });
-
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.UserInteraction", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("RessourceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("UserId", "RessourceId", "Type");
-
-                    b.HasIndex("RessourceId");
-
-                    b.ToTable("UserInteraction");
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -470,25 +451,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.UserInteraction", b =>
-                {
-                    b.HasOne("ASP.NETCoreWebApplication.Models.Ressource", "Ressource")
-                        .WithMany("Favorites")
-                        .HasForeignKey("RessourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
-                        .WithMany("Interactions")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ressource");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -542,19 +504,12 @@ namespace ASP.NETCoreWebApplication.Migrations
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Interactions");
-
                     b.Navigation("Ressources");
                 });
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Comments.MainComment", b =>
                 {
                     b.Navigation("SubComments");
-                });
-
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
-                {
-                    b.Navigation("Favorites");
                 });
 #pragma warning restore 612, 618
         }

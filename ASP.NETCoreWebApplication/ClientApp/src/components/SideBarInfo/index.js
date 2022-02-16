@@ -19,7 +19,7 @@ export default class CardCustom extends Component {
                     <Card.Title>Nos meilleurs ressources</Card.Title>
                     {
                         [1, 2, 3, 4, 5, 6].map((x, i) =>
-                            <Card className="SideBarCardStyle">
+                            <Card className="SideBarCardStyle" key={i}>
                                 <div className="cardContainer-sidebar">
                                     <div className="containerUser">
                                         <img alt="toto" src={Avatar} className="avatarOnSidbar" />
