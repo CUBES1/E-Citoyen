@@ -18,15 +18,15 @@ namespace ASP.NETCoreWebApplication.Data
         {
             modelBuilder.Entity<UserInteraction>(mb =>
             {
-                mb.HasKey(f => new { f.UserId, f.RessourceId });
+                mb.HasKey(ui => new { ui.UserId, ui.RessourceId, ui.Type });
                 mb  
-                    .HasOne(f => f.User)
-                    .WithMany(u => u.Interactions)
-                    .HasForeignKey(f => f.UserId);
+                    .HasOne(ui => ui.User)
+                    .WithMany(au => au.Interactions)
+                    .HasForeignKey(ui => ui.UserId);
                 mb
-                    .HasOne(f => f.Ressource)
+                    .HasOne(ui => ui.Ressource)
                     .WithMany(r => r.Favorites)
-                    .HasForeignKey(f => f.RessourceId);
+                    .HasForeignKey(ui => ui.RessourceId);
             });
 
             base.OnModelCreating(modelBuilder);
