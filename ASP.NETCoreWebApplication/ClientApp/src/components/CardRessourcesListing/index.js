@@ -13,14 +13,19 @@ class Index extends Component {
     }
 
 
-    componentDidMount() {
+    async componentDidMount() {
         /*const userOnly = this.props.userOnly;*/
-        const userOnly = false;
-        var user_id = localStorage.getItem('userId');
+        const userOnly = this.props.userOnly;
+        let userId = null;
+        await this.props.userId.then(function(result) {
+            userId = result
+        })
 
+        await this.setState({aUserId: userId})
+        
         /*Is true*/
         if (userOnly) {
-            axios.get(`https://localhost:5001/api/Ressource/${user_id}`)
+            axios.get(`https://localhost:5001/api/Ressource/usr/${userId}`)
                 .then(res => {
                     const debate = res.data;
                     this.setState({ressources_data: debate});
@@ -43,6 +48,7 @@ class Index extends Component {
                         <Col xs={11} md={4} className="g-4" align="center">
                             <CardRessources
                                 username={data.userName}
+                                isUserRess={data.userId === this.state.aUserId}
                                 img={"https://via.placeholder.com/800x400.png/24A5AD/FFFFFF"}
                                 title={data.title}
                                 isLiked={i % 2 == 0 ? true : false}

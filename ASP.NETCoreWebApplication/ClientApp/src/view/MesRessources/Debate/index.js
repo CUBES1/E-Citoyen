@@ -8,6 +8,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {Button, Row} from "react-bootstrap";
 import CardRessourcesListing from "../../../components/CardRessourcesListing";
 import {Layout} from "../../Layout"
+import AsyncLocalStorage from "@createnextapp/async-local-storage";
 export class Ressources extends Component {
     static displayName = Ressources.name;
 
@@ -17,7 +18,7 @@ export class Ressources extends Component {
             <div>
                 <Layout title={"Mes ressources"} subtitle={"Administrez vos ressources d'un simple coup d'oeil"}>
                     <Row style={{margin: "20px"}}>
-                        <CardRessourcesListing userOnly={true}/>
+                        <CardRessourcesListing userOnly={true} userId={AsyncLocalStorage.getItem('userId')}/>
                     </Row>
                     {/*<Link to={"/new-ressource"}>
                     <Button variant="secondary" to={"/AddDebate"}>
