@@ -11,16 +11,18 @@ export default class AddDebate extends React.Component {
         this.state = {
             Title: '',
             Genre: '',
-            Age: ''
+            Age: '',
+            Text: ''
         }
     }
 
     Adddebate = () => {
         const userId = localStorage.getItem('userId');
-        axios.post('https://localhost:5001/api/Debat', {
+        axios.post('https://localhost:5001/api/Post', {
             Title: this.state.Title,
             Genre: this.state.Genre,
             Age: this.state.Age,
+            Text: this.state.Text,
             UserId: userId
         })
             .then(() => {
@@ -60,6 +62,13 @@ export default class AddDebate extends React.Component {
                                 <Col sm={10}>
                                     <Input type="number" name="Age" onChange={this.handleChange} value={this.state.Age}
                                            placeholder="Enter Age"/>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label for="Text" sm={2}>Text</Label>
+                                <Col sm={10}>
+                                    <Input type="text" name="Text" onChange={this.handleChange} value={this.state.Text}
+                                           placeholder="A quoi pensez vous ?"/>
                                 </Col>
                             </FormGroup>
                         </Col>

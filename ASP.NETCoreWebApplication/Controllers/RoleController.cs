@@ -13,6 +13,7 @@ namespace ASP.NETCoreWebApplication.Controllers
         Moderator,
         Basic
     }
+    
     public class RoleController : Controller
     {
         RoleManager<IdentityRole> roleManager;

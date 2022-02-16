@@ -25,5 +25,6 @@ namespace ASP.NETCoreWebApplication.Data
         public DbSet<MainComment> MainComments { get; set; }
         public DbSet<SubComment> SubComments { get; set; }
         public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<Post> Posts { get; set; }
     }
 }

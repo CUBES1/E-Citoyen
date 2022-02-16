@@ -26,11 +26,8 @@ export class NavMenu extends Component {
             collapsed: !this.state.collapsed
         });
     }
-
-
+    
     render() {
-
-
         return (
             <div>
                 <Logo fill={"#00cba9"} className="background"/>

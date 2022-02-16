@@ -24,7 +24,9 @@ namespace ASP.NETCoreWebApplication.Models
         public string Title { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime? ReleaseDate { get; set; }
+        
+        public string? Genre { get; set; }
+        public DateTime? ReleaseDate { get; set; } = DateTime.Now;
 
         public DateTime? UpdatedAt { get; set; }
         public int? Age { get; set; }
@@ -45,7 +47,6 @@ namespace ASP.NETCoreWebApplication.Models
             Visibility.Archived => "Archivé",
             _ => throw new ArgumentOutOfRangeException()
         };
-        
         [NotMapped] public string UserName => User.UserName;
         //public List<MainComment>? MainComments { get; set; }
     }
