@@ -21,7 +21,7 @@ namespace ASP.NETCoreWebApplication.Data
                 mb.HasKey(f => new { f.UserId, f.RessourceId });
                 mb  
                     .HasOne(f => f.User)
-                    .WithMany(u => u.Favorites)
+                    .WithMany(u => u.Interactions)
                     .HasForeignKey(f => f.UserId);
                 mb
                     .HasOne(f => f.Ressource)
@@ -42,6 +42,6 @@ namespace ASP.NETCoreWebApplication.Data
         public DbSet<Ressource> Ressources { get; set; }
         public DbSet<MainComment> MainComments { get; set; }
         public DbSet<SubComment> SubComments { get; set; }
-        public DbSet<UserInteraction> Favorite { get; set; }
+        public DbSet<UserInteraction> UserInteraction { get; set; }
     }
 }
