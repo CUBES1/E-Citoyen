@@ -4,14 +4,16 @@ using ASP.NETCoreWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASP.NETCoreWebApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220215142055_FavoritesFeature_CreatedAt")]
+    partial class FavoritesFeature_CreatedAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,6 +142,24 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.ToTable("SubComments");
                 });
 
+            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Favorite", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("RessourceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("UserId", "RessourceId");
+
+                    b.HasIndex("RessourceId");
+
+                    b.ToTable("Favorite");
+                });
+
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
                 {
                     b.Property<Guid>("Id")
@@ -151,9 +171,6 @@ namespace ASP.NETCoreWebApplication.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ReleaseDate")
@@ -178,27 +195,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.ToTable("Ressources");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Ressource");
-                });
-
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.UserInteraction", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("RessourceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("UserId", "RessourceId", "Type");
-
-                    b.HasIndex("RessourceId");
-
-                    b.ToTable("UserInteraction");
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.DeviceFlowCodes", b =>
@@ -382,10 +378,12 @@ namespace ASP.NETCoreWebApplication.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -422,10 +420,12 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -439,17 +439,10 @@ namespace ASP.NETCoreWebApplication.Migrations
                 {
                     b.HasBaseType("ASP.NETCoreWebApplication.Models.Ressource");
 
-                    b.HasDiscriminator().HasValue("Debate");
-                });
-
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Post", b =>
-                {
-                    b.HasBaseType("ASP.NETCoreWebApplication.Models.Ressource");
-
-                    b.Property<string>("Text")
+                    b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("Post");
+                    b.HasDiscriminator().HasValue("Debate");
                 });
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Comments.SubComment", b =>
@@ -461,16 +454,7 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
-                {
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
-                        .WithMany("Ressources")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.UserInteraction", b =>
+            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Favorite", b =>
                 {
                     b.HasOne("ASP.NETCoreWebApplication.Models.Ressource", "Ressource")
                         .WithMany("Favorites")
@@ -479,12 +463,21 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .IsRequired();
 
                     b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
-                        .WithMany("Interactions")
+                        .WithMany("Favorites")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Ressource");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
+                {
+                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
+                        .WithMany("Ressources")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -542,7 +535,7 @@ namespace ASP.NETCoreWebApplication.Migrations
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Interactions");
+                    b.Navigation("Favorites");
 
                     b.Navigation("Ressources");
                 });

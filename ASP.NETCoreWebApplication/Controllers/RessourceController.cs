@@ -28,6 +28,19 @@ namespace ASP.NETCoreWebApplication.Controllers
             return await _context.Ressources.Include(a=>a.User).OrderByDescending(b => b.ReleaseDate).ToListAsync();
         }
 
+        // GET: api/Ressource/usr/5
+        [HttpGet("usr/{usrId}")]
+        public async Task<ActionResult<IEnumerable<Ressource>>> GetUserRessources(string usrId)
+        {
+            var query = await _context.Ressources
+                .Include(r => r.User)
+                .Where(r => r.UserId == usrId)
+                .OrderByDescending(r => r.ReleaseDate)
+                .ToListAsync();
+
+            return query;
+        }
+        
         // GET: api/Ressource/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Ressource>> GetRessource(Guid id)
