@@ -25,12 +25,7 @@ class Index extends Component {
     }
 
 
-    componentDidMount() {
-        /*let toto = await AsyncLocalStorage.getItem('userId')*/
-        console.log(localStorage.getItem('userId'));
-        /*this.setState({aUserId: null})*/
-        
-        
+    componentDidMount() {        
         const id = this.props.match.params.id;
 
         window.scrollTo(0, 0);
