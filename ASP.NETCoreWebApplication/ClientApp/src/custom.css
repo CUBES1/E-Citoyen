@@ -184,6 +184,7 @@ code {
 .ressourcePropContent {
     margin-top: 2%;
     min-width: 100%;
+ 
 }
 
 .buttonDownloadRess {
@@ -205,9 +206,10 @@ code {
 .ressourcePropSection {
     padding-bottom: 40px;
     width: 60%;
+    margin: auto;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
     .ressourcePropSection {
         padding-bottom: 40px;
         width: 98%;
@@ -219,4 +221,11 @@ code {
     .ressourceHeaderImg {
         width: 100%;
     }
+}
+
+@media screen and (min-width: 1000px) {
+    .userRow {
+       max-width: 63%;
+    }
+
 }

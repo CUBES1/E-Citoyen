@@ -17,8 +17,8 @@ export class Home extends Component {
 
     
     async componentDidMount() {
-        let toto = await AsyncLocalStorage.getItem('userId')
-        this.setState({userId : toto})
+        let aUserId = await AsyncLocalStorage.getItem('userId')
+        this.setState({userId : aUserId})
     }
 
     render() {
@@ -27,7 +27,7 @@ export class Home extends Component {
                 <Layout title={"Aujourd'hui"} subtitle={"Les ressources dont vous avez besoin"}>
                     <Row className="cardContainer">
                         <Row className="mainContainer">
-                            <CardRessourcesListing userOnly={false} userId={AsyncLocalStorage.getItem('userId')}/>
+                            <CardRessourcesListing userOnly={false} userId={AsyncLocalStorage.getItem('userId')} canEdit={false}/>
                         </Row>
                         <Row className="sideContainer">
 
