@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using ASP.NETCoreWebApplication.Data;
@@ -30,25 +28,27 @@ namespace ASP.NETCoreWebApplication
                 options.UseSqlServer(
                     /* Changer par default connexion ou mettre votre connexion a votre db perso */
                     Configuration.GetConnectionString("DefaultConnection")));
-
+            
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI();
+            
+            services.AddRazorPages();
+            
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
             services.AddCors();
-            
+            services.AddControllers();
             services.AddAuthentication()
                 .AddIdentityServerJwt();
-
+            
             services
                 .AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
-            /*services.AddControllersWithViews();
-            services.AddRazorPages();*/
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });

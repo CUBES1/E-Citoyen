@@ -8,6 +8,6 @@ namespace ASP.NETCoreWebApplication.Models
 {
     public class Debate : Ressource
     {
-        public string? Genre { get; set; }
+        
     }
 }

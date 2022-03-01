@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -23,17 +24,20 @@ namespace ASP.NETCoreWebApplication.Models
         public string Title { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime? ReleaseDate { get; set; }
+        
+        public string? Genre { get; set; }
+        public DateTime? ReleaseDate { get; set; } = DateTime.Now;
 
         public DateTime? UpdatedAt { get; set; }
         public int? Age { get; set; }
 
         public Visibility Visibility { get; set; } = Visibility.Public;
 
-        public String UserId { get; set; }
+        public string UserId { get; set; }
         
-        [JsonIgnore]
-        public ApplicationUser User { get; set; }
+        [JsonIgnore] public ApplicationUser User { get; set; }
+
+        [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
 
         [NotMapped]
         public string DisplayState => Visibility switch
@@ -44,7 +48,6 @@ namespace ASP.NETCoreWebApplication.Models
             Visibility.Archived => "Archivé",
             _ => throw new ArgumentOutOfRangeException()
         };
-        
         [NotMapped] public string UserName => User.UserName;
         //public List<MainComment>? MainComments { get; set; }
     }

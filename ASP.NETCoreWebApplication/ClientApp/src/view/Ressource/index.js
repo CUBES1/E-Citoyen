@@ -42,9 +42,7 @@ class Index extends Component {
                     data: debate,
                     isLoading: false,
                 })
-
             })
-
     }
 
 
@@ -63,8 +61,6 @@ class Index extends Component {
                                             src={"https://source.unsplash.com/random/800x300"}
                                             className={"ressourceHeaderImg"}/>
                                     </div>
-
-
                                     <div className="row userRow">
                                         <div className="col-md-7">
                                             <div>
@@ -76,7 +72,6 @@ class Index extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                           
                                         </div>
                                     </div>
                                     <div className="row justify-content-md-center ressourcePropSection">
@@ -90,56 +85,9 @@ class Index extends Component {
                                                           label="Lorem ipsum"/>
                                                 </div>
                                                 <div className="col-md-7 ressourcePropContent">
-
-
                                                     <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
-                                                        ex arcu,
-                                                        luctus vitae mattis accumsan, iaculis in augue. Pellentesque
-                                                        luctus quam
-                                                        vitae efficitur volutpat. Phasellus sed lorem a enim porta
-                                                        ornare.
-                                                        Mauris blandit posuere lobortis. Fusce rhoncus felis sit amet
-                                                        ultrices
-                                                        mattis. Vestibulum ultricies eget ipsum eget aliquet. Phasellus
-                                                        sollicitudin sit amet elit sed mattis. Praesent porta eu turpis
-                                                        eget
-                                                        sollicitudin. Donec quis eleifend nunc. Fusce et consectetur ex.
-                                                        Proin
-                                                        tincidunt, lorem ut blandit iaculis, risus massa venenatis arcu,
-                                                        at
-                                                        rutrum lectus magna sit amet leo. Sed mollis, lacus in elementum
-                                                        mollis,
-                                                        dolor quam egestas diam, fringilla cursus urna dolor ullamcorper
-                                                        dui.
-                                                        <br/> <br/>
-                                                        Phasellus placerat libero in lacus interdum, non hendrerit velit
-                                                        faucibus. Mauris ac mollis dui. Nunc ut tortor vitae elit
-                                                        aliquet
-                                                        interdum. Cras fermentum, erat a aliquam facilisis, dui tortor
-                                                        molestie
-                                                        urna, quis elementum urna neque nec nisi. Nullam a nulla
-                                                        porttitor,
-                                                        ornare ipsum gravida, convallis mi. Quisque faucibus purus
-                                                        eleifend
-                                                        imperdiet ultrices. Nam imperdiet massa odio, in rutrum nisi
-                                                        suscipit
-                                                        at. Quisque elementum lacus metus, eu efficitur augue molestie
-                                                        non.
-                                                        Vivamus in nisi nibh. Donec dolor eros, accumsan vel iaculis
-                                                        quis,
-                                                        viverra sit amet lorem. Duis tincidunt fringilla laoreet. Duis
-                                                        rutrum
-                                                        ornare ex id ultricies. Praesent at est quis augue sagittis
-                                                        pulvinar.
-                                                        Vivamus ipsum felis, varius ut tortor fringilla, aliquet
-                                                        bibendum arcu.
-                                                        Donec tellus tellus, mollis varius felis a, semper congue ante.
-                                                        Cras
-                                                        ullamcorper maximus felis, consectetur accumsan tortor maximus
-                                                        a.
+                                                        <p className="">{this.state.data.text}</p>
                                                     </p>
-
                                                 </div>
 
 
@@ -195,10 +143,8 @@ class Index extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                     }

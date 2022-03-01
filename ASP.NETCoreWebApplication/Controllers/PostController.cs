@@ -1,58 +1,57 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ASP.NETCoreWebApplication.Data;
 using ASP.NETCoreWebApplication.Models;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP.NETCoreWebApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DebatController : ControllerBase
+    public class PostController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public DebatController(ApplicationDbContext context)
+        public PostController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Debat
+        // GET: api/Post
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Debate>>> GetDebate()
+        public async Task<ActionResult<IEnumerable<Post>>> GetPost()
         {
-            return await _context.Debate.OrderByDescending(b => b.ReleaseDate).ToListAsync();
+            return await _context.Posts.Include(a=>a.User).OrderByDescending(b => b.ReleaseDate).ToListAsync();
         }
 
-        // GET: api/Debat/5
+        // GET: api/Post/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Debate>> GetDebate(Guid id)
+        public async Task<ActionResult<Post>> GetPost(Guid id)
         {
-            var debate = await _context.Debate.FindAsync(id);
+            var post = await _context.Posts.Include(a=>a.User).SingleAsync(a => a.Id == id);
 
-            if (debate == null)
+            if (post == null)
             {
                 return NotFound();
             }
 
-            return debate;
+            return post;
         }
 
-        // PUT: api/Debat/5
+        // PUT: api/Post/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> PutDebate(Guid id, Debate debate)
+        public async Task<IActionResult> PutPost(Guid id, Post post)
         {
-            if (id != debate.Id)
+            if (id != post.Id)
             {
                 return BadRequest();
             }
             
-            _context.Entry(debate).State = EntityState.Modified;
+            _context.Entry(post).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +59,7 @@ namespace ASP.NETCoreWebApplication.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!DebateExists(id))
+                if (!PostExists(id))
                 {
                     return NotFound();
                 }
@@ -73,35 +72,35 @@ namespace ASP.NETCoreWebApplication.Controllers
             return NoContent();
         }
 
-        // POST: api/Debat
+        // POST: api/Post
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Debate>> PostDebate(Debate debate)
+        public async Task<ActionResult<Post>> PostPost(Post post)
         {
-            debate.ReleaseDate = DateTime.Now;
-            _context.Debate.Add(debate);
+            post.ReleaseDate = DateTime.Now;
+            _context.Posts.Add(post);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDebate", new { id = debate.Id }, debate);
+            return CreatedAtAction("GetPost", new { id = post.Id }, post);
         }
 
-        // DELETE: api/Debat/5
+        // DELETE: api/Post/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDebate(Guid id)
+        public async Task<IActionResult> DeletePost(Guid id)
         {
-            var debate = await _context.Ressources.FindAsync(id);
-            if (debate == null)
+            var post = await _context.Posts.FindAsync(id);
+            if (post == null)
             {
                 return NotFound();
             }
 
-            _context.Ressources.Remove(debate);
+            _context.Ressources.Remove(post);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool DebateExists(Guid id)
+        private bool PostExists(Guid id)
         {
             return _context.Debate.Any(e => e.Id == id);
         }
