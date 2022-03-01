@@ -60,7 +60,7 @@ export default class CardRessources extends Component {
 
                                 <Card.Link href="#"><ReplyIcon sx={{color: "#022922"}} fontSize="medium"/></Card.Link>
                                 {
-                                    this.props.isUserRess ?
+                                    this.props.isUserRess && this.props.canEdit ?
                                         <Card.Link href="#"><EditIcon sx={{color: "#022922"}}
                                                                       fontSize="medium"/></Card.Link>
                                         :

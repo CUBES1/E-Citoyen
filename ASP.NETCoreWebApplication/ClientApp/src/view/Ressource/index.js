@@ -12,6 +12,8 @@ import ReportIcon from '@mui/icons-material/Report';
 import {Chip} from "@material-ui/core";
 import {useParams} from "react-router-dom";
 import axios from "axios";
+import EditIcon from "@mui/icons-material/Edit";
+import AsyncLocalStorage from "@createnextapp/async-local-storage";
 
 class Index extends Component {
     constructor(props) {
@@ -24,6 +26,11 @@ class Index extends Component {
 
 
     componentDidMount() {
+        /*let toto = await AsyncLocalStorage.getItem('userId')*/
+        console.log(localStorage.getItem('userId'));
+        /*this.setState({aUserId: null})*/
+        
+        
         const id = this.props.match.params.id;
 
         window.scrollTo(0, 0);
@@ -53,12 +60,12 @@ class Index extends Component {
                                 <div className="row justify-content-md-center">
                                     <div className="col-md-auto ressourceHeader d-flex justify-content-center ">
                                         <img
-                                            src={"https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300"}
+                                            src={"https://source.unsplash.com/random/800x300"}
                                             className={"ressourceHeaderImg"}/>
                                     </div>
 
 
-                                    <div className="row justify-content-md-center">
+                                    <div className="row userRow">
                                         <div className="col-md-7">
                                             <div>
                                                 <div className="userHeader">
@@ -69,9 +76,7 @@ class Index extends Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            {/*  <div>
-                                        Je suis les catégories
-                                    </div>*/}
+                                           
                                         </div>
                                     </div>
                                     <div className="row justify-content-md-center ressourcePropSection">
@@ -168,7 +173,13 @@ class Index extends Component {
 
                                                             <Card.Link href="#"><ReplyIcon sx={{color: "#022922"}}
                                                                                            fontSize="medium"/></Card.Link>
-
+                                                            {
+                                                                this.state.aUserId === this.state.data.userId ?
+                                                                    <Card.Link href="#"><EditIcon sx={{color: "#022922"}}
+                                                                                                  fontSize="medium"/></Card.Link>
+                                                                    :
+                                                                    ''
+                                                            }
 
                                                             <Button className={"btn buttonDownloadRess"}>
                                                                 <DownloadIcon sx={{color: "#022922"}}
