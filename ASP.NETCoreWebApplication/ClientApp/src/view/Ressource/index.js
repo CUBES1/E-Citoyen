@@ -25,16 +25,16 @@ class Index extends Component {
     }
 
 
-    componentDidMount() {        
+    componentDidMount() {
         const id = this.props.match.params.id;
 
         window.scrollTo(0, 0);
 
         axios.get(`https://localhost:5001/api/Ressource/${id}`)
             .then(res => {
-                const debate = res.data;
+                const data = res.data;
                 this.setState({
-                    data: debate,
+                    data: data,
                     isLoading: false,
                 })
             })
@@ -44,7 +44,7 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <Layout title={"Ressource"} subtitle={" "} goBack={() => this.props.history.goBack()} >
+                <Layout title={"Ressource"} subtitle={" "} goBack={() => this.props.history.goBack()}>
                     {
                         this.state.isLoading ?
                             <Spinner className="customLoading2" animation="grow" size="sm" variant="secondary"/>
@@ -117,9 +117,10 @@ class Index extends Component {
                                                             <Card.Link href="#"><ReplyIcon sx={{color: "#022922"}}
                                                                                            fontSize="medium"/></Card.Link>
                                                             {
-                                                                this.state.aUserId === this.state.data.userId ?
-                                                                    <Card.Link href="#"><EditIcon sx={{color: "#022922"}}
-                                                                                                  fontSize="medium"/></Card.Link>
+                                                                this.props.location.state.userId === this.state.data.userId ?
+                                                                    <Card.Link href="#"><EditIcon
+                                                                        sx={{color: "#022922"}}
+                                                                        fontSize="medium"/></Card.Link>
                                                                     :
                                                                     ''
                                                             }

@@ -49,7 +49,7 @@ class Index extends Component {
                             <CardRessources
                                 username={data.userName}
                                 isUserRess={data.userId === this.state.aUserId}
-                                img={`https://source.unsplash.com/random/800x300?sig=${i}`}
+                                img={`https://source.unsplash.com/random/800x400?sig=${i}`}
                                 title={data.title}
                                 isLiked={i % 2 == 0 ? true : false}
                                 isBookmark={i % 2 != 0 ? true : false}
@@ -57,6 +57,7 @@ class Index extends Component {
                                 id={data.id}
                                 key={data.id + '_content'}
                                 canEdit={this.props.canEdit}
+                                userId={this.state.aUserId}
                             />
                         </Col>
                     )

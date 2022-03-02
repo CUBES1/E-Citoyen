@@ -19,14 +19,17 @@ export default class CardRessources extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state = {}
     }
-    
+
 
     render() {
         return (
-            <Link to={`/ressource/${this.props.id}`} className={"linkBlank"}>
+            <Link to={{
+                pathname: `/ressource/${this.props.id}`,
+                state: {userId: this.props.userId}
+            }}
+                  className={"linkBlank"}>
                 <Card className="cardStyle">
                     <Card.Body>
                         <div className="containerUser">
