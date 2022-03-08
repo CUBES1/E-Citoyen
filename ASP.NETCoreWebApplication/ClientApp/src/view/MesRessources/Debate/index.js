@@ -12,13 +12,12 @@ import AsyncLocalStorage from "@createnextapp/async-local-storage";
 export class Ressources extends Component {
     static displayName = Ressources.name;
 
-
     render() {
         return (
             <div>
                 <Layout title={"Mes ressources"} subtitle={"Administrez vos ressources d'un simple coup d'oeil"}>
                     <Row style={{margin: "20px"}}>
-                        <CardRessourcesListing userOnly={true} userId={AsyncLocalStorage.getItem('userId')} canEdit={true}/>
+                        <CardRessourcesListing userOnly={true} canEdit={true}/>
                     </Row>
                     {/*<Link to={"/new-ressource"}>
                     <Button variant="secondary" to={"/AddDebate"}>

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from "axios";
 import {Col, Spinner} from "react-bootstrap"
 import CardRessources from "../CardRessources";
+import getUserAuth from "../../helpers/getUserAuth";
+import authService from "../api-authorization/AuthorizeService";
 
 class Index extends Component {
     constructor(props) {
@@ -17,18 +19,21 @@ class Index extends Component {
 
     async componentDidMount() {
         /* Declaration of the user in session rn */
-        let aUserId = null;
-        await this.props.userId.then(function (result) {
-            aUserId = result
-        })
-        await this.setState({aUserId: aUserId})
+        const auth = await getUserAuth.isThisLoged();
+        let user;
+
+        if (auth) {
+            user = await authService.getUser()
+            user = user.sub
+        }
+        await this.setState({currentUser: user})
         /* End For user in session statement*/
 
         /* Fetch of the ressources by the type need */
         /* Is this view is only for the user or not*/
         const userOnly = this.props.userOnly;
         if (userOnly) {
-            axios.get(`https://localhost:5001/api/Ressource/usr/${aUserId}`)
+            axios.get(`https://localhost:5001/api/Ressource/usr/${this.state.currentUser}`)
                 .then(res => {
                     const data = res.data;
                     this.setState({resources_data: data});
@@ -46,10 +51,10 @@ class Index extends Component {
 
     /* Fetch to get bool of like of the resource*/
     isLiked = async (id) => {
-        
+
         let result = null;
         try {
-            const response = await axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.state.aUserId}/${id}`);
+            const response = await axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.state.currentUser}/${id}`);
             result = response.data
             return result
         } catch (err) {
@@ -62,15 +67,13 @@ class Index extends Component {
 
         let result = null;
         try {
-            const response = await axios.get(`https://localhost:5001/api/UserInteraction/Favorite/${this.state.aUserId}/${id}`);
+            const response = await axios.get(`https://localhost:5001/api/UserInteraction/Favorite/${this.state.currentUser}/${id}`);
             result = response.data
             return result
         } catch (err) {
             /*TODO Needing add of error output or actions, to define */
         }
     }
-
-  
 
 
     render() {
@@ -83,16 +86,16 @@ class Index extends Component {
                         <Col xs={11} md={4} className="g-4" align="center" key={data.id}>
                             <CardRessources
                                 username={data.userName}
-                                isUserRess={data.userId === this.state.aUserId}
+                                isUserRess={data.userId === this.state.currentUser}
                                 img={`https://source.unsplash.com/random/800x400?sig=${i}`}
                                 title={data.title}
-                                isLiked={this.isLiked(data.id)}            
+                                isLiked={this.isLiked(data.id)}
                                 isBookmark={this.isBookmark(data.id)}
                                 dateTime={data.releaseDate}
                                 id={data.id}
                                 key={data.id + '_content'}
                                 canEdit={this.props.canEdit}
-                                userId={this.state.aUserId}
+                                userId={this.state.currentUser}
                             />
                         </Col>
                     )

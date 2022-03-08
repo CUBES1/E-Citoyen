@@ -41,13 +41,11 @@ export class LoginMenu extends Component {
         if (!isAuthenticated) {
             const registerPath = `${ApplicationPaths.Register}`;
             const loginPath = `${ApplicationPaths.Login}`;
-            localStorage.removeItem('userId');
             return this.anonymousView(registerPath, loginPath);
         } else {
             const profilePath = `${ApplicationPaths.Profile}`;
             const ressourcesPath = `${ApplicationPaths.MyRessources}`;
             const logoutPath = {pathname: `${ApplicationPaths.LogOut}`, state: {local: true}};
-            localStorage.setItem('userId', userId);
             return this.authenticatedView(userName, profilePath, logoutPath, ressourcesPath);
         }
     }
