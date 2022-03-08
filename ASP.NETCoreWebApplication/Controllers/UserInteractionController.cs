@@ -14,30 +14,37 @@ namespace ASP.NETCoreWebApplication.Controllers
     public class UserInteractionController : Controller
     {
         private readonly ApplicationDbContext _context;
-        
+
         public UserInteractionController(ApplicationDbContext context)
         {
             _context = context;
         }
-        
+
         // GET: api/UserInteraction/Like/5/4
         [HttpGet("{type}/{usrId}/{rscId}")]
-        public async Task<ActionResult<UserInteraction>> GetFavorite(string type, string usrId, Guid rscId)
+        public async Task<ActionResult<Boolean>> GetFavorite(string type, string usrId, Guid rscId)
         {
             // On check si le type spécifié existe
             UserInteraction.UserInteractionType uiType = UserInteraction.StringToUserInteractionType(type);
             if (uiType == UserInteraction.UserInteractionType.None)
                 return BadRequest();
-            
+
             var query = await _context.UserInteraction
                 .Include(ui => ui.User)
                 .Include(ui => ui.Ressource)
                 .Where(ui => ui.Type == uiType)
-                .SingleAsync(ui => ui.User.Id == usrId && ui.Ressource.Id == rscId);
+                .FirstOrDefaultAsync(ui => ui.User.Id == usrId && ui.Ressource.Id == rscId);
 
-            return query;
+            if (query != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        
+
         // GET: api/UserInteraction/Like/usr/5
         [HttpGet("{type}/usr/{usrId}")]
         public async Task<ActionResult<IEnumerable<UserInteraction>>> GetUserFavorites(string type, string usrId)
@@ -46,7 +53,7 @@ namespace ASP.NETCoreWebApplication.Controllers
             UserInteraction.UserInteractionType uiType = UserInteraction.StringToUserInteractionType(type);
             if (uiType == UserInteraction.UserInteractionType.None)
                 return BadRequest();
-            
+
             var query = await _context.UserInteraction
                 .Include(ui => ui.User)
                 .Include(ui => ui.Ressource)
@@ -63,9 +70,9 @@ namespace ASP.NETCoreWebApplication.Controllers
         {
             // On check si le type spécifié existe
             UserInteraction.UserInteractionType uiType = UserInteraction.StringToUserInteractionType(type);
-            if (uiType == UserInteraction.UserInteractionType.None) 
+            if (uiType == UserInteraction.UserInteractionType.None)
                 return BadRequest();
-            
+
             var query = await _context.UserInteraction
                 .Include(ui => ui.User)
                 .Include(ui => ui.Ressource)
@@ -75,19 +82,21 @@ namespace ASP.NETCoreWebApplication.Controllers
 
             return query;
         }
-        
+
         // POST: api/UserInteraction/Like
         [HttpPost("{type}")]
         public async Task<ActionResult<UserInteraction>> PostFavorite(string type, UserInteraction userInteraction)
         {
             // On check si le type spécifié existe
-            if ((userInteraction.Type = UserInteraction.StringToUserInteractionType(type)) == UserInteraction.UserInteractionType.None)
+            if ((userInteraction.Type = UserInteraction.StringToUserInteractionType(type)) ==
+                UserInteraction.UserInteractionType.None)
                 return BadRequest();
 
             _context.UserInteraction.Add(userInteraction);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFavorite", new { userId = userInteraction.UserId, ressourceId = userInteraction.RessourceId }, userInteraction);
+            return CreatedAtAction("GetFavorite",
+                new {userId = userInteraction.UserId, ressourceId = userInteraction.RessourceId}, userInteraction);
         }
 
         // DELETE: api/UserInteraction/5/4
@@ -96,16 +105,16 @@ namespace ASP.NETCoreWebApplication.Controllers
         {
             // On check si le type spécifié existe
             UserInteraction.UserInteractionType uiType = UserInteraction.StringToUserInteractionType(type);
-            if (uiType == UserInteraction.UserInteractionType.None) 
+            if (uiType == UserInteraction.UserInteractionType.None)
                 return BadRequest();
 
             var userInteraction = await _context.UserInteraction.FindAsync(usrId, rscId, uiType);
-            
+
             if (userInteraction == null) return NotFound();
-            
+
             _context.UserInteraction.Remove(userInteraction);
             await _context.SaveChangesAsync();
-            
+
             return NoContent();
         }
     }

@@ -1,41 +1,77 @@
 import React, {Component} from 'react';
 import axios from "axios";
 import {Col, Spinner} from "react-bootstrap"
-import CardCustom from "../CardRessources";
 import CardRessources from "../CardRessources";
+import getUserAuth from "../../helpers/getUserAuth";
+import authService from "../api-authorization/AuthorizeService";
 
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ressources_data: null,
+            resources_data: null,
+            aUserId: null, /* User ID of the actual session*/
         }
+        this.isLiked = this.isLiked.bind(this);
+        this.isBookmark = this.isBookmark.bind(this);
     }
 
 
     async componentDidMount() {
-        /*const userOnly = this.props.userOnly;*/
-        const userOnly = this.props.userOnly;
-        let userId = null;
-        await this.props.userId.then(function(result) {
-            userId = result
-        })
+        /* Declaration of the user in session rn */
+        const auth = await getUserAuth.isThisLoged();
+        let user;
 
-        await this.setState({aUserId: userId})
-        
-        /*Is true*/
+        if (auth) {
+            user = await authService.getUser()
+            user = user.sub
+        }
+        await this.setState({currentUser: user})
+        /* End For user in session statement*/
+
+        /* Fetch of the ressources by the type need */
+        /* Is this view is only for the user or not*/
+        const userOnly = this.props.userOnly;
         if (userOnly) {
-            axios.get(`https://localhost:5001/api/Ressource/usr/${userId}`)
+            axios.get(`https://localhost:5001/api/Ressource/usr/${this.state.currentUser}`)
                 .then(res => {
-                    const debate = res.data;
-                    this.setState({ressources_data: debate});
+                    const data = res.data;
+                    this.setState({resources_data: data});
                 })
         } else {
             axios.get(`https://localhost:5001/api/Ressource`)
                 .then(res => {
-                    const debate = res.data;
-                    this.setState({ressources_data: debate});
+                    const data = res.data;
+                    this.setState({resources_data: data});
                 })
+        }
+        /* End of fetch */
+    }
+
+
+    /* Fetch to get bool of like of the resource*/
+    isLiked = async (id) => {
+
+        let result = null;
+        try {
+            const response = await axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.state.currentUser}/${id}`);
+            result = response.data
+            return result
+        } catch (err) {
+            /*TODO Needing add of error output or actions, to define */
+        }
+    }
+
+    /* Fetch to get bool of Favorite of the resource*/
+    isBookmark = async (id) => {
+
+        let result = null;
+        try {
+            const response = await axios.get(`https://localhost:5001/api/UserInteraction/Favorite/${this.state.currentUser}/${id}`);
+            result = response.data
+            return result
+        } catch (err) {
+            /*TODO Needing add of error output or actions, to define */
         }
     }
 
@@ -43,20 +79,23 @@ class Index extends Component {
     render() {
         return (
             <>
-                {this.state.ressources_data != null ?
-                    this.state.ressources_data.map((data, i) =>
+                {/*If the content is empty display loading*/}
+                {this.state.resources_data != null ?
+                    /*Mapping of the resources*/
+                    this.state.resources_data.map((data, i) =>
                         <Col xs={11} md={4} className="g-4" align="center" key={data.id}>
                             <CardRessources
                                 username={data.userName}
-                                isUserRess={data.userId === this.state.aUserId}
-                                img={`https://source.unsplash.com/random/800x300?sig=${i}`}
+                                isUserRess={data.userId === this.state.currentUser}
+                                img={`https://source.unsplash.com/random/800x400?sig=${i}`}
                                 title={data.title}
-                                isLiked={i % 2 == 0 ? true : false}
-                                isBookmark={i % 2 != 0 ? true : false}
+                                isLiked={this.isLiked(data.id)}
+                                isBookmark={this.isBookmark(data.id)}
                                 dateTime={data.releaseDate}
                                 id={data.id}
                                 key={data.id + '_content'}
                                 canEdit={this.props.canEdit}
+                                userId={this.state.currentUser}
                             />
                         </Col>
                     )

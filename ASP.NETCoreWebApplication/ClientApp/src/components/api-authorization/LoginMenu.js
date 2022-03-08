@@ -41,13 +41,11 @@ export class LoginMenu extends Component {
         if (!isAuthenticated) {
             const registerPath = `${ApplicationPaths.Register}`;
             const loginPath = `${ApplicationPaths.Login}`;
-            localStorage.removeItem('userId');
             return this.anonymousView(registerPath, loginPath);
         } else {
             const profilePath = `${ApplicationPaths.Profile}`;
             const ressourcesPath = `${ApplicationPaths.MyRessources}`;
             const logoutPath = {pathname: `${ApplicationPaths.LogOut}`, state: {local: true}};
-            localStorage.setItem('userId', userId);
             return this.authenticatedView(userName, profilePath, logoutPath, ressourcesPath);
         }
     }
@@ -79,7 +77,7 @@ export class LoginMenu extends Component {
                         <NavLink tag={Link} className="text-dark" to={profilePath}>Profile</NavLink>
                     </MenuItem>
                     <MenuItem eventKey={1.1}>
-                        <NavLink tag={Link} className="text-dark" to={ressourcesPath}>Mes ressources</NavLink>
+                        <NavLink tag={Link} className="text-dark" to="/mes-ressources">Mes ressources</NavLink>
                     </MenuItem>
                     <MenuItem eventKey={1.2}>
                         <NavLink tag={Link} className="text-dark" to={logoutPath}><Button
