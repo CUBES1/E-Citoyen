@@ -22,11 +22,80 @@ class Index extends Component {
             data: [],
             isLoading: true,
         }
+        this.likeResource = this.likeResource.bind(this);
+        this.bookmarkResource = this.bookmarkResource.bind(this);
     }
 
+    likeResource = async () => {
+        let isLiked = await this.state.isLiked;
+
+        /* Check if already liked to delete, or post on the call to the API */
+        if (isLiked) {
+            await axios.delete(`https://localhost:5001/api/UserInteraction/Like/${this.props.location.state.userId}/${this.props.location.state.id}`)
+                .then(function (response) {
+                    isLiked = false
+                })
+                .catch(function (error) {
+                    /*TODO Needing add of error output or actions, to define */
+                });
+        } else {
+            await axios.post('https://localhost:5001/api/UserInteraction/Like', {
+                UserId: this.props.location.state.userId,
+                RessourceId: this.props.location.state.id,
+            })
+                .then(function (response) {
+                    isLiked = true
+                })
+                .catch(function (error) {
+                    /*TODO Needing add of error output or actions, to define */
+                });
+        }
+
+        await this.setState({isLiked: isLiked});
+    }
+
+    bookmarkResource = async () => {
+        let isBookmark = await this.state.isBookmark;
+
+        /* Check if already bookmarked to delete, or post on the call to the API */
+        if (isBookmark) {
+            await axios.delete(`https://localhost:5001/api/UserInteraction/Favorite/${this.props.location.state.userId}/${this.props.location.state.id}`)
+                .then(function (response) {
+                    isBookmark = false
+                })
+                .catch(function (error) {
+                    /*TODO Needing add of error output or actions, to define */
+                });
+        } else {
+            await axios.post('https://localhost:5001/api/UserInteraction/Favorite', {
+                UserId: this.props.location.state.userId,
+                RessourceId: this.props.location.state.id,
+            })
+                .then(function (response) {
+                    isBookmark = true
+                })
+                .catch(function (error) {
+                    /*TODO Needing add of error output or actions, to define */
+                });
+        }
+
+        await this.setState({isBookmark: isBookmark});
+    }
 
     componentDidMount() {
         const id = this.props.match.params.id;
+
+        axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.props.location.state.userId}/${this.props.location.state.id}`)
+            .then(res => {
+                const data = res.data;
+                this.setState({isLiked: data});
+            })
+
+        axios.get(`https://localhost:5001/api/UserInteraction/Favorite/${this.props.location.state.userId}/${this.props.location.state.id}`)
+            .then(res => {
+                const data = res.data;
+                this.setState({isBookmark: data});
+            })
 
         window.scrollTo(0, 0);
 
@@ -94,22 +163,24 @@ class Index extends Component {
                                                 <div className="row justify-content-md-center">
                                                     <div className="col-md-7 ressourcePropContent">
                                                         <div>
-                                                            {!this.props.isLiked ?
-                                                                <Card.Link href="#"><FavoriteBorderIcon
-                                                                    sx={{color: "#022922"}}
+                                                            {this.state.isLiked === true ?
+                                                                <Card.Link onClick={this.props.location.state.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
+                                                                           className={"actionLink"}><FavoriteIcon
+                                                                    sx={{color: "#E45E66"}}
                                                                     fontSize="medium"/></Card.Link>
                                                                 :
-                                                                <Card.Link href="#"><FavoriteIcon
-                                                                    sx={{color: "#E45E66"}}
+                                                                <Card.Link onClick={this.props.location.state.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
+                                                                           className={"actionLink"}><FavoriteBorderIcon
+                                                                    sx={{color: "#022922"}}
                                                                     fontSize="medium"/></Card.Link>
                                                             }
 
-                                                            {!this.props.isBookmark ?
-                                                                <Card.Link href="#"><BookmarkBorderIcon
-                                                                    sx={{color: "#022922"}}
+                                                            {this.state.isBookmark === true ?
+                                                                <Card.Link onClick={this.props.location.state.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/} className={"actionLink"}><BookmarkIcon
+                                                                    sx={{color: "#00cba9"}}
                                                                     fontSize="medium"/></Card.Link>
                                                                 :
-                                                                <Card.Link href="#"><BookmarkIcon
+                                                                <Card.Link onClick={this.props.location.state.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/} className={"actionLink"}><BookmarkBorderIcon
                                                                     sx={{color: "#022922"}}
                                                                     fontSize="medium"/></Card.Link>
                                                             }

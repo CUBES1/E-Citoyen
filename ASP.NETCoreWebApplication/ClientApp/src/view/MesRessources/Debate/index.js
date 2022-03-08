@@ -18,7 +18,7 @@ export class Ressources extends Component {
             <div>
                 <Layout title={"Mes ressources"} subtitle={"Administrez vos ressources d'un simple coup d'oeil"}>
                     <Row style={{margin: "20px"}}>
-                        <CardRessourcesListing userOnly={true} userId={AsyncLocalStorage.getItem('userId')}/>
+                        <CardRessourcesListing userOnly={true} userId={AsyncLocalStorage.getItem('userId')} canEdit={true}/>
                     </Row>
                     {/*<Link to={"/new-ressource"}>
                     <Button variant="secondary" to={"/AddDebate"}>

@@ -10,15 +10,16 @@ export class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           userId: null,
+            userId: null,
         }
     }
-    static displayName = Home.name;
 
+    static displayName = Home.name;
     
     async componentDidMount() {
-        let aUserId = await AsyncLocalStorage.getItem('userId')
-        this.setState({userId : aUserId})
+        let aUserId = null;
+        aUserId = await AsyncLocalStorage.getItem('userId')
+        this.setState({userId: aUserId})
     }
 
     render() {
@@ -27,7 +28,8 @@ export class Home extends Component {
                 <Layout title={"Aujourd'hui"} subtitle={"Les ressources dont vous avez besoin"}>
                     <Row className="cardContainer">
                         <Row className="mainContainer">
-                            <CardRessourcesListing userOnly={false} userId={AsyncLocalStorage.getItem('userId')} canEdit={false}/>
+                            <CardRessourcesListing userOnly={false} userId={AsyncLocalStorage.getItem('userId')}
+                                                   canEdit={false}/>
                         </Row>
                         <Row className="sideContainer">
 
