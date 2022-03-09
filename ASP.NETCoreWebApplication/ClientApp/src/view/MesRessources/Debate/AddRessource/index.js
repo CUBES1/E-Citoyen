@@ -3,6 +3,8 @@ import axios from 'axios';
 import {Row} from "react-bootstrap"
 import {Container, Col, Form, FormGroup, Label, Input, Button} from 'reactstrap';
 import {Layout} from "../../../Layout"
+import getUserAuth from "../../../../helpers/getUserAuth";
+import authService from "../../../../components/api-authorization/AuthorizeService";
 
 export default class AddDebate extends React.Component {
 
@@ -12,18 +14,18 @@ export default class AddDebate extends React.Component {
             Title: '',
             Genre: '',
             Age: '',
-            Text: ''
+            Text: '',
+            currentUser: '', /* A modifier car si null normalement pas possible */
         }
     }
 
     Adddebate = () => {
-        const userId = localStorage.getItem('userId');
         axios.post('https://localhost:5001/api/Post', {
             Title: this.state.Title,
             Genre: this.state.Genre,
             Age: this.state.Age,
             Text: this.state.Text,
-            UserId: userId
+            UserId: this.state.currentUser
         })
             .then(() => {
                 {
@@ -34,6 +36,19 @@ export default class AddDebate extends React.Component {
 
     handleChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
+    }
+    
+    async componentDidMount() {
+        /* Declaration of the user in session rn */
+        const auth = await getUserAuth.isThisLoged();
+        let user;
+
+        if (auth) {
+            user = await authService.getUser()
+            user = user.sub
+        }
+        await this.setState({currentUser: user})
+        /* End For user in session statement*/
     }
 
     render() {
