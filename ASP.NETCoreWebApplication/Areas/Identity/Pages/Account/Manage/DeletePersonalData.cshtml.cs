@@ -1,7 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+using System.Linq;
+using System.Runtime.Intrinsics;
 using System.Threading.Tasks;
+using ASP.NETCoreWebApplication.Data;
 using ASP.NETCoreWebApplication.Models;
+using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,15 +19,18 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly ApplicationDbContext _cxt;
 
         public DeletePersonalDataModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            ApplicationDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _cxt = dbContext;
         }
 
         [BindProperty]
@@ -67,8 +75,17 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
+
+            foreach (var ressources in _cxt.Ressources)
+            {
+                if (ressources.UserId != userId) continue;
+                _cxt.Ressources.Remove(ressources);
+            }
+            
+            await _cxt.SaveChangesAsync();
+            var result = await _userManager.DeleteAsync(user);
+
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException($"Unexpected error occurred deleting user with ID '{userId}'.");
@@ -76,7 +93,7 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.SignOutAsync();
 
-            _logger.LogInformation("User with ID '{UserId}' deleted themselves.", userId);
+            _logger.LogInformation("User with ID '{UserId}' deleted themselves", userId);
 
             return Redirect("~/");
         }

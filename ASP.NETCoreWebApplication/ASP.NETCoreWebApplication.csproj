@@ -35,6 +35,10 @@
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>
+    <ItemGroup>
+      <Compile Remove="Migrations\20220309172526_AddUsernameinDB.Designer.cs" />
+      <Compile Remove="Migrations\20220309172526_AddUsernameinDB.cs" />
+    </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
         <!-- Ensure Node.js is installed -->
