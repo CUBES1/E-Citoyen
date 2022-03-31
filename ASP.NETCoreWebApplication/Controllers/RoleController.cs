@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,16 +22,20 @@ namespace ASP.NETCoreWebApplication.Controllers
         {
             this.roleManager = roleManager;
         }
+        
+        //[Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             var roles = roleManager.Roles.ToList();
             return View(roles);
         }
+        //[Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View(new IdentityRole());
         }
         
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create([Required]string name)
         {

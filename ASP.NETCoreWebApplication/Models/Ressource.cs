@@ -32,10 +32,10 @@ namespace ASP.NETCoreWebApplication.Models
         public int? Age { get; set; }
 
         public Visibility Visibility { get; set; } = Visibility.Public;
-
-        public string UserId { get; set; }
         
-        [JsonIgnore] public ApplicationUser User { get; set; }
+        public virtual string? UserId { get; set; }
+
+        [JsonIgnore] public virtual ApplicationUser? User { get; set; }
 
         [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
 

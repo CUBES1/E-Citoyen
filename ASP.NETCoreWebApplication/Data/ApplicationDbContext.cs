@@ -24,7 +24,18 @@ namespace ASP.NETCoreWebApplication.Data
                     .WithMany(r => r.Favorites)
                     .HasForeignKey(ui => ui.RessourceId);
             });
-
+            
+            
+            /*
+            modelBuilder.Entity<Ressource>()
+                .HasOne(p => p.UserId)
+                .WithOne()
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(p => p.Ressources);
+*/
             base.OnModelCreating(modelBuilder);
         }
 
