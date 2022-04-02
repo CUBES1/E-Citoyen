@@ -4,14 +4,16 @@ using ASP.NETCoreWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASP.NETCoreWebApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220331134747_ElementOnUser")]
+    partial class ElementOnUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,9 +28,6 @@ namespace ASP.NETCoreWebApplication.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -97,8 +96,6 @@ namespace ASP.NETCoreWebApplication.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -108,20 +105,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Categorie", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CategorieName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Comments.MainComment", b =>
@@ -174,14 +157,11 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.Property<int?>("Age")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("CategorieId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ReleaseDate")
@@ -200,8 +180,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategorieId");
 
                     b.HasIndex("UserId");
 
@@ -476,17 +454,10 @@ namespace ASP.NETCoreWebApplication.Migrations
                 {
                     b.HasBaseType("ASP.NETCoreWebApplication.Models.Ressource");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Post");
-                });
-
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", null)
-                        .WithMany("Contacts")
-                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Comments.SubComment", b =>
@@ -500,15 +471,9 @@ namespace ASP.NETCoreWebApplication.Migrations
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
                 {
-                    b.HasOne("ASP.NETCoreWebApplication.Models.Categorie", "Categorie")
-                        .WithMany()
-                        .HasForeignKey("CategorieId");
-
                     b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
                         .WithMany("Ressources")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Categorie");
 
                     b.Navigation("User");
                 });
@@ -585,8 +550,6 @@ namespace ASP.NETCoreWebApplication.Migrations
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Contacts");
-
                     b.Navigation("Interactions");
 
                     b.Navigation("Ressources");

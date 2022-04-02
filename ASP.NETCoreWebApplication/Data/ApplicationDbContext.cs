@@ -1,4 +1,4 @@
-﻿using ASP.NETCoreWebApplication.Models;
+using ASP.NETCoreWebApplication.Models;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -24,28 +24,19 @@ namespace ASP.NETCoreWebApplication.Data
                     .WithMany(r => r.Favorites)
                     .HasForeignKey(ui => ui.RessourceId);
             });
-            
-            
-            /*
-            modelBuilder.Entity<Ressource>()
-                .HasOne(p => p.UserId)
-                .WithOne()
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.Cascade);
-            
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(p => p.Ressources);
-*/
+
             base.OnModelCreating(modelBuilder);
         }
 
         public ApplicationDbContext(
-            DbContextOptions options,
+            DbContextOptions<ApplicationDbContext> options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
 
         public DbSet<Debate> Debate { get; set; }
+        
+        public DbSet<Categorie> Categories { get; set; }
         public DbSet<Ressource> Ressources { get; set; }
         public DbSet<MainComment> MainComments { get; set; }
         public DbSet<SubComment> SubComments { get; set; }

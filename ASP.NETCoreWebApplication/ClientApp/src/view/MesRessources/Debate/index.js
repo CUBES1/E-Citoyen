@@ -9,9 +9,10 @@ import {Button, Row} from "react-bootstrap";
 import CardRessourcesListing from "../../../components/CardRessourcesListing";
 import {Layout} from "../../Layout"
 import AsyncLocalStorage from "@createnextapp/async-local-storage";
+import axios from "axios";
 export class Ressources extends Component {
     static displayName = Ressources.name;
-
+    
     render() {
         return (
             <div>

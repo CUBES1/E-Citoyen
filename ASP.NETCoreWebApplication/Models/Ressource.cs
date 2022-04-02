@@ -25,7 +25,6 @@ namespace ASP.NETCoreWebApplication.Models
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         
-        public string? Genre { get; set; }
         public DateTime? ReleaseDate { get; set; } = DateTime.Now;
 
         public DateTime? UpdatedAt { get; set; }
@@ -35,8 +34,10 @@ namespace ASP.NETCoreWebApplication.Models
         
         public virtual string? UserId { get; set; }
 
-        [JsonIgnore] public virtual ApplicationUser? User { get; set; }
-
+        public Categorie Categorie { get; set; }
+        
+        [JsonIgnore] public virtual ApplicationUser User { get; set; }
+        
         [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
 
         [NotMapped]
@@ -48,7 +49,8 @@ namespace ASP.NETCoreWebApplication.Models
             Visibility.Archived => "Archivé",
             _ => throw new ArgumentOutOfRangeException()
         };
-        [NotMapped] public string UserName => User.UserName;
+        
+        public string FullName { get; set; }
         //public List<MainComment>? MainComments { get; set; }
     }
 }

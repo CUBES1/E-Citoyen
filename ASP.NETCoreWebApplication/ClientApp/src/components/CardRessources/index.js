@@ -26,6 +26,30 @@ export default class CardRessources extends Component {
         this.likeResource = this.likeResource.bind(this);
     }
 
+    deleteRessource (id) {
+        axios.delete(`https://localhost:5001/api/Ressource/${id}`)
+            .then(() => {
+                return axios.get(`https://localhost:5001/api/Ressource/`)
+            })
+            .then(res => {
+                // Update users in state as per-usual
+                const ressource = res.data;
+                this.setState({ ressource });
+            })
+    }
+
+    addFriend (id) {
+        axios.post(`https://localhost:5001/api/Relation/${id}`)
+            .then(() => {
+                return axios.get(`https://localhost:5001/api/Relation/`)
+            })
+            .then(res => {
+                // Update users in state as per-usual
+                const friend = res.data;
+                this.setState({ friend });
+            })
+    }
+    
     async componentDidMount() {
 
         /* Waiting for promise to set state */
@@ -108,8 +132,9 @@ export default class CardRessources extends Component {
                         <img alt="toto" src={Avatar} className="avatarOnRessource"/>
                     </Link>
                     <Link to={`/profile/`} className={"linkBlank"}>
-                        <p className="userName">{this.props.username.substring(0, 15)}</p>
+                        <p className="userName">{this.props.username}</p>
                     </Link>
+                    <button onClick={ () => this.addFriend(this.props.userId) } className="btn btn-success">Add</button>
                 </div>
 
                 <Link to={{
@@ -146,7 +171,10 @@ export default class CardRessources extends Component {
                             this.props.isUserRess && this.props.canEdit ?
                                 <Card.Link href="#"><EditIcon sx={{color: "#022922"}}
                                                               fontSize="medium"/></Card.Link> : ''}
-
+                        {/* Double check if user can edit
+                                   if the resource is his own, and if the resource is editable */
+                            this.props.isUserRess ?
+                                <button onClick={ () => this.deleteRessource(this.props.id) } className="btn btn-success">Remove</button> : ''}
                     </div>
                     <div>
                         <p>{moment(this.props.dateTime, 'YYYY-MM-DD[T]HH:mm:ss').format("DD/MM/YYYY HH:mm")}</p>

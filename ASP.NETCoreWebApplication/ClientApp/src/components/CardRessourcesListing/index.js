@@ -16,7 +16,6 @@ class Index extends Component {
         this.isBookmark = this.isBookmark.bind(this);
     }
 
-
     async componentDidMount() {
         /* Declaration of the user in session rn */
         const auth = await getUserAuth.isThisLoged();
@@ -38,6 +37,7 @@ class Index extends Component {
                     const data = res.data;
                     this.setState({resources_data: data});
                 })
+            
         } else {
             axios.get(`https://localhost:5001/api/Ressource`)
                 .then(res => {
@@ -85,7 +85,7 @@ class Index extends Component {
                     this.state.resources_data.map((data, i) =>
                         <Col xs={11} md={4} className="g-4" align="center" key={data.id}>
                             <CardRessources
-                                username={data.userName}
+                                username={data.fullName}
                                 isUserRess={data.userId === this.state.currentUser}
                                 img={`https://source.unsplash.com/random/800x400?sig=${i}`}
                                 title={data.title}
