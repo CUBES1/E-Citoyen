@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -18,37 +19,26 @@ namespace ASP.NETCoreWebApplication.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
         public Guid Id { get; set; }
-
         public string Title { get; set; }
+        public Visibility Visibility { get; set; } = Visibility.Public;
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        
-        public string? Genre { get; set; }
         public DateTime? ReleaseDate { get; set; } = DateTime.Now;
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? UpdatedAt { get; set; }
-        public int? Age { get; set; }
 
-        public Visibility Visibility { get; set; } = Visibility.Public;
-        
-        public virtual string? UserId { get; set; }
+        public virtual string UserId { get; set; }
+        [JsonIgnore] public virtual ApplicationUser User { get; set; }
 
-        [JsonIgnore] public virtual ApplicationUser? User { get; set; }
-
+        [JsonIgnore] public Guid ResourceCategoryId { get; set; }
+        [JsonIgnore] public ResourceCategory ResourceCategory { get; set; }
         [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
 
-        [NotMapped]
-        public string DisplayState => Visibility switch
-        {
-            Visibility.Public => "Public",
-            Visibility.Protected => "Protégé",
-            Visibility.Private => "Privé",
-            Visibility.Archived => "Archivé",
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        [NotMapped] public string DisplayState => Visibility.ToString();
         [NotMapped] public string UserName => User.UserName;
+        [NotMapped] public string ResourceCategoryLabel => ResourceCategory.Label;
         //public List<MainComment>? MainComments { get; set; }
     }
 }

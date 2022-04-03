@@ -47,6 +47,7 @@ namespace ASP.NETCoreWebApplication.Data
 
         public DbSet<Debate> Debate { get; set; }
         public DbSet<Ressource> Ressources { get; set; }
+        public DbSet<ResourceCategory> ResourceCategories { get; set; }
         public DbSet<MainComment> MainComments { get; set; }
         public DbSet<SubComment> SubComments { get; set; }
         public DbSet<UserInteraction> UserInteraction { get; set; }
