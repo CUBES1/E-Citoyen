@@ -4,14 +4,16 @@ using ASP.NETCoreWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASP.NETCoreWebApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220401135409_RelationTable")]
+    partial class RelationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,21 +162,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.ToTable("SubComments");
                 });
 
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.FriendShip", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserFriendId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "UserFriendId");
-
-                    b.HasIndex("UserFriendId");
-
-                    b.ToTable("FriendShips");
-                });
-
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
                 {
                     b.Property<Guid>("Id")
@@ -189,9 +176,6 @@ namespace ASP.NETCoreWebApplication.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ReleaseDate")
@@ -218,6 +202,26 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.ToTable("Ressources");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Ressource");
+                });
+
+            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.UserContacts", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ContactId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "ContactId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ContactId");
+
+                    b.ToTable("UserContacts");
                 });
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.UserInteraction", b =>
@@ -501,25 +505,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.FriendShip", b =>
-                {
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "UserFriend")
-                        .WithMany("FriendsOf")
-                        .HasForeignKey("UserFriendId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
-                        .WithMany("Friends")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-
-                    b.Navigation("UserFriend");
-                });
-
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
                 {
                     b.HasOne("ASP.NETCoreWebApplication.Models.Categorie", "Categorie")
@@ -531,6 +516,29 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("Categorie");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.UserContacts", b =>
+                {
+                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", null)
+                        .WithMany("Contacts")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "Contact")
+                        .WithMany("FriendOf")
+                        .HasForeignKey("ContactId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
+                        .WithMany("Friend")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Contact");
 
                     b.Navigation("User");
                 });
@@ -607,9 +615,11 @@ namespace ASP.NETCoreWebApplication.Migrations
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Friends");
+                    b.Navigation("Contacts");
 
-                    b.Navigation("FriendsOf");
+                    b.Navigation("Friend");
+
+                    b.Navigation("FriendOf");
 
                     b.Navigation("Interactions");
 

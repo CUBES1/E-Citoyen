@@ -4,14 +4,16 @@ using ASP.NETCoreWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASP.NETCoreWebApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220402115101_ClearUserName1")]
+    partial class ClearUserName1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,6 +28,9 @@ namespace ASP.NETCoreWebApplication.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -94,6 +99,8 @@ namespace ASP.NETCoreWebApplication.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -160,21 +167,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.ToTable("SubComments");
                 });
 
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.FriendShip", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserFriendId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "UserFriendId");
-
-                    b.HasIndex("UserFriendId");
-
-                    b.ToTable("FriendShips");
-                });
-
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
                 {
                     b.Property<Guid>("Id")
@@ -191,9 +183,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ReleaseDate")
                         .HasColumnType("datetime2");
 
@@ -205,6 +194,9 @@ namespace ASP.NETCoreWebApplication.Migrations
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Visibility")
                         .HasColumnType("int");
@@ -492,6 +484,13 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.HasDiscriminator().HasValue("Post");
                 });
 
+            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", null)
+                        .WithMany("Contacts")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Comments.SubComment", b =>
                 {
                     b.HasOne("ASP.NETCoreWebApplication.Models.Comments.MainComment", null)
@@ -499,25 +498,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .HasForeignKey("MainCommentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.FriendShip", b =>
-                {
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "UserFriend")
-                        .WithMany("FriendsOf")
-                        .HasForeignKey("UserFriendId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
-                        .WithMany("Friends")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-
-                    b.Navigation("UserFriend");
                 });
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
@@ -607,9 +587,7 @@ namespace ASP.NETCoreWebApplication.Migrations
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Friends");
-
-                    b.Navigation("FriendsOf");
+                    b.Navigation("Contacts");
 
                     b.Navigation("Interactions");
 

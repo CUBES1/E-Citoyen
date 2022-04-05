@@ -28,9 +28,8 @@ export default class AddDebate extends React.Component {
         super(props)
         this.state = {
             Title: '',
-            Genre: '',
             Age: 0,
-            Text: '',
+            Description: '',
             currentUser: '', /* A modifier car si null normalement pas possible */
             tooltipVideoOpen: false,
             tooltipImageOpen: false,
@@ -43,9 +42,8 @@ export default class AddDebate extends React.Component {
     Adddebate = () => {
         axios.post('https://localhost:5001/api/Post', {
             Title: this.state.Title,
-            Genre: this.state.Genre,
             Age: this.state.Age,
-            Text: this.state.Text,
+            Description: this.state.Description,
             UserId: this.state.currentUser
         })
             .then(() => {
@@ -132,8 +130,8 @@ export default class AddDebate extends React.Component {
 
                             <Row className={"mt-4"}>
                                 <Label for="name" sm={2}>Description</Label>
-                                <Input type="textarea" name="Text" rows={8} onChange={this.handleChange}
-                                       value={this.state.Text} className="form-control"
+                                <Input type="textarea" name="Description" rows={8} onChange={this.handleChange}
+                                       value={this.state.Description} className="form-control"
                                        placeholder="Que souhaitez vous dire ?"/>
 
 
