@@ -26,7 +26,7 @@ export default class CardRessources extends Component {
         this.likeResource = this.likeResource.bind(this);
     }
 
-    deleteRessource (id) {
+    deleteRessource(id) {
         axios.delete(`https://localhost:5001/api/Ressource/${id}`)
             .then(() => {
                 window.location.reload()
@@ -35,11 +35,11 @@ export default class CardRessources extends Component {
             .then(res => {
                 // Update users in state as per-usual
                 const ressource = res.data;
-                this.setState({ ressource });
+                this.setState({ressource});
             })
     }
 
-    addFriend (id) {
+    addFriend(id) {
         axios.post(`https://localhost:5001/api/Relation/${id}`)
             .then(() => {
                 {
@@ -47,7 +47,7 @@ export default class CardRessources extends Component {
                 }
             })
     }
-    
+
     async componentDidMount() {
 
         /* Waiting for promise to set state */
@@ -135,11 +135,13 @@ export default class CardRessources extends Component {
                     {/* Double check if user can edit
                                    if the resource is his own, and if the resource is editable */
                         !this.props.isUserRess ?
-                            <p onClick={ () => this.addFriend(this.props.rUserId) } className="btn btn-success">+</p> : ''}
+                            <p onClick={() => this.addFriend(this.props.rUserId)}
+                               className="btn btn-success">+</p> : ''}
                 </div>
 
                 <Link to={{
-                    pathname: `/ressource/${this.props.id}`, state: {userId: this.props.userId, id: this.props.id, canEdit: false}
+                    pathname: `/ressource/${this.props.id}`,
+                    state: {userId: this.props.userId, id: this.props.id, canEdit: false}
                 }}
                       className={"linkBlank"}>
                     <div className="imageContainer">
@@ -150,19 +152,27 @@ export default class CardRessources extends Component {
                 <div className="footerCard">
                     <div>
                         {this.state.isLiked === true ?
-                            <Card.Link onClick={this.props.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/} className={"actionLink"}><FavoriteIcon
+                            <Card.Link
+                                onClick={this.props.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
+                                className={"actionLink"}><FavoriteIcon
                                 sx={{color: "#E45E66"}}
                                 fontSize="medium"/></Card.Link> :
-                            <Card.Link onClick={this.props.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/} className={"actionLink"}><FavoriteBorderIcon
+                            <Card.Link
+                                onClick={this.props.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
+                                className={"actionLink"}><FavoriteBorderIcon
                                 sx={{color: "#022922"}}
                                 fontSize="medium"/></Card.Link>}
 
 
                         {this.state.isBookmark === true ?
-                            <Card.Link onClick={this.props.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/} className={"actionLink"}><BookmarkIcon
+                            <Card.Link
+                                onClick={this.props.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
+                                className={"actionLink"}><BookmarkIcon
                                 sx={{color: "#00cba9"}}
                                 fontSize="medium"/></Card.Link> :
-                            <Card.Link onClick={this.props.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/} className={"actionLink"}><BookmarkBorderIcon
+                            <Card.Link
+                                onClick={this.props.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
+                                className={"actionLink"}><BookmarkBorderIcon
                                 sx={{color: "#022922"}}
                                 fontSize="medium"/></Card.Link>}
 
@@ -172,10 +182,7 @@ export default class CardRessources extends Component {
                             this.props.isUserRess && this.props.canEdit ?
                                 <Card.Link href="#"><EditIcon sx={{color: "#022922"}}
                                                               fontSize="medium"/></Card.Link> : ''}
-                        {/* Double check if user can edit
-                                   if the resource is his own, and if the resource is editable */
-                            this.props.isUserRess ?
-                                <button onClick={ () => this.deleteRessource(this.props.id) } className="btn btn-success">Remove</button> : ''}
+                        
                     </div>
                     <div>
                         <p>{moment(this.props.dateTime, 'YYYY-MM-DD[T]HH:mm:ss').format("DD/MM/YYYY HH:mm")}</p>
