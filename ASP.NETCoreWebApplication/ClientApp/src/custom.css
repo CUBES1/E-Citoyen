@@ -157,6 +157,14 @@ code {
     object-fit: cover;
 }
 
+.profileHeaderImg {
+    border-radius: 20px;
+    max-height: 100%;
+    height: 300px;
+    width: 1200px;
+    object-fit: cover;
+}
+
 .avatarHoverRessource {
     height: 125px;
     margin: 0px 0px 0px 0px;
@@ -184,7 +192,7 @@ code {
 .ressourcePropContent {
     margin-top: 2%;
     min-width: 100%;
- 
+
 }
 
 .buttonDownloadRess {
@@ -214,18 +222,89 @@ code {
         padding-bottom: 40px;
         width: 98%;
     }
-    
+
     .buttonDownloadRess span {
         display: none;
     }
+
     .ressourceHeaderImg {
+        width: 100%;
+    }
+
+    .profileHeaderImg {
         width: 100%;
     }
 }
 
 @media screen and (min-width: 1000px) {
     .userRow {
-       max-width: 63%;
+        max-width: 63%;
     }
 
+}
+
+
+/* Custom profile */
+
+.profile-page .card-profile {
+    margin-top: 10em;
+    border-radius: 30px;
+}
+
+.profile-page .card-profile .card-profile-image {
+    position: relative;
+}
+
+.profile-page .card-profile .card-profile-image img {
+    max-width: 180px;
+    border-radius: 0.25rem;
+    transform: translate(-50%, -30%);
+    position: absolute;
+    left: 50%;
+    transition: all 0.15s ease;
+}
+
+.profile-page .card-profile .card-profile-image img:hover {
+    transform: translate(-50%, -33%);
+}
+
+.profile-page .card-profile .card-profile-stats {
+    padding: 1rem 0;
+}
+
+.profile-page .card-profile .card-profile-stats > div {
+    text-align: center;
+    margin-right: 1rem;
+    padding: .875rem;
+}
+
+.profile-page .card-profile .card-profile-stats > div:last-child {
+    margin-right: 0;
+}
+
+.profile-page .card-profile .card-profile-stats > div .heading {
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: block;
+}
+
+.profile-page .card-profile .card-profile-stats > div .description {
+    font-size: .875rem;
+    color: #adb5bd;
+}
+
+.profile-page .card-profile .card-profile-actions {
+    padding: .875rem;
+}
+
+@media (max-width: 575.98px) {
+    .profile-page .card-profile .card-profile-actions {
+        margin-top: 110px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .profile-page .card-profile .card-profile-stats {
+        margin-top: 30px;
+    }
 }
