@@ -29,6 +29,7 @@ export default class CardRessources extends Component {
     deleteRessource (id) {
         axios.delete(`https://localhost:5001/api/Ressource/${id}`)
             .then(() => {
+                window.location.reload()
                 return axios.get(`https://localhost:5001/api/Ressource/`)
             })
             .then(res => {
@@ -41,12 +42,9 @@ export default class CardRessources extends Component {
     addFriend (id) {
         axios.post(`https://localhost:5001/api/Relation/${id}`)
             .then(() => {
-                return axios.get(`https://localhost:5001/api/Relation/`)
-            })
-            .then(res => {
-                // Update users in state as per-usual
-                const friend = res.data;
-                this.setState({ friend });
+                {
+                    alert("You have add friend");
+                }
             })
     }
     
@@ -134,7 +132,10 @@ export default class CardRessources extends Component {
                     <Link to={`/profile/`} className={"linkBlank"}>
                         <p className="userName">{this.props.username}</p>
                     </Link>
-                    <button onClick={ () => this.addFriend(this.props.userId) } className="btn btn-success">Add</button>
+                    {/* Double check if user can edit
+                                   if the resource is his own, and if the resource is editable */
+                        !this.props.isUserRess ?
+                            <p onClick={ () => this.addFriend(this.props.rUserId) } className="btn btn-success">+</p> : ''}
                 </div>
 
                 <Link to={{

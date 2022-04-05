@@ -96,6 +96,7 @@ class Index extends Component {
                                 key={data.id + '_content'}
                                 canEdit={this.props.canEdit}
                                 userId={this.state.currentUser}
+                                rUserId={data.userId}
                             />
                         </Col>
                     )

@@ -33,7 +33,12 @@ namespace ASP.NETCoreWebApplication.Models
         public int? Rating { get; set; }
         
         public List<Ressource>? Ressources { get; set; }
-        public List<ApplicationUser> Contacts { get; set; }
+        
+        [JsonIgnore]
+        public virtual List<FriendShip> Friends { get; set; }
+        
+        [JsonIgnore]
+        public virtual List<FriendShip> FriendsOf { get; set; }
         [JsonIgnore] public List<UserInteraction>? Interactions { get; set; }
     }
 }

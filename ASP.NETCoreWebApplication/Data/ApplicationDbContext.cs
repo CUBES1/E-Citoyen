@@ -24,7 +24,21 @@ namespace ASP.NETCoreWebApplication.Data
                     .WithMany(r => r.Favorites)
                     .HasForeignKey(ui => ui.RessourceId);
             });
+            
+            modelBuilder.Entity<FriendShip>()
+                .HasKey(bc => new { bc.UserId, bc.UserFriendId });  
+            
+            modelBuilder.Entity<FriendShip>()
+                .HasOne(pt => pt.UserFriend)
+                .WithMany(p => p.FriendsOf) // <--
+                .HasForeignKey(pt => pt.UserFriendId)
+                .OnDelete(DeleteBehavior.Restrict); // see the note at the end
 
+            modelBuilder.Entity<FriendShip>()
+                .HasOne(pt => pt.User)
+                .WithMany(t => t.Friends)
+                .HasForeignKey(pt => pt.UserId); 
+            
             base.OnModelCreating(modelBuilder);
         }
 
@@ -42,6 +56,7 @@ namespace ASP.NETCoreWebApplication.Data
         public DbSet<SubComment> SubComments { get; set; }
         public DbSet<UserInteraction> UserInteraction { get; set; }
         public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<FriendShip> FriendShips { get; set; }
         public DbSet<Post> Posts { get; set; }
     }
 }
