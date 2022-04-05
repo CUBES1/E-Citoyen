@@ -165,7 +165,7 @@ class Index extends Component {
                                                 </div>
                                                 <div className="col-md-7 ressourcePropContent">
                                                     <p>
-                                                        <p className="">{this.state.data.text}</p>
+                                                        <p className="">{this.state.data.description}</p>
                                                     </p>
                                                 </div>
 
