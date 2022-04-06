@@ -53,7 +53,7 @@ namespace ASP.NETCoreWebApplication.Controllers
             {
                 return BadRequest();
             }
-            post.Categorie = new Categorie();
+            post.ResourceCategory = new ResourceCategory();
             _context.Entry(post).State = EntityState.Modified;
 
             try
@@ -80,9 +80,7 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Post>> PostPost(Post post)
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            post.FullName = currentUser.FirstName + " " + currentUser.LastName;
-            post.Categorie = new Categorie();
+            post.ResourceCategory = new ResourceCategory();
             post.ReleaseDate = DateTime.Now;
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();

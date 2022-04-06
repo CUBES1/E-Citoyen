@@ -4,14 +4,16 @@ using ASP.NETCoreWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASP.NETCoreWebApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220403124449_RemoveUselessRessourceProps")]
+    partial class RemoveUselessRessourceProps
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,18 +29,12 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -79,11 +75,11 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.Property<int?>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<string>("Region")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Sex")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
@@ -146,38 +142,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.ToTable("SubComments");
                 });
 
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.FriendShip", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserFriendId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "UserFriendId");
-
-                    b.HasIndex("UserFriendId");
-
-                    b.ToTable("FriendShips");
-                });
-
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ResourceCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Label")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ResourceCategories");
-                });
-
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
                 {
                     b.Property<Guid>("Id")
@@ -190,9 +154,6 @@ namespace ASP.NETCoreWebApplication.Migrations
 
                     b.Property<DateTime?>("ReleaseDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ResourceCategoryId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -207,8 +168,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ResourceCategoryId");
 
                     b.HasIndex("UserId");
 
@@ -483,7 +442,7 @@ namespace ASP.NETCoreWebApplication.Migrations
                 {
                     b.HasBaseType("ASP.NETCoreWebApplication.Models.Ressource");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Post");
@@ -498,38 +457,11 @@ namespace ASP.NETCoreWebApplication.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.FriendShip", b =>
-                {
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "UserFriend")
-                        .WithMany("FriendsOf")
-                        .HasForeignKey("UserFriendId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
-                        .WithMany("Friends")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-
-                    b.Navigation("UserFriend");
-                });
-
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
                 {
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ResourceCategory", "ResourceCategory")
-                        .WithMany()
-                        .HasForeignKey("ResourceCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
                         .WithMany("Ressources")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("ResourceCategory");
 
                     b.Navigation("User");
                 });
@@ -606,10 +538,6 @@ namespace ASP.NETCoreWebApplication.Migrations
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Friends");
-
-                    b.Navigation("FriendsOf");
-
                     b.Navigation("Interactions");
 
                     b.Navigation("Ressources");

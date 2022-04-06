@@ -18,39 +18,24 @@ namespace ASP.NETCoreWebApplication.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
         public Guid Id { get; set; }
-
         public string Title { get; set; }
+        public Visibility Visibility { get; set; } = Visibility.Public;
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         
         public DateTime? ReleaseDate { get; set; } = DateTime.Now;
 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? UpdatedAt { get; set; }
-        public int? Age { get; set; }
 
-        public Visibility Visibility { get; set; } = Visibility.Public;
-        
-        public virtual string? UserId { get; set; }
-
-        public Categorie Categorie { get; set; }
-        
+        public virtual string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
-        
+
+        [JsonIgnore] public Guid ResourceCategoryId { get; set; }
+        [JsonIgnore] public ResourceCategory ResourceCategory { get; set; }
         [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
 
-        [NotMapped]
-        public string DisplayState => Visibility switch
-        {
-            Visibility.Public => "Public",
-            Visibility.Protected => "Protégé",
-            Visibility.Private => "Privé",
-            Visibility.Archived => "Archivé",
-            _ => throw new ArgumentOutOfRangeException()
-        };
-        
-        public string FullName { get; set; }
-        //public List<MainComment>? MainComments { get; set; }
+        [NotMapped] public string DisplayState => Visibility.ToString();
     }
 }

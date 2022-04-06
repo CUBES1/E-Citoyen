@@ -3,68 +3,59 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ASP.NETCoreWebApplication.Migrations
 {
-    public partial class CategorieTable : Migration
+    public partial class RemoveNullableUserIdAndAddResourceCategories : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Text",
-                table: "Ressources",
-                newName: "Description");
-
             migrationBuilder.AddColumn<Guid>(
-                name: "CategorieId",
+                name: "ResourceCategoryId",
                 table: "Ressources",
                 type: "uniqueidentifier",
-                nullable: true);
+                nullable: false,
+                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
 
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "ResourceCategories",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CategorieName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Label = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_ResourceCategories", x => x.Id);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ressources_CategorieId",
+                name: "IX_Ressources_ResourceCategoryId",
                 table: "Ressources",
-                column: "CategorieId");
+                column: "ResourceCategoryId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Ressources_Categories_CategorieId",
+                name: "FK_Ressources_ResourceCategories_ResourceCategoryId",
                 table: "Ressources",
-                column: "CategorieId",
-                principalTable: "Categories",
+                column: "ResourceCategoryId",
+                principalTable: "ResourceCategories",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Ressources_Categories_CategorieId",
+                name: "FK_Ressources_ResourceCategories_ResourceCategoryId",
                 table: "Ressources");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "ResourceCategories");
 
             migrationBuilder.DropIndex(
-                name: "IX_Ressources_CategorieId",
+                name: "IX_Ressources_ResourceCategoryId",
                 table: "Ressources");
 
             migrationBuilder.DropColumn(
-                name: "CategorieId",
+                name: "ResourceCategoryId",
                 table: "Ressources");
-
-            migrationBuilder.RenameColumn(
-                name: "Description",
-                table: "Ressources",
-                newName: "Text");
         }
     }
 }
