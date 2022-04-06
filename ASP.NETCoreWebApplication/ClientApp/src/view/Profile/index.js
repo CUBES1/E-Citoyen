@@ -53,12 +53,12 @@ class Profile extends React.Component {
                                                 </div>
                                             </Col>
                                             <Col
-                                                className="order-lg-3 text-lg-right align-self-lg-center"
+                                                className="order-lg-3 text-lg-right align-self-lg-center" 
                                                 lg="4"
                                             >
-                                                <div className="card-profile-actions py-4 mt-lg-0">
+                                                <div className="card-profile-actions py-4 mt-lg-0 center-block text-center">
                                                     <Button
-                                                        className="mr-4"
+                                                        className="mx-4"
                                                         color="secondary"
                                                         href="#"
                                                         onClick={e => e.preventDefault()}
