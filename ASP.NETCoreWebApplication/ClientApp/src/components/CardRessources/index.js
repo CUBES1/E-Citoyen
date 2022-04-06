@@ -9,6 +9,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ReplyIcon from '@mui/icons-material/Reply';
 import EditIcon from '@mui/icons-material/Edit';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import moment from 'moment';
 import {Link} from "react-router-dom";
 import axios from "axios";
@@ -39,8 +40,8 @@ export default class CardRessources extends Component {
             })
     }
 
-    addFriend(id) {
-        axios.post(`https://localhost:5001/api/Relation/${id}`)
+    addFriend() {
+        axios.post(`https://localhost:5001/api/Relation/${this.props.rUserId}`)
             .then(() => {
                 {
                     alert("You have add friend");
@@ -132,11 +133,14 @@ export default class CardRessources extends Component {
                     <Link to={`/profile/`} className={"linkBlank"}>
                         <p className="userName">{this.props.username}</p>
                     </Link>
-                    {/* Double check if user can edit
-                                   if the resource is his own, and if the resource is editable */
+                    {/* Adding friend */
                         !this.props.isUserRess ?
-                            <p onClick={() => this.addFriend(this.props.rUserId)}
-                               className="btn btn-success">+</p> : ''}
+                            <Card.Link
+                                onClick={() => this.addFriend()}
+                                className={"actionLink mx-2"}><PersonAddIcon
+                                sx={{color: "#24A5AD"}}
+                                fontSize="medium"/></Card.Link>
+                            : ''}
                 </div>
 
                 <Link to={{
@@ -182,7 +186,6 @@ export default class CardRessources extends Component {
                             this.props.isUserRess && this.props.canEdit ?
                                 <Card.Link href="#"><EditIcon sx={{color: "#022922"}}
                                                               fontSize="medium"/></Card.Link> : ''}
-                        
                     </div>
                     <div>
                         <p>{moment(this.props.dateTime, 'YYYY-MM-DD[T]HH:mm:ss').format("DD/MM/YYYY HH:mm")}</p>
