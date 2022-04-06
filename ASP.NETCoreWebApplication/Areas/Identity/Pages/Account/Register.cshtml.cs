@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -53,6 +54,29 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
+            [Display(Name = "Prénom")]
+            public string? FirstName { get; set; }
+            
+            [Required]
+            [Display(Name = "Nom de famille")]
+            public string? LastName { get; set; }
+
+            [Required]
+            [Display(Name = "Pays")]
+            public string Country { get; set; }
+            
+            [Display(Name = "Région")]
+            public string? Region { get; set; }
+        
+            [Display(Name = "Ville")]
+            public string? City { get; set; }
+        
+            [Display(Name = "Date de naissance")]
+            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+            [DataType(DataType.Date)]
+            public DateTime DateOfBirth { get; set; }
+            
+            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -79,7 +103,19 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                MailAddress address = new MailAddress(Input.Email);
+                string userName = address.User;
+                var user = new ApplicationUser
+                {
+                    UserName = userName, 
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Country = Input.Country,
+                    Region = Input.Region,
+                    City = Input.City,
+                    DateOfBirth = Input.DateOfBirth
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

@@ -1,30 +1,43 @@
-﻿<h2>Manage your account</h2>
-
-<div>
+﻿<div class="header">
+    <h2>Manage your account</h2>
     <h4 class="setting">Change your account settings</h4>
-    <hr />
+<hr />
+</div>
+<div>
     <div class="row">
         <div class="col-md-3">
             <partial name="_ManageNav" />
         </div>
-        <div class="col-md-9">
-            @RenderBody()
+        <div class="body">
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
         </div>
     </div>
 </div>
 
 <style scoped>
-    ul.nav.nav-pills.flex-column {
+    ul{
         margin: auto;
     }
     h2 {
-        background: #02a58a;
+        background: #00cab9;
         text-align: center;
         height: 50px ;
     }
-    .setting{
-        text-align: center;
-        height: 25px ;
+    .header {
+        background: #00cab9;
+        text-align: center;      
+    }
+    .body {
+        width: 100%;
+    }
+    .row {
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+    .col-md-9 { 
+        width: 100%;
     }
 </style>
 

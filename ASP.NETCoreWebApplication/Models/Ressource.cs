@@ -24,6 +24,7 @@ namespace ASP.NETCoreWebApplication.Models
         public Visibility Visibility { get; set; } = Visibility.Public;
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        
         public DateTime? ReleaseDate { get; set; } = DateTime.Now;
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
@@ -37,8 +38,8 @@ namespace ASP.NETCoreWebApplication.Models
         [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
 
         [NotMapped] public string DisplayState => Visibility.ToString();
-        [NotMapped] public string UserName => User.UserName;
-        [NotMapped] public string ResourceCategoryLabel => ResourceCategory.Label;
+        //[NotMapped] public string ResourceCategoryLabel => ResourceCategory.Label;
+        public string FullName { get; set; }
         //public List<MainComment>? MainComments { get; set; }
     }
 }

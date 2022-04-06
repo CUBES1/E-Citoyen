@@ -13,6 +13,7 @@ import {Chip} from "@material-ui/core";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import AsyncLocalStorage from "@createnextapp/async-local-storage";
 
 class Index extends Component {
@@ -80,6 +81,20 @@ class Index extends Component {
         }
 
         await this.setState({isBookmark: isBookmark});
+    }
+
+    deleteRessource() {
+        if (window.confirm("Voulez vous vraiment suprimmer la ressource \"" + this.state.data.title + "\"")) {
+            axios.delete(`https://localhost:5001/api/Ressource/${this.state.data.id}`)
+                .then(res => {
+                    /*TODO Error handling*/
+                    /*Going back in history after delete*/
+                    this.props.history.goBack()
+                })
+        } else {
+
+        }
+
     }
 
     componentDidMount() {
@@ -164,23 +179,29 @@ class Index extends Component {
                                                     <div className="col-md-7 ressourcePropContent">
                                                         <div>
                                                             {this.state.isLiked === true ?
-                                                                <Card.Link onClick={this.props.location.state.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
-                                                                           className={"actionLink"}><FavoriteIcon
+                                                                <Card.Link
+                                                                    onClick={this.props.location.state.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
+                                                                    className={"actionLink"}><FavoriteIcon
                                                                     sx={{color: "#E45E66"}}
                                                                     fontSize="medium"/></Card.Link>
                                                                 :
-                                                                <Card.Link onClick={this.props.location.state.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
-                                                                           className={"actionLink"}><FavoriteBorderIcon
+                                                                <Card.Link
+                                                                    onClick={this.props.location.state.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
+                                                                    className={"actionLink"}><FavoriteBorderIcon
                                                                     sx={{color: "#022922"}}
                                                                     fontSize="medium"/></Card.Link>
                                                             }
 
                                                             {this.state.isBookmark === true ?
-                                                                <Card.Link onClick={this.props.location.state.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/} className={"actionLink"}><BookmarkIcon
+                                                                <Card.Link
+                                                                    onClick={this.props.location.state.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
+                                                                    className={"actionLink"}><BookmarkIcon
                                                                     sx={{color: "#00cba9"}}
                                                                     fontSize="medium"/></Card.Link>
                                                                 :
-                                                                <Card.Link onClick={this.props.location.state.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/} className={"actionLink"}><BookmarkBorderIcon
+                                                                <Card.Link
+                                                                    onClick={this.props.location.state.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
+                                                                    className={"actionLink"}><BookmarkBorderIcon
                                                                     sx={{color: "#022922"}}
                                                                     fontSize="medium"/></Card.Link>
                                                             }
@@ -189,9 +210,16 @@ class Index extends Component {
                                                                                            fontSize="medium"/></Card.Link>
                                                             {
                                                                 this.props.location.state.userId === this.state.data.userId ?
-                                                                    <Card.Link href="#"><EditIcon
+                                                                    [<Card.Link href="#"><EditIcon
                                                                         sx={{color: "#022922"}}
+                                                                        className={"actionLink"}
                                                                         fontSize="medium"/></Card.Link>
+                                                                        ,
+                                                                        <Card.Link 
+                                                                            onClick={() => this.deleteRessource()}
+                                                                            className={"actionLink"}><DeleteIcon
+                                                                            sx={{color: "#022922"}}
+                                                                            fontSize="medium"/></Card.Link>]
                                                                     :
                                                                     ''
                                                             }

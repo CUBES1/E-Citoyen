@@ -33,6 +33,30 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+            
+            [Display(Name = "Prénom")]
+            public string? FirstName { get; set; }
+      
+            [Display(Name = "Nom de famille")]
+            public string? LastName { get; set; }
+            
+            [Display(Name = "Pays")]
+            public string Country { get; set; }
+            
+            [Display(Name = "Région")]
+            public string? Region { get; set; }
+        
+            [Display(Name = "Ville")]
+            public string? City { get; set; }
+        
+            [Display(Name = "Date de naissance")]
+            [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+            [DataType(DataType.Date)]
+            public DateTime DateOfBirth { get; set; }
+            
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -42,12 +66,21 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+            var country = user.Country;
+            var region = user.Region;
+            var city = user.City;
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = firstName,
+                LastName = lastName,
+                Country = country,
+                Region = region,
+                City = city
             };
         }
 
@@ -75,6 +108,44 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
             {
                 await LoadAsync(user);
                 return Page();
+            }
+            
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+            var country = user.Country;
+            var region = user.Region;
+            var city = user.City;
+            var birthDate = user.DateOfBirth;
+            
+            if (Input.FirstName != firstName)
+            {
+                user.FirstName = Input.FirstName;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.LastName != lastName)
+            {
+                user.LastName = Input.LastName;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.Country != country)
+            {
+                user.Country = Input.Country;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.Region != region)
+            {
+                user.Region = Input.Region;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.City != city)
+            {
+                user.City = Input.City;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.DateOfBirth != birthDate)
+            {
+                user.DateOfBirth = Input.DateOfBirth;
+                await _userManager.UpdateAsync(user);
             }
 
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);

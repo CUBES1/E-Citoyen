@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ASP.NETCoreWebApplication.Data;
 using ASP.NETCoreWebApplication.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,9 +15,11 @@ namespace ASP.NETCoreWebApplication.Controllers
     public class PostController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PostController(ApplicationDbContext context)
+        public PostController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
@@ -77,6 +80,9 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Post>> PostPost(Post post)
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            post.FullName = currentUser.FirstName + " " + currentUser.LastName;
+            post.ResourceCategory = new ResourceCategory();
             post.ReleaseDate = DateTime.Now;
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();

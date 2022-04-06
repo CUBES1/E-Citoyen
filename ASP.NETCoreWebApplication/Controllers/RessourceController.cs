@@ -91,6 +91,7 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Ressource>> PostRessource(Ressource ressource)
         {
+            ressource.FullName = "test";
             _context.Ressources.Add(ressource);
             await _context.SaveChangesAsync();
 

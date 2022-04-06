@@ -4,14 +4,16 @@ using ASP.NETCoreWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASP.NETCoreWebApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220404094825_Relation")]
+    partial class Relation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,6 +107,20 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Categorie", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CategorieName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Comments.MainComment", b =>
                 {
                     b.Property<int>("Id")
@@ -161,27 +177,16 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.ToTable("FriendShips");
                 });
 
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ResourceCategory", b =>
+            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Age")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Label")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ResourceCategories");
-                });
-
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid?>("CategorieId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Discriminator")
@@ -193,9 +198,6 @@ namespace ASP.NETCoreWebApplication.Migrations
 
                     b.Property<DateTime?>("ReleaseDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ResourceCategoryId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -211,7 +213,7 @@ namespace ASP.NETCoreWebApplication.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ResourceCategoryId");
+                    b.HasIndex("CategorieId");
 
                     b.HasIndex("UserId");
 
@@ -522,17 +524,15 @@ namespace ASP.NETCoreWebApplication.Migrations
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
                 {
-                    b.HasOne("ASP.NETCoreWebApplication.Models.ResourceCategory", "ResourceCategory")
+                    b.HasOne("ASP.NETCoreWebApplication.Models.Categorie", "Categorie")
                         .WithMany()
-                        .HasForeignKey("ResourceCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategorieId");
 
                     b.HasOne("ASP.NETCoreWebApplication.Models.ApplicationUser", "User")
                         .WithMany("Ressources")
                         .HasForeignKey("UserId");
 
-                    b.Navigation("ResourceCategory");
+                    b.Navigation("Categorie");
 
                     b.Navigation("User");
                 });
