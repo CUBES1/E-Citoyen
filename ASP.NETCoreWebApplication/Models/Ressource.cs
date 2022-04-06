@@ -37,8 +37,5 @@ namespace ASP.NETCoreWebApplication.Models
         [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
 
         [NotMapped] public string DisplayState => Visibility.ToString();
-        //[NotMapped] public string ResourceCategoryLabel => ResourceCategory.Label;
-        public string FullName { get; set; }
-        //public List<MainComment>? MainComments { get; set; }
     }
 }

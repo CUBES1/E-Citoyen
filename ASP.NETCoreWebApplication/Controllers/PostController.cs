@@ -80,8 +80,6 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Post>> PostPost(Post post)
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-            post.FullName = currentUser.FirstName + " " + currentUser.LastName;
             post.ResourceCategory = new ResourceCategory();
             post.ReleaseDate = DateTime.Now;
             _context.Posts.Add(post);
