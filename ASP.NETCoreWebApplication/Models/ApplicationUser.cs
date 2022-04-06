@@ -32,6 +32,7 @@ namespace ASP.NETCoreWebApplication.Models
         
         public int? Rating { get; set; }
         
+        [JsonIgnore]
         public List<Ressource>? Ressources { get; set; }
         
         [JsonIgnore]

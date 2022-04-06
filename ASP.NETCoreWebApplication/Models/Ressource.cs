@@ -36,7 +36,7 @@ namespace ASP.NETCoreWebApplication.Models
 
         public Categorie Categorie { get; set; }
         
-        [JsonIgnore] public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
         
         [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
 

@@ -47,13 +47,13 @@ namespace ASP.NETCoreWebApplication.Controllers
         // PUT: api/Post/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id:guid}")]
-        public async Task<IActionResult> PutPost(Guid id, Post post)
+        public async Task<ActionResult> PutPost(Guid id, Post post)
         {
             if (id != post.Id)
             {
                 return BadRequest();
             }
-            
+            post.Categorie = new Categorie();
             _context.Entry(post).State = EntityState.Modified;
 
             try
