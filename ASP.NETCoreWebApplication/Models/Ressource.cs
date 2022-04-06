@@ -30,7 +30,7 @@ namespace ASP.NETCoreWebApplication.Models
         public DateTime? UpdatedAt { get; set; }
 
         public virtual string UserId { get; set; }
-        [JsonIgnore] public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         [JsonIgnore] public Guid ResourceCategoryId { get; set; }
         [JsonIgnore] public ResourceCategory ResourceCategory { get; set; }
