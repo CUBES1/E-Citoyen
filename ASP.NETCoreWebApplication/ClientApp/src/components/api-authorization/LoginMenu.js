@@ -74,7 +74,10 @@ export class LoginMenu extends Component {
                              id="basic-nav-dropdown">
 
                     <MenuItem eventKey={1.1}>
-                        <NavLink tag={Link} className="text-dark" to={profilePath}>Profile</NavLink>
+                        <NavLink tag={Link} className="text-dark" to="/profile">Profile</NavLink>
+                    </MenuItem>
+                    <MenuItem eventKey={1.1}>
+                        <NavLink tag={Link} className="text-dark" to={profilePath}>Paramètres</NavLink>
                     </MenuItem>
                     <MenuItem eventKey={1.1}>
                         <NavLink tag={Link} className="text-dark" to="/mes-ressources">Mes ressources</NavLink>

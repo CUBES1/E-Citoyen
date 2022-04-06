@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import {Layout} from '../Layout'
 import Avatar from "../../assets/avatar.png";
 import {Button, Card, Spinner} from "react-bootstrap";
@@ -124,6 +125,14 @@ class Index extends Component {
             })
     }
 
+    editRessource () {
+        
+        let redirect = "/edit-ressource/"+ this.state.data.id;
+        this.props.history.push({
+            pathname: redirect,
+            data: this.state.data
+        });
+    }
 
     render() {
         return (
@@ -165,7 +174,7 @@ class Index extends Component {
                                                 </div>
                                                 <div className="col-md-7 ressourcePropContent">
                                                     <p>
-                                                        <p className="">{this.state.data.text}</p>
+                                                        <p className="">{this.state.data.description}</p>
                                                     </p>
                                                 </div>
 
@@ -210,8 +219,9 @@ class Index extends Component {
                                                                                            fontSize="medium"/></Card.Link>
                                                             {
                                                                 this.props.location.state.userId === this.state.data.userId ?
-                                                                    [<Card.Link href="#"><EditIcon
+                                                                    [<Card.Link><EditIcon
                                                                         sx={{color: "#022922"}}
+                                                                        onClick={() => this.editRessource()}
                                                                         className={"actionLink"}
                                                                         fontSize="medium"/></Card.Link>
                                                                         ,
