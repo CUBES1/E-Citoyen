@@ -34,7 +34,7 @@ namespace ASP.NETCoreWebApplication.Models
 
         public Guid ResourceCategoryId { get; set; }
         [JsonIgnore] public ResourceCategory ResourceCategory { get; set; }
-        [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
+        [JsonIgnore] public List<UserInteraction> Interactions { get; set; }
 
         [NotMapped] public string DisplayState => Visibility.ToString();
     }

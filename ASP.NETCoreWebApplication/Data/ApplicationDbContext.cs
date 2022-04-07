@@ -21,7 +21,7 @@ namespace ASP.NETCoreWebApplication.Data
                     .HasForeignKey(ui => ui.UserId);
                 mb
                     .HasOne(ui => ui.Ressource)
-                    .WithMany(r => r.Favorites)
+                    .WithMany(r => r.Interactions)
                     .HasForeignKey(ui => ui.RessourceId);
             });
             
