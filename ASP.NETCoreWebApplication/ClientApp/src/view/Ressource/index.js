@@ -234,11 +234,11 @@ class Index extends Component {
                                                                     ''
                                                             }
 
-                                                            <Button className={"btn buttonDownloadRess"}>
+                                                            {/*<Button className={"btn buttonDownloadRess"}>
                                                                 <DownloadIcon sx={{color: "#022922"}}
                                                                               fontSize="medium"/>
                                                                 <span>Telecharger la ressource</span>
-                                                            </Button>
+                                                            </Button>*/}
                                                             {/*Si sa ressource, alors la modifier a la place de signalement*/}
                                                             <Button className={"buttonDownloadRess btn btn-secondary"}>
                                                                 <ReportIcon sx={{color: "#022922"}} fontSize="medium"/>
