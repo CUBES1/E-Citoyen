@@ -40,6 +40,7 @@ export default class Edit extends React.Component {
             Genre: '',
             GenreIndex: null,
             attachment: null,
+            optionsCat: [{value: 'noDB', label: 'Loading...'}],
         }
     }
 
@@ -87,36 +88,51 @@ export default class Edit extends React.Component {
         }
         await this.setState({currentUser: user})
         /* End For user in session statement*/
-
+        
+        
         /* Populate from params */
         await this.setState({
             rId: this.props.location.data.id,
             Title: this.props.location.data.title,
             Age: 0,
+            CategorieId: this.props.location.data.resourceCategoryId, /* DUNNO if working */
             Description: this.props.location.data.description,
             GenreIndex: this.props.location.data.categorie,
             VisibilityIndex: this.props.location.data.visibility,
         })
         /* Ends of populate from params */
+
+
+        await axios.get('https://localhost:5001/api/ResourceCategory')
+            .then(res => {
+                let options = [];
+                res.data.forEach(element => {
+                    options.push({value: element.id, label: element.label})
+                });
+                this.setState({optionsCat: options})
+            })
+
+        let sRessourceIdthis = this.state.optionsCat.findIndex((e) => e.value === this.state.CategorieId)
+        this.setState({GenreIndex: sRessourceIdthis});
     }
 
     handleChangeSelect = async (selectedOption, who) => {
         let indexSelect;
-        
+
         switch (who) {
             case ("Visibility"):
                 indexSelect = optionsVis.findIndex((e) => e.label === selectedOption.label)
                 break;
             case ("Genre"):
-                indexSelect = optionsCat.findIndex((e) => e.label === selectedOption.label)
+                indexSelect = this.state.optionsCat.findIndex((e) => e.label === selectedOption.label)
                 break;
         }
-        
+
         await this.setState({
             [who + "Index"]: indexSelect,
             [who]: selectedOption.value,
         })
-        
+
     };
 
     render() {
@@ -142,12 +158,12 @@ export default class Edit extends React.Component {
                                         className="basic-single"
                                         classNamePrefix="select"
                                         isSearchable
-                                        value={[optionsCat[this.state.GenreIndex]]}
-                                        defaultValue={[optionsCat[this.state.GenreIndex]]}
+                                        value={[this.state.optionsCat[this.state.GenreIndex]]}
+                                        defaultValue={[this.state.optionsCat[this.state.GenreIndex]]}
                                         placeholder={"Séléctionner"}
                                         name="Genre"
                                         onChange={(s) => this.handleChangeSelect(s, "Genre")}
-                                        options={optionsCat}
+                                        options={this.state.optionsCat}
                                         style={{width: "100%", paddingLeft: 0}}
                                     />
                                 </Col>

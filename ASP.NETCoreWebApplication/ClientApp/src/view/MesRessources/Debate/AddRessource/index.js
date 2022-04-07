@@ -34,7 +34,13 @@ export default class AddDebate extends React.Component {
             tooltipVideoOpen: false,
             tooltipImageOpen: false,
             tooltipDocumentOpen: false,
+            VisibilityIndex: 0,
             Visibility: 'Public',
+            Genre: '',
+            optionsCat: [
+                {value: 'noDB', label: 'loading...'},
+            ],
+            GenreIndex: null,
             attachment: null,
         }
     }
@@ -44,6 +50,8 @@ export default class AddDebate extends React.Component {
             Title: this.state.Title,
             Age: this.state.Age,
             Description: this.state.Description,
+            resourceCategoryId: this.state.optionsCat[this.state.GenreIndex].value,
+            Visibility: this.state.VisibilityIndex,
             UserId: this.state.currentUser
         })
             .then(() => {
@@ -68,6 +76,25 @@ export default class AddDebate extends React.Component {
         this.setState({[name]: value});
     }
 
+    handleChangeSelect = async (selectedOption, who) => {
+        let indexSelect;
+
+        switch (who) {
+            case ("Visibility"):
+                indexSelect = optionsVis.findIndex((e) => e.label === selectedOption.label)
+                break;
+            case ("Genre"):
+                indexSelect = this.state.optionsCat.findIndex((e) => e.label === selectedOption.label)
+                break;
+        }
+
+        await this.setState({
+            [who + "Index"]: indexSelect,
+            [who]: selectedOption.value,
+        })
+
+    };
+
 
     async componentDidMount() {
         /* Declaration of the user in session rn */
@@ -80,6 +107,16 @@ export default class AddDebate extends React.Component {
         }
         await this.setState({currentUser: user})
         /* End For user in session statement*/
+        
+        await axios.get('https://localhost:5001/api/ResourceCategory')
+            .then(res => {
+                let options = [];
+                res.data.forEach(element => {
+                    options.push({value: element.id, label: element.label})
+                });
+                this.setState({optionsCat: options})
+            })
+        console.log(this.state.optionsCat)
     }
 
     render() {
@@ -104,11 +141,12 @@ export default class AddDebate extends React.Component {
                                         className="basic-single"
                                         classNamePrefix="select"
                                         isSearchable
-                                        isClearable
+                                        value={[this.state.optionsCat[this.state.GenreIndex]]}
+                                        defaultValue={[this.state.optionsCat[this.state.GenreIndex]]}
                                         placeholder={"Séléctionner"}
                                         name="Genre"
-                                        onChange={(e) => this.handleChange(e, "Genre")}
-                                        options={optionsCat}
+                                        onChange={(s) => this.handleChangeSelect(s, "Genre")}
+                                        options={this.state.optionsCat}
                                         style={{width: "100%", paddingLeft: 0}}
                                     />
                                 </Col>
@@ -118,9 +156,10 @@ export default class AddDebate extends React.Component {
                                     <Select
                                         className="basic-single"
                                         classNamePrefix="select"
-                                        defaultValue={[optionsVis[0]]}
+                                        value={[optionsVis[this.state.VisibilityIndex]]}
+                                        defaultValue={[optionsVis[this.state.VisibilityIndex]]}
                                         name="Visibility"
-                                        onChange={(e) => this.handleChange(e, "Visibility")}
+                                        onChange={(s) => this.handleChangeSelect(s, "Visibility")}
                                         options={optionsVis}
                                         style={{width: "100%", paddingLeft: 0}}
                                     />
