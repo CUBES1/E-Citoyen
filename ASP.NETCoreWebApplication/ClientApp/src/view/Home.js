@@ -21,7 +21,7 @@ export class Home extends Component {
     render() {
         return (
             <div>
-                <Layout title={"Aujourd'hui"} subtitle={"Les ressources dont vous avez besoin"}>
+                <Layout title={"Aujourd'hui"} subtitle={"Les ressources dont vous avez besoin"} history={this.props.history}>
                     <Row className="cardContainer">
                         <Row className="mainContainer">
                             <CardRessourcesListing userOnly={false} canEdit={false}/>

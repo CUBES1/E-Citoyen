@@ -16,6 +16,8 @@ import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AsyncLocalStorage from "@createnextapp/async-local-storage";
+import getUserAuth from "../../helpers/getUserAuth";
+import authService from "../../components/api-authorization/AuthorizeService";
 
 class Index extends Component {
     constructor(props) {
@@ -98,16 +100,29 @@ class Index extends Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+
+        /* Declaration of the user in session rn */
+        const auth = await getUserAuth.isThisLoged();
+        let user;
+
+        if (auth) {
+            user = await authService.getUser()
+            user = user.sub
+        }
+        await this.setState({currentUser: user})
+        /* End For user in session statement*/
+        
+        
         const id = this.props.match.params.id;
 
-        axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.props.location.state.userId}/${this.props.location.state.id}`)
+        axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.state.currentUser}/${this.props.match.params.id}`)
             .then(res => {
                 const data = res.data;
                 this.setState({isLiked: data});
             })
 
-        axios.get(`https://localhost:5001/api/UserInteraction/Favorite/${this.props.location.state.userId}/${this.props.location.state.id}`)
+        axios.get(`https://localhost:5001/api/UserInteraction/Favorite/${this.state.currentUser}/${this.props.match.params.id}`)
             .then(res => {
                 const data = res.data;
                 this.setState({isBookmark: data});
@@ -189,13 +204,13 @@ class Index extends Component {
                                                         <div>
                                                             {this.state.isLiked === true ?
                                                                 <Card.Link
-                                                                    onClick={this.props.location.state.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
+                                                                    onClick={this.state.currentUser != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
                                                                     className={"actionLink"}><FavoriteIcon
                                                                     sx={{color: "#E45E66"}}
                                                                     fontSize="medium"/></Card.Link>
                                                                 :
                                                                 <Card.Link
-                                                                    onClick={this.props.location.state.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
+                                                                    onClick={this.state.currentUser != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
                                                                     className={"actionLink"}><FavoriteBorderIcon
                                                                     sx={{color: "#022922"}}
                                                                     fontSize="medium"/></Card.Link>
@@ -203,13 +218,13 @@ class Index extends Component {
 
                                                             {this.state.isBookmark === true ?
                                                                 <Card.Link
-                                                                    onClick={this.props.location.state.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
+                                                                    onClick={this.state.currentUser != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
                                                                     className={"actionLink"}><BookmarkIcon
                                                                     sx={{color: "#00cba9"}}
                                                                     fontSize="medium"/></Card.Link>
                                                                 :
                                                                 <Card.Link
-                                                                    onClick={this.props.location.state.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
+                                                                    onClick={this.state.currentUser != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
                                                                     className={"actionLink"}><BookmarkBorderIcon
                                                                     sx={{color: "#022922"}}
                                                                     fontSize="medium"/></Card.Link>
@@ -218,7 +233,7 @@ class Index extends Component {
                                                             <Card.Link href="#"><ReplyIcon sx={{color: "#022922"}}
                                                                                            fontSize="medium"/></Card.Link>
                                                             {
-                                                                this.props.location.state.userId === this.state.data.userId ?
+                                                                this.state.currentUser === this.state.data.userId ?
                                                                     [<Card.Link><EditIcon
                                                                         sx={{color: "#022922"}}
                                                                         onClick={() => this.editRessource()}
