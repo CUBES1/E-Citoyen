@@ -196,7 +196,7 @@ class Index extends Component {
 
                                                 <div className="row justify-content-md-center">
                                                     <div className="col-md-7 ressourcePropDate">
-                                                        <p> 07/01/2022 10:44 &#8226; Modifié</p>
+                                                        <p> 07/01/2022 10:44 {/* &#8226; Modifié*/}</p>
                                                     </div>
                                                 </div>
                                                 <div className="row justify-content-md-center">
