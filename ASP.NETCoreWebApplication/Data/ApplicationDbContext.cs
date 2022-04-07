@@ -57,5 +57,6 @@ namespace ASP.NETCoreWebApplication.Data
         public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<FriendShip> FriendShips { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<ImagePost> ImagePosts { get; set; }
     }
 }
