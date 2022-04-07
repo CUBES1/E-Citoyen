@@ -156,7 +156,7 @@ class Index extends Component {
                                                     <img alt="toto" src={Avatar} className="avatarHoverRessource"/>
                                                     <div className={"ressourcePropInfos"}>
                                                         <p className="ressourcePropTitle">{this.state.data.title}</p>
-                                                        <p className="ressourcePropUser">{this.state.data.userName}</p>
+                                                        <p className="ressourcePropUser">{this.state.data.user.firstName + " " + this.state.data.user.lastName}</p>
                                                     </div>
                                                 </div>
                                             </div>
