@@ -89,18 +89,26 @@ export default class Edit extends React.Component {
         await this.setState({currentUser: user})
         /* End For user in session statement*/
         
+        console.log(this.props.match.params.id)
         
-        /* Populate from params */
-        await this.setState({
-            rId: this.props.location.data.id,
-            Title: this.props.location.data.title,
-            Age: 0,
-            CategorieId: this.props.location.data.resourceCategoryId, /* DUNNO if working */
-            Description: this.props.location.data.description,
-            GenreIndex: this.props.location.data.categorie,
-            VisibilityIndex: this.props.location.data.visibility,
-        })
-        /* Ends of populate from params */
+        await axios.get('https://localhost:5001/api/Ressource/' + this.props.match.params.id)
+            .then(res => {
+                this.setState({
+                    rId: res.data.id,
+                    Title: res.data.title,
+                    Age: res.data.age,
+                    Description: res.data.description,
+                    VisibilityIndex: res.data.visibility,
+                    Visibility: res.data.visibility === 0 ? 'Public' : 'Privé',
+                    CategorieId: res.resourceCategoryId,
+                    attachment: res.data.attachment,
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        
+       
 
 
         await axios.get('https://localhost:5001/api/ResourceCategory')
