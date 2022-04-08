@@ -9,6 +9,7 @@ import Select from 'react-select';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import VideoCameraBackOutlinedIcon from '@mui/icons-material/VideoCameraBackOutlined';
+import ToastCustom from "../../../../components/Toast";
 
 const optionsCat = [
     {value: 'actualites', label: 'Actualités'},
@@ -42,7 +43,7 @@ export default class AddDebate extends React.Component {
             ],
             GenreIndex: null,
             attachment: null,
-            toastType: 'error',
+            toastType: null,
             isToast: false,
         }
     }
@@ -61,10 +62,10 @@ export default class AddDebate extends React.Component {
         })
             .then((res) => {
                 id = res.data.id;
-                this.setState({toastType: 'success', isToast: true});
+                this.setState({toastType: 'createRessourceOk', isToast: true});
             })
             .catch(error => {
-                this.setState({toastType: 'error', isToast: true})
+                this.setState({toastType: 'createRessourceNok', isToast: true})
             })
 
        
@@ -72,7 +73,7 @@ export default class AddDebate extends React.Component {
             if (id !== null) {
                 history.push('/ressource/' + id)
             }
-        }, 3000); /* DONT LOOK AT THIS, ITS ONLY TO LET THE TIME TO SEE THE TOAST - NOT FOR PROD USE*/
+        }, 3300); /* DONT LOOK AT THIS, ITS ONLY TO LET THE TIME TO SEE THE TOAST - NOT FOR PROD USE*/
 
     }
 
@@ -134,22 +135,18 @@ export default class AddDebate extends React.Component {
         console.log(this.state.optionsCat)
     }
 
+    handleCallbackToast = () => {
+        this.setState({
+            isToast: false,
+            caseToast: null,
+        });
+    }
+
     render() {
         return (
             <>
-                <ToastContainer className="p-3" position={"bottom-start"}>
-                    <Toast onClose={() => this.setState({isToast: false})} show={this.state.isToast} delay={10000}
-                           autohide>
-                        <Toast.Header
-                            style={{backgroundColor: this.state.toastType === "success" ? "#00cb51" : "#cb1100"}}>
-                            {/*<span style={{width: 20, height: 20, backgroundColor: 'green', borderRadius: 5}}/>*/}
-                            <strong className="me-auto"
-                                    style={{color: 'black'}}>{this.state.toastType === "success" ? "Votre ressource a été créée" : "Erreur lors de la création"}</strong>
-                            <small style={{color: '#1c1c1c'}}>à l'instant</small>
-                        </Toast.Header>
-                        <Toast.Body>{this.state.toastType === "success" ? "Votre ressource à été créée avec succès" : "Votre ressource n'a pas pu être créée"}</Toast.Body>
-                    </Toast>
-                </ToastContainer>
+                <ToastCustom isOpen={this.state.isToast} case={this.state.toastType} callBack={this.handleCallbackToast} />
+                    
                 <Layout title={"Créer une ressource"} subtitle={"Partager avec qui vous voulez ce que vous souhaitez"}>
                     <div className="container" style={{margin: "auto", maxWidth: "900px"}}>
                         <Row xs={11} md={12} className="g-4 m-1">

@@ -18,6 +18,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AsyncLocalStorage from "@createnextapp/async-local-storage";
 import getUserAuth from "../../helpers/getUserAuth";
 import authService from "../../components/api-authorization/AuthorizeService";
+import ModalCustom from "../../components/Modal";
+import ToastCustom from "../../components/Toast";
 
 class Index extends Component {
     constructor(props) {
@@ -25,6 +27,11 @@ class Index extends Component {
         this.state = {
             data: [],
             isLoading: true,
+            isModal: false,
+            modalCase: null,
+            isToast: false,
+            toastCase: null,
+            isSignaler: false,
         }
         this.likeResource = this.likeResource.bind(this);
         this.bookmarkResource = this.bookmarkResource.bind(this);
@@ -87,16 +94,31 @@ class Index extends Component {
     }
 
     deleteRessource() {
-        if (window.confirm("Voulez vous vraiment suprimmer la ressource \"" + this.state.data.title + "\"")) {
-            axios.delete(`https://localhost:5001/api/Ressource/${this.state.data.id}`)
-                .then(res => {
-                    /*TODO Error handling*/
-                    /*Going back in history after delete*/
-                    this.props.history.goBack()
-                })
-        } else {
+        let history = this.props.history;
 
-        }
+        axios.delete(`https://localhost:5001/api/Ressource/${this.state.data.id}`)
+            .then(res => {
+                /*TODO Error handling*/
+                /*Going back in history after delete*/
+
+
+                setTimeout(function () {
+                    history.goBack();
+                }, 3300); /* DONT LOOK AT THIS, ITS ONLY TO LET THE TIME TO SEE THE TOAST - NOT FOR PROD USE*/
+
+                this.setState({
+                    isToast: true,
+                    caseToast: "deleteRessourceOk",
+                })
+            })
+            .catch(err => {
+                /*TODO Error handling*/
+                this.setState({
+                    isToast: true,
+                    caseToast: "deleteRessourceNok",
+                })
+            })
+
 
     }
 
@@ -112,8 +134,8 @@ class Index extends Component {
         }
         await this.setState({currentUser: user})
         /* End For user in session statement*/
-        
-        
+
+
         const id = this.props.match.params.id;
 
         axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.state.currentUser}/${this.props.match.params.id}`)
@@ -140,18 +162,74 @@ class Index extends Component {
             })
     }
 
-    editRessource () {
-        
-        let redirect = "/edit-ressource/"+ this.state.data.id;
+    editRessource() {
+
+        let redirect = "/edit-ressource/" + this.state.data.id;
         this.props.history.push({
             pathname: redirect,
             data: this.state.data
         });
     }
 
+    handleCallbackModal = (event) => {
+
+        switch (event) {
+            case "close":
+                this.setState({
+                    isModal: false,
+                    caseModal: null,
+                });
+                break;
+            case "signal":
+                this.setState({
+                    isModal: false,
+                    caseModal: null,
+                    isToast: true,
+                    isSignaler: true,
+                    caseToast: "signal",
+                });
+                break;
+            case "delete":
+                this.setState({
+                    isModal: false,
+                    caseModal: null,
+                });
+                this.deleteRessource();
+                break;
+            default:
+                this.setState({
+                    isModal: false,
+                    caseModal: null,
+                });
+                break;
+        }
+    }
+
+    openModal(cas) {
+        this.setState({
+            isModal: true,
+            caseModal: cas
+        })
+    }
+
+    handleCallbackToast = () => {
+        this.setState({
+            isToast: false,
+            caseToast: null,
+        });
+    }
+
+
     render() {
         return (
             <div>
+
+                <ModalCustom isOpen={this.state.isModal} callBack={this.handleCallbackModal}
+                             case={this.state.caseModal}/>
+
+                <ToastCustom isOpen={this.state.isToast} callBack={this.handleCallbackToast}
+                             case={this.state.caseToast}/>
+
                 <Layout title={"Ressource"} subtitle={" "} goBack={() => this.props.history.goBack()}>
                     {
                         this.state.isLoading ?
@@ -240,8 +318,8 @@ class Index extends Component {
                                                                         className={"actionLink"}
                                                                         fontSize="medium"/></Card.Link>
                                                                         ,
-                                                                        <Card.Link 
-                                                                            onClick={() => this.deleteRessource()}
+                                                                        <Card.Link
+                                                                            onClick={() => this.openModal('delete')}
                                                                             className={"actionLink"}><DeleteIcon
                                                                             sx={{color: "#022922"}}
                                                                             fontSize="medium"/></Card.Link>]
@@ -255,10 +333,16 @@ class Index extends Component {
                                                                 <span>Telecharger la ressource</span>
                                                             </Button>*/}
                                                             {/*Si sa ressource, alors la modifier a la place de signalement*/}
-                                                            <Button className={"buttonDownloadRess btn btn-secondary"}>
-                                                                <ReportIcon sx={{color: "#022922"}} fontSize="medium"/>
-                                                                <span>Signaler</span>
-                                                            </Button>
+                                                            {!this.state.isSignaler ?
+                                                                <Button
+                                                                    className={"buttonDownloadRess btn btn-secondary"}
+                                                                    onClick={() => this.openModal('signal')}>
+                                                                    <ReportIcon sx={{color: "#022922"}}
+                                                                                fontSize="medium"/>
+                                                                    <span>Signaler</span>
+                                                                </Button>
+                                                                :
+                                                                ""}
                                                         </div>
                                                     </div>
                                                 </div>
