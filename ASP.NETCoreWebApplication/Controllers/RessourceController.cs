@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ASP.NETCoreWebApplication.Data;
 using ASP.NETCoreWebApplication.Models;
+using Humanizer;
+using System.Linq;
+using System.Runtime.Versioning;
 
 namespace ASP.NETCoreWebApplication.Controllers
 {
@@ -57,31 +60,18 @@ namespace ASP.NETCoreWebApplication.Controllers
 
         // PUT: api/Ressource/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutRessource(Guid id, Ressource ressource)
+        [HttpPut]
+        public async Task<IActionResult> PutRessource(Ressource ressource)
         {
-            if (id != ressource.Id)
-            {
-                return BadRequest();
-            }
-
+            if (!await _context.Ressources.AnyAsync(r => r.Id == ressource.Id))
+                return NotFound($"No Ressource with id {ressource.Id}");
+            
+            if (!await _context.ResourceCategories.AnyAsync(rc => rc.Id == ressource.ResourceCategoryId))
+                return BadRequest($"No ResourceCategory with id {ressource.ResourceCategoryId}");
+            
+            ressource.UpdatedAt = DateTime.Now;
             _context.Entry(ressource).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RessourceExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
@@ -91,6 +81,10 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Ressource>> PostRessource(Ressource ressource)
         {
+            if (!await _context.ResourceCategories.AnyAsync(rc => rc.Id == ressource.ResourceCategoryId))
+                return BadRequest($"No ResourceCategory with id {ressource.ResourceCategoryId}");
+
+            ressource.ReleaseDate = DateTime.Now;
             _context.Ressources.Add(ressource);
             await _context.SaveChangesAsync();
 

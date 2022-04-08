@@ -40,6 +40,6 @@ namespace ASP.NETCoreWebApplication.Models
         
         [JsonIgnore]
         public virtual List<FriendShip> FriendsOf { get; set; }
-        [JsonIgnore] public List<UserInteraction>? Interactions { get; set; }
+        [JsonIgnore] public List<UserInteraction> Interactions { get; set; }
     }
 }
