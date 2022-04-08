@@ -334,16 +334,16 @@ class Index extends Component {
                                                                 <span>Telecharger la ressource</span>
                                                             </Button>*/}
                                                             {/*Si sa ressource, alors la modifier a la place de signalement*/}
-                                                            {!this.state.isSignaler ?
-                                                                <Button
-                                                                    className={"buttonDownloadRess btn btn-secondary"}
-                                                                    onClick={() => this.openModal('signal')}>
-                                                                    <ReportIcon sx={{color: "#022922"}}
-                                                                                fontSize="medium"/>
-                                                                    <span>Signaler</span>
-                                                                </Button>
-                                                                :
-                                                                ""}
+
+                                                            <Button
+                                                                className={"buttonDownloadRess btn btn-secondary"}
+                                                                disabled={!this.state.isSignaler ? false : true}
+                                                                onClick={() => this.openModal('signal')}>
+                                                                <ReportIcon sx={{color: "#022922"}}
+                                                                            fontSize="medium"/>
+                                                                <span>Signaler</span>
+                                                            </Button>
+
                                                         </div>
                                                     </div>
                                                 </div>
