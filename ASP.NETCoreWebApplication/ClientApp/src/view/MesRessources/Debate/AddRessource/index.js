@@ -40,7 +40,7 @@ export default class AddDebate extends React.Component {
     }
 
     Adddebate = () => {
-        axios.post('https://localhost:5001/api/Post', {
+        axios.post('https://localhost:5001/api/Post/', {
             Title: this.state.Title,
             Age: this.state.Age,
             Description: this.state.Description,
@@ -105,7 +105,7 @@ export default class AddDebate extends React.Component {
                                         classNamePrefix="select"
                                         isSearchable
                                         isClearable
-                                        placeholder={"Séléctionner"}
+                                        placeholder={"Sélectionner"}
                                         name="Genre"
                                         onChange={(e) => this.handleChange(e, "Genre")}
                                         options={optionsCat}

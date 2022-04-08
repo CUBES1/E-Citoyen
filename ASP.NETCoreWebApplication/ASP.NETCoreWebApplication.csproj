@@ -38,6 +38,10 @@
     <ItemGroup>
       <Compile Remove="Migrations\20220309172526_AddUsernameinDB.Designer.cs" />
       <Compile Remove="Migrations\20220309172526_AddUsernameinDB.cs" />
+      <Compile Remove="Models\Comments\SubComment.cs" />
+      <Compile Remove="Models\Comments\MainComment.cs" />
+      <Compile Remove="Controllers\DebateController.cs" />
+      <Compile Remove="Models\Debate.cs" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
