@@ -44,7 +44,7 @@ export default class Edit extends React.Component {
     }
 
     UpdateRessource = () => {
-        axios.put(`https://localhost:5001/api/Post/${this.state.rId}`, {
+        axios.put(`https://localhost:5001/api/Post`, {
             title: this.state.Title,
             id: this.state.rId,
             age: this.state.Age,
