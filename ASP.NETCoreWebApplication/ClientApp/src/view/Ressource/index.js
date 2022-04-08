@@ -20,6 +20,8 @@ import getUserAuth from "../../helpers/getUserAuth";
 import authService from "../../components/api-authorization/AuthorizeService";
 import ModalCustom from "../../components/Modal";
 import ToastCustom from "../../components/Toast";
+import moment from 'moment';
+moment().format();
 
 class Index extends Component {
     constructor(props) {
@@ -123,7 +125,6 @@ class Index extends Component {
     }
 
     async componentDidMount() {
-
         /* Declaration of the user in session rn */
         const auth = await getUserAuth.isThisLoged();
         let user;
@@ -274,7 +275,7 @@ class Index extends Component {
 
                                                 <div className="row justify-content-md-center">
                                                     <div className="col-md-7 ressourcePropDate">
-                                                        <p> 07/01/2022 10:44 {/* &#8226; Modifié*/}</p>
+                                                        <p>  { moment(this.state.data.updatedAt ? this.state.data.updatedAt : this.state.data.releaseDate, 'YYYY-MM-DD[T]HH:mm:ss').format("DD/MM/YYYY HH:mm") } {this.state.data.updatedAt ? "• Modifié" : ""}</p>
                                                     </div>
                                                 </div>
                                                 <div className="row justify-content-md-center">
