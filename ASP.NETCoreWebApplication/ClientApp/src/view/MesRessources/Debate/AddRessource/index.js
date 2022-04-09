@@ -132,7 +132,6 @@ export default class AddDebate extends React.Component {
                 });
                 this.setState({optionsCat: options})
             })
-        console.log(this.state.optionsCat)
     }
 
     handleCallbackToast = () => {

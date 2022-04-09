@@ -44,7 +44,6 @@ class ToastCustom extends Component {
     }
     
     trigger = (event) => {
-        console.log('tiggerChild')
         this.props.callBack();
     }
     

@@ -106,8 +106,6 @@ export default class Edit extends React.Component {
         await this.setState({currentUser: user})
         /* End For user in session statement*/
 
-        console.log(this.props.match.params.id)
-
         await axios.get('https://localhost:5001/api/Ressource/' + this.props.match.params.id)
             .then(res => {
                 this.setState({
