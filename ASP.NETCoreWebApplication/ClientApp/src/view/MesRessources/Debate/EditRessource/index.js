@@ -54,7 +54,6 @@ export default class Edit extends React.Component {
         await axios.put(`https://localhost:5001/api/Post`, {
             title: this.state.Title,
             id: this.state.rId,
-            age: this.state.Age,
             description: this.state.Description,
             userId: this.state.currentUser,
             resourceCategoryId: this.state.Genre,
@@ -115,7 +114,7 @@ export default class Edit extends React.Component {
                     Description: res.data.description,
                     VisibilityIndex: res.data.visibility,
                     Visibility: res.data.visibility === 0 ? 'Public' : 'Privé',
-                    CategorieId: res.resourceCategoryId,
+                    CategorieId: res.data.resourceCategoryId,
                     attachment: res.data.attachment,
                 })
             })
@@ -132,9 +131,9 @@ export default class Edit extends React.Component {
                 });
                 this.setState({optionsCat: options})
             })
-
-        let sRessourceIdthis = this.state.optionsCat.findIndex((e) => e.value === this.state.CategorieId)
-        this.setState({GenreIndex: sRessourceIdthis});
+        
+        let sRessourceId = this.state.optionsCat.findIndex((e) => e.value === this.state.CategorieId);
+        this.setState({GenreIndex: sRessourceId, Genre: this.state.optionsCat[sRessourceId].value})
     }
 
     handleChangeSelect = async (selectedOption, who) => {
