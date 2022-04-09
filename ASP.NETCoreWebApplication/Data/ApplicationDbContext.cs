@@ -21,7 +21,7 @@ namespace ASP.NETCoreWebApplication.Data
                     .HasForeignKey(ui => ui.UserId);
                 mb
                     .HasOne(ui => ui.Ressource)
-                    .WithMany(r => r.Favorites)
+                    .WithMany(r => r.Interactions)
                     .HasForeignKey(ui => ui.RessourceId);
             });
             
@@ -57,5 +57,6 @@ namespace ASP.NETCoreWebApplication.Data
         public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<FriendShip> FriendShips { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<ImagePost> ImagePosts { get; set; }
     }
 }

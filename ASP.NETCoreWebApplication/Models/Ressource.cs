@@ -32,9 +32,9 @@ namespace ASP.NETCoreWebApplication.Models
         public virtual string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
 
-        [JsonIgnore] public Guid ResourceCategoryId { get; set; }
+        public Guid ResourceCategoryId { get; set; }
         [JsonIgnore] public ResourceCategory ResourceCategory { get; set; }
-        [JsonIgnore] public List<UserInteraction> Favorites { get; set; }
+        [JsonIgnore] public List<UserInteraction> Interactions { get; set; }
 
         [NotMapped] public string DisplayState => Visibility.ToString();
     }

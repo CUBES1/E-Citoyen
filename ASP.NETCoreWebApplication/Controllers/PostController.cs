@@ -46,32 +46,19 @@ namespace ASP.NETCoreWebApplication.Controllers
 
         // PUT: api/Post/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id:guid}")]
-        public async Task<ActionResult> PutPost(Guid id, Post post)
+        [HttpPut]
+        public async Task<ActionResult> PutPost(Post post)
         {
-            if (id != post.Id)
-            {
-                return BadRequest();
-            }
-            post.ResourceCategory = new ResourceCategory();
-            _context.Entry(post).State = EntityState.Modified;
+            if (!await _context.Posts.AnyAsync(p => p.Id == post.Id))
+                return NotFound($"No ImagePost with id {post.Id}");
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PostExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-        
+            if (!await _context.ResourceCategories.AnyAsync(rc => rc.Id == post.ResourceCategoryId))
+                return BadRequest($"No ResourceCategory with id {post.ResourceCategoryId}");
+
+            post.UpdatedAt = DateTime.Now;
+            _context.Entry(post).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
@@ -80,7 +67,9 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpPost]
         public async Task<ActionResult<Post>> PostPost(Post post)
         {
-            post.ResourceCategory = new ResourceCategory();
+            if (!await _context.ResourceCategories.AnyAsync(rc => rc.Id == post.ResourceCategoryId))
+                return BadRequest($"No ResourceCategory with id {post.ResourceCategoryId}");
+            
             post.ReleaseDate = DateTime.Now;
             _context.Posts.Add(post);
             await _context.SaveChangesAsync();
