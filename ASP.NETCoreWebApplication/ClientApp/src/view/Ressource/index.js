@@ -34,6 +34,7 @@ class Index extends Component {
             isToast: false,
             toastCase: null,
             isSignaler: false,
+            optionsCat: [],
         }
         this.likeResource = this.likeResource.bind(this);
         this.bookmarkResource = this.bookmarkResource.bind(this);
@@ -151,6 +152,15 @@ class Index extends Component {
                 this.setState({isBookmark: data});
             })
 
+        await axios.get('https://localhost:5001/api/ResourceCategory')
+            .then(res => {
+                let options = [];
+                res.data.forEach(element => {
+                    options.push({value: element.id, label: element.label})
+                });
+                this.setState({optionsCat: options})
+            })
+
         window.scrollTo(0, 0);
 
         axios.get(`https://localhost:5001/api/Ressource/${id}`)
@@ -260,11 +270,8 @@ class Index extends Component {
                                         <div className="col-md-auto">
                                             <div className="row justify-content-md-center">
                                                 <div className="col-md-12">
-                                                    <Chip className={"ressourcePropCat space-between"} size="small"
-                                                          color="primary" label="Lorem ipsum"/>
-                                                    <Chip className={"ressourcePropCat space-between"} size="small"
-                                                          color="info"
-                                                          label="Lorem ipsum"/>
+                                                    <Chip className={"ressourcePropCat space-between mt-4"} size="small"
+                                                          color="grey" label={this.state.optionsCat[this.state.optionsCat.findIndex(e => e.value === this.state.data.resourceCategoryId)].label}/>
                                                 </div>
                                                 <div className="col-md-7 ressourcePropContent">
                                                     <p>
