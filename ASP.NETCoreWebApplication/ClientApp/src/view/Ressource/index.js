@@ -16,6 +16,12 @@ import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AsyncLocalStorage from "@createnextapp/async-local-storage";
+import getUserAuth from "../../helpers/getUserAuth";
+import authService from "../../components/api-authorization/AuthorizeService";
+import ModalCustom from "../../components/Modal";
+import ToastCustom from "../../components/Toast";
+import moment from 'moment';
+moment().format();
 
 class Index extends Component {
     constructor(props) {
@@ -23,6 +29,11 @@ class Index extends Component {
         this.state = {
             data: [],
             isLoading: true,
+            isModal: false,
+            modalCase: null,
+            isToast: false,
+            toastCase: null,
+            isSignaler: false,
         }
         this.likeResource = this.likeResource.bind(this);
         this.bookmarkResource = this.bookmarkResource.bind(this);
@@ -85,29 +96,56 @@ class Index extends Component {
     }
 
     deleteRessource() {
-        if (window.confirm("Voulez vous vraiment suprimmer la ressource \"" + this.state.data.title + "\"")) {
-            axios.delete(`https://localhost:5001/api/Ressource/${this.state.data.id}`)
-                .then(res => {
-                    /*TODO Error handling*/
-                    /*Going back in history after delete*/
-                    this.props.history.goBack()
-                })
-        } else {
+        let history = this.props.history;
 
-        }
+        axios.delete(`https://localhost:5001/api/Ressource/${this.state.data.id}`)
+            .then(res => {
+                /*TODO Error handling*/
+                /*Going back in history after delete*/
+
+
+                setTimeout(function () {
+                    history.goBack();
+                }, 3300); /* DONT LOOK AT THIS, ITS ONLY TO LET THE TIME TO SEE THE TOAST - NOT FOR PROD USE*/
+
+                this.setState({
+                    isToast: true,
+                    caseToast: "deleteRessourceOk",
+                })
+            })
+            .catch(err => {
+                /*TODO Error handling*/
+                this.setState({
+                    isToast: true,
+                    caseToast: "deleteRessourceNok",
+                })
+            })
+
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        /* Declaration of the user in session rn */
+        const auth = await getUserAuth.isThisLoged();
+        let user;
+
+        if (auth) {
+            user = await authService.getUser()
+            user = user.sub
+        }
+        await this.setState({currentUser: user})
+        /* End For user in session statement*/
+
+
         const id = this.props.match.params.id;
 
-        axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.props.location.state.userId}/${this.props.location.state.id}`)
+        axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.state.currentUser}/${this.props.match.params.id}`)
             .then(res => {
                 const data = res.data;
                 this.setState({isLiked: data});
             })
 
-        axios.get(`https://localhost:5001/api/UserInteraction/Favorite/${this.props.location.state.userId}/${this.props.location.state.id}`)
+        axios.get(`https://localhost:5001/api/UserInteraction/Favorite/${this.state.currentUser}/${this.props.match.params.id}`)
             .then(res => {
                 const data = res.data;
                 this.setState({isBookmark: data});
@@ -125,18 +163,74 @@ class Index extends Component {
             })
     }
 
-    editRessource () {
-        
-        let redirect = "/edit-ressource/"+ this.state.data.id;
+    editRessource() {
+
+        let redirect = "/edit-ressource/" + this.state.data.id;
         this.props.history.push({
             pathname: redirect,
             data: this.state.data
         });
     }
 
+    handleCallbackModal = (event) => {
+
+        switch (event) {
+            case "close":
+                this.setState({
+                    isModal: false,
+                    caseModal: null,
+                });
+                break;
+            case "signal":
+                this.setState({
+                    isModal: false,
+                    caseModal: null,
+                    isToast: true,
+                    isSignaler: true,
+                    caseToast: "signal",
+                });
+                break;
+            case "delete":
+                this.setState({
+                    isModal: false,
+                    caseModal: null,
+                });
+                this.deleteRessource();
+                break;
+            default:
+                this.setState({
+                    isModal: false,
+                    caseModal: null,
+                });
+                break;
+        }
+    }
+
+    openModal(cas) {
+        this.setState({
+            isModal: true,
+            caseModal: cas
+        })
+    }
+
+    handleCallbackToast = () => {
+        this.setState({
+            isToast: false,
+            caseToast: null,
+        });
+    }
+
+
     render() {
         return (
             <div>
+
+                <ModalCustom isOpen={this.state.isModal} callBack={this.handleCallbackModal}
+                             case={this.state.caseModal}/>
+
+                <ToastCustom isOpen={this.state.isToast} callBack={this.handleCallbackToast}
+                             case={this.state.caseToast}/>
+
                 <Layout title={"Ressource"} subtitle={" "} goBack={() => this.props.history.goBack()}>
                     {
                         this.state.isLoading ?
@@ -156,7 +250,7 @@ class Index extends Component {
                                                     <img alt="toto" src={Avatar} className="avatarHoverRessource"/>
                                                     <div className={"ressourcePropInfos"}>
                                                         <p className="ressourcePropTitle">{this.state.data.title}</p>
-                                                        <p className="ressourcePropUser">{this.state.data.userName}</p>
+                                                        <p className="ressourcePropUser">{this.state.data.user.firstName + " " + this.state.data.user.lastName}</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -181,7 +275,7 @@ class Index extends Component {
 
                                                 <div className="row justify-content-md-center">
                                                     <div className="col-md-7 ressourcePropDate">
-                                                        <p> 07/01/2022 10:44 &#8226; Modifié</p>
+                                                        <p>  { moment(this.state.data.updatedAt ? this.state.data.updatedAt : this.state.data.releaseDate, 'YYYY-MM-DD[T]HH:mm:ss').format("DD/MM/YYYY HH:mm") } {this.state.data.updatedAt ? "• Modifié" : ""}</p>
                                                     </div>
                                                 </div>
                                                 <div className="row justify-content-md-center">
@@ -189,13 +283,13 @@ class Index extends Component {
                                                         <div>
                                                             {this.state.isLiked === true ?
                                                                 <Card.Link
-                                                                    onClick={this.props.location.state.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
+                                                                    onClick={this.state.currentUser != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
                                                                     className={"actionLink"}><FavoriteIcon
                                                                     sx={{color: "#E45E66"}}
                                                                     fontSize="medium"/></Card.Link>
                                                                 :
                                                                 <Card.Link
-                                                                    onClick={this.props.location.state.userId != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
+                                                                    onClick={this.state.currentUser != null ? this.likeResource : ''/*TODO add message of error user not connected*/}
                                                                     className={"actionLink"}><FavoriteBorderIcon
                                                                     sx={{color: "#022922"}}
                                                                     fontSize="medium"/></Card.Link>
@@ -203,13 +297,13 @@ class Index extends Component {
 
                                                             {this.state.isBookmark === true ?
                                                                 <Card.Link
-                                                                    onClick={this.props.location.state.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
+                                                                    onClick={this.state.currentUser != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
                                                                     className={"actionLink"}><BookmarkIcon
                                                                     sx={{color: "#00cba9"}}
                                                                     fontSize="medium"/></Card.Link>
                                                                 :
                                                                 <Card.Link
-                                                                    onClick={this.props.location.state.userId != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
+                                                                    onClick={this.state.currentUser != null ? this.bookmarkResource : ''/*TODO add message of error user not connected*/}
                                                                     className={"actionLink"}><BookmarkBorderIcon
                                                                     sx={{color: "#022922"}}
                                                                     fontSize="medium"/></Card.Link>
@@ -218,15 +312,15 @@ class Index extends Component {
                                                             <Card.Link href="#"><ReplyIcon sx={{color: "#022922"}}
                                                                                            fontSize="medium"/></Card.Link>
                                                             {
-                                                                this.props.location.state.userId === this.state.data.userId ?
+                                                                this.state.currentUser === this.state.data.userId ?
                                                                     [<Card.Link><EditIcon
                                                                         sx={{color: "#022922"}}
                                                                         onClick={() => this.editRessource()}
                                                                         className={"actionLink"}
                                                                         fontSize="medium"/></Card.Link>
                                                                         ,
-                                                                        <Card.Link 
-                                                                            onClick={() => this.deleteRessource()}
+                                                                        <Card.Link
+                                                                            onClick={() => this.openModal('delete')}
                                                                             className={"actionLink"}><DeleteIcon
                                                                             sx={{color: "#022922"}}
                                                                             fontSize="medium"/></Card.Link>]
@@ -234,16 +328,22 @@ class Index extends Component {
                                                                     ''
                                                             }
 
-                                                            <Button className={"btn buttonDownloadRess"}>
+                                                            {/*<Button className={"btn buttonDownloadRess"}>
                                                                 <DownloadIcon sx={{color: "#022922"}}
                                                                               fontSize="medium"/>
                                                                 <span>Telecharger la ressource</span>
-                                                            </Button>
+                                                            </Button>*/}
                                                             {/*Si sa ressource, alors la modifier a la place de signalement*/}
-                                                            <Button className={"buttonDownloadRess btn btn-secondary"}>
-                                                                <ReportIcon sx={{color: "#022922"}} fontSize="medium"/>
+
+                                                            <Button
+                                                                className={"buttonDownloadRess btn btn-secondary"}
+                                                                disabled={!this.state.isSignaler ? false : true}
+                                                                onClick={() => this.openModal('signal')}>
+                                                                <ReportIcon sx={{color: "#022922"}}
+                                                                            fontSize="medium"/>
                                                                 <span>Signaler</span>
                                                             </Button>
+
                                                         </div>
                                                     </div>
                                                 </div>

@@ -85,7 +85,7 @@ class Index extends Component {
                     this.state.resources_data.map((data, i) =>
                         <Col xs={11} md={4} className="g-4" align="center" key={data.id}>
                             <CardRessources
-                                username={data.fullName}
+                                username={data.user.firstName + " " + data.user.lastName}
                                 isUserRess={data.userId === this.state.currentUser}
                                 img={`https://source.unsplash.com/random/800x400?sig=${i}`}
                                 title={data.title}
@@ -97,6 +97,7 @@ class Index extends Component {
                                 canEdit={this.props.canEdit}
                                 userId={this.state.currentUser}
                                 rUserId={data.userId}
+                                history={this.props.history}
                             />
                         </Col>
                     )

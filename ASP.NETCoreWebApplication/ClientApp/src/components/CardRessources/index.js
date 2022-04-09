@@ -13,6 +13,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import moment from 'moment';
 import {Link} from "react-router-dom";
 import axios from "axios";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 moment().format();
 let iamDate = "";
@@ -122,6 +123,25 @@ export default class CardRessources extends Component {
         await this.setState({isBookmark: isBookmark});
     }
 
+    deleteRessource() {
+        if (window.confirm("Voulez vous vraiment suprimmer la ressource \"" + this.props.title + "\"")) {
+            axios.delete(`https://localhost:5001/api/Ressource/${this.props.id}`)
+                .then(res => {
+                    /*TODO Error handling*/
+                    /*Going back in history after delete*/
+                    window.location.reload()
+                })
+        } else {
+
+        }
+
+    }
+    editRessource () {
+        let redirect = "/edit-ressource/"+ this.props.id;
+        this.props.history.push({
+            pathname: redirect,
+        });
+    }
 
     render() {
         return (<Card className="cardStyle">
@@ -184,8 +204,17 @@ export default class CardRessources extends Component {
                         {/* Double check if user can edit
                                    if the resource is his own, and if the resource is editable */
                             this.props.isUserRess && this.props.canEdit ?
-                                <Card.Link href="#"><EditIcon sx={{color: "#022922"}}
-                                                              fontSize="medium"/></Card.Link> : ''}
+                                [<Card.Link><EditIcon
+                                    sx={{color: "#022922"}}
+                                    onClick={() => this.editRessource()}
+                                    className={"actionLink"}
+                                    fontSize="medium"/></Card.Link>
+                                    ,
+                                    <Card.Link
+                                        onClick={() => this.deleteRessource()}
+                                        className={"actionLink"}><DeleteIcon
+                                        sx={{color: "#022922"}}
+                                        fontSize="medium"/></Card.Link>] : ''}
                     </div>
                     <div>
                         <p>{moment(this.props.dateTime, 'YYYY-MM-DD[T]HH:mm:ss').format("DD/MM/YYYY HH:mm")}</p>
