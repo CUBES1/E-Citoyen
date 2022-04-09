@@ -51,16 +51,17 @@ export default class Edit extends React.Component {
         let id = null;
         let history = this.props.history;
         
-        await axios.put(`https://localhost:5001/api/Post/${this.state.rId}`, {
+        await axios.put(`https://localhost:5001/api/Post`, {
             title: this.state.Title,
             id: this.state.rId,
             age: this.state.Age,
             description: this.state.Description,
             userId: this.state.currentUser,
+            resourceCategoryId: this.state.Genre,
             visibility: this.state.VisibilityIndex,
         })
             .then((res) => {
-                id = res.data.id;
+                id = this.state.rId;
                 this.setState({toastType: 'success', isToast: true});
             })
             .catch(error => {
