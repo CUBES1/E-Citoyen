@@ -48,7 +48,6 @@ namespace ASP.NETCoreWebApplication.Controllers
                 return NoContent();
             }
             
-            
             _context.FriendShips.Add(joinFriendTable);
             currentUser.Friends.Add(joinFriendTable);
 

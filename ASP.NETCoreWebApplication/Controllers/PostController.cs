@@ -95,7 +95,7 @@ namespace ASP.NETCoreWebApplication.Controllers
 
         private bool PostExists(Guid id)
         {
-            return _context.Debate.Any(e => e.Id == id);
+            return _context.Posts.Any(e => e.Id == id);
         }
     }
 }

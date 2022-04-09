@@ -38,7 +38,7 @@ class Index extends Component {
         this.likeResource = this.likeResource.bind(this);
         this.bookmarkResource = this.bookmarkResource.bind(this);
     }
-
+    
     likeResource = async () => {
         let isLiked = await this.state.isLiked;
 

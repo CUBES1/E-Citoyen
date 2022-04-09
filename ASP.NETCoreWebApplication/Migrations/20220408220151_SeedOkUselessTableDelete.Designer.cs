@@ -4,14 +4,16 @@ using ASP.NETCoreWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASP.NETCoreWebApplication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220408220151_SeedOkUselessTableDelete")]
+    partial class SeedOkUselessTableDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,9 +112,9 @@ namespace ASP.NETCoreWebApplication.Migrations
                             Id = "6c6f5a3c-f8dc-42f5-afb5-805f3ac827c5",
                             AccessFailedCount = 0,
                             City = "Paris",
-                            ConcurrencyStamp = "9b68028b-c9a6-4c31-92ce-dbb4c55a9bb6",
+                            ConcurrencyStamp = "547d08e4-6ef3-4e5d-a88d-a61c76839113",
                             Country = "France",
-                            DateOfBirth = new DateTime(2022, 4, 9, 0, 19, 41, 765, DateTimeKind.Local).AddTicks(9946),
+                            DateOfBirth = new DateTime(2022, 4, 9, 0, 1, 49, 645, DateTimeKind.Local).AddTicks(8941),
                             Email = "bertrand@exemple.com",
                             EmailConfirmed = false,
                             FirstName = "Bertrand",
@@ -120,7 +122,7 @@ namespace ASP.NETCoreWebApplication.Migrations
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
                             Region = "Ile de France",
-                            SecurityStamp = "b5462071-27bf-4cad-86e4-28e12c51b6da",
+                            SecurityStamp = "7c165458-80ab-4c82-8f63-d2e123ece01c",
                             TwoFactorEnabled = false,
                             UserName = "DidierB"
                         },
@@ -129,9 +131,9 @@ namespace ASP.NETCoreWebApplication.Migrations
                             Id = "6c6f5a3c-f8dc-42f5-afb5-805f3ac827d5",
                             AccessFailedCount = 0,
                             City = "Tours",
-                            ConcurrencyStamp = "c529d70f-0798-4dbe-b697-519a0520fa72",
+                            ConcurrencyStamp = "508608c6-4759-4e09-a948-9151881746c7",
                             Country = "France",
-                            DateOfBirth = new DateTime(2022, 4, 9, 0, 19, 41, 772, DateTimeKind.Local).AddTicks(5442),
+                            DateOfBirth = new DateTime(2022, 4, 9, 0, 1, 49, 652, DateTimeKind.Local).AddTicks(9955),
                             Email = "bertrand@exemple.com",
                             EmailConfirmed = false,
                             FirstName = "Phillip",
@@ -139,7 +141,7 @@ namespace ASP.NETCoreWebApplication.Migrations
                             LockoutEnabled = false,
                             PhoneNumberConfirmed = false,
                             Region = "Centre Val de Loire",
-                            SecurityStamp = "ee54df0b-931c-419d-94b2-6bbd4119bb96",
+                            SecurityStamp = "a76fefd9-79e3-4274-b680-97ddca915e6c",
                             TwoFactorEnabled = false,
                             UserName = "Phillipo"
                         });
@@ -479,20 +481,6 @@ namespace ASP.NETCoreWebApplication.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ASP.NETCoreWebApplication.Models.ImagePost", b =>
-                {
-                    b.HasBaseType("ASP.NETCoreWebApplication.Models.Ressource");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ImagePost_Description");
-
-                    b.Property<string>("Link")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("ImagePost");
-                });
-
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Post", b =>
                 {
                     b.HasBaseType("ASP.NETCoreWebApplication.Models.Ressource");
@@ -506,7 +494,7 @@ namespace ASP.NETCoreWebApplication.Migrations
                         new
                         {
                             Id = new Guid("6c6f5a3c-f8dc-42f5-afb5-805f3ac823c4"),
-                            ReleaseDate = new DateTime(2022, 4, 9, 0, 19, 41, 773, DateTimeKind.Local).AddTicks(3216),
+                            ReleaseDate = new DateTime(2022, 4, 9, 0, 1, 49, 654, DateTimeKind.Local).AddTicks(840),
                             ResourceCategoryId = new Guid("6c6f5a3c-f8dc-42f5-afb5-805f3ac827e3"),
                             Title = "Mon voyage en Crète",
                             UserId = "6c6f5a3c-f8dc-42f5-afb5-805f3ac827d5",
@@ -516,7 +504,7 @@ namespace ASP.NETCoreWebApplication.Migrations
                         new
                         {
                             Id = new Guid("6c6f5a3c-f8dc-42f5-afb5-805f3ac823c1"),
-                            ReleaseDate = new DateTime(2022, 4, 9, 0, 19, 41, 773, DateTimeKind.Local).AddTicks(6320),
+                            ReleaseDate = new DateTime(2022, 4, 9, 0, 1, 49, 654, DateTimeKind.Local).AddTicks(5127),
                             ResourceCategoryId = new Guid("6c6f5a3c-f8dc-42f5-afb5-805f3ac827e3"),
                             Title = "Mon voyage au maroc",
                             UserId = "6c6f5a3c-f8dc-42f5-afb5-805f3ac827c5",
@@ -564,7 +552,7 @@ namespace ASP.NETCoreWebApplication.Migrations
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.UserInteraction", b =>
                 {
                     b.HasOne("ASP.NETCoreWebApplication.Models.Ressource", "Ressource")
-                        .WithMany("Interactions")
+                        .WithMany("Favorites")
                         .HasForeignKey("RessourceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -644,7 +632,7 @@ namespace ASP.NETCoreWebApplication.Migrations
 
             modelBuilder.Entity("ASP.NETCoreWebApplication.Models.Ressource", b =>
                 {
-                    b.Navigation("Interactions");
+                    b.Navigation("Favorites");
                 });
 #pragma warning restore 612, 618
         }

@@ -48,11 +48,14 @@ export default class AddDebate extends React.Component {
         }
     }
 
+
+    
     Adddebate = async () => {
         let id = null;
         let history = this.props.history;
         
         await axios.post('https://localhost:5001/api/Post', {
+
             Title: this.state.Title,
             Age: this.state.Age,
             Description: this.state.Description,
@@ -158,7 +161,6 @@ export default class AddDebate extends React.Component {
                                                value={this.state.Title} className="form-control"
                                                placeholder="Donner un titre a votre ressource"/>
                                     </Col>
-
 
                                     <Col>
                                         <Label for="name" sm={2}>Catégorie</Label>
