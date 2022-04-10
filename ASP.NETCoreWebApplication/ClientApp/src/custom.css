@@ -308,3 +308,33 @@ code {
         margin-top: 30px;
     }
 }
+
+
+.mentions p {
+    font-size: 18px;
+    width: 90%;
+}
+
+.mentions p .centeredText{
+    font-size: 18px;
+    width: 100%;
+}
+
+.mentions h1 {
+    font-size: 56px;
+    margin-bottom: 4%;
+    text-align: center;
+}
+
+.mentions h2 {
+    font-size: 48px;
+    margin-bottom: 2%;
+    margin-top: 4%;
+    color: #027763;
+}
+
+.mentions h3 {
+    font-size: 36px;
+    margin-bottom: 2%;
+    color: #00cba9;
+}

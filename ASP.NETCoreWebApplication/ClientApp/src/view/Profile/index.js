@@ -35,8 +35,6 @@ class Profile extends React.Component {
                     this.setState({user_data: data, currentUser: user});
                 })
         }
-        
-        console.log(this.state.user_data)
         /* End For user in session statement*/
     }
     

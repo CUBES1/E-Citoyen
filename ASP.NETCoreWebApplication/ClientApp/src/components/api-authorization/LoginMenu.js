@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import authService from './AuthorizeService';
 import {ApplicationPaths} from './ApiAuthorizationConstants';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 
 export class LoginMenu extends Component {
     constructor(props) {
@@ -86,6 +87,17 @@ export class LoginMenu extends Component {
                         <NavLink tag={Link} className="text-dark" to={logoutPath}><Button
                             variant="primary">Deconnexion</Button></NavLink>
                     </MenuItem>
+
+                    <NavLink tag={Link} className="text-dark"
+                             style={{
+                                 fontSize: "12px",
+                                 textDecoration: "underline",
+                                 marginBottom: "-15px",
+                                 marginTop: "-10px"
+                             }} to="/mentions-legales">Mentions légales</NavLink>
+                    <NavLink tag={Link} className="text-dark"
+                             style={{fontSize: "12px", textDecoration: "underline", marginBottom: "-15px"}}
+                             to="/condition-utilisation">Conditions d’utilisation</NavLink>
                 </NavDropdown>
             </Fragment>
         );
@@ -102,6 +114,23 @@ export class LoginMenu extends Component {
                 <NavLink tag={Link} className="text-dark" to={loginPath}><Button
                     variant="secondary">S'identifier</Button></NavLink>
             </NavItem>
+
+            <NavDropdown title={
+                <div className="pull-left">
+                    <AdminPanelSettingsOutlinedIcon fontSize="large" className="iconAddMargin"/>
+                </div>}
+                         id="basic-nav-dropdown">
+                <NavLink tag={Link} className="text-dark"
+                         style={{
+                             fontSize: "12px",
+                             textDecoration: "underline",
+                             marginBottom: "-15px",
+                             marginTop: "-10px"
+                         }} to="/mentions-legales">Mentions légales</NavLink>
+                <NavLink tag={Link} className="text-dark"
+                         style={{fontSize: "12px", textDecoration: "underline", marginBottom: "-15px"}}
+                         to="/condition-utilisation">Conditions d’utilisation</NavLink>
+            </NavDropdown>
         </Fragment>);
     }
 }

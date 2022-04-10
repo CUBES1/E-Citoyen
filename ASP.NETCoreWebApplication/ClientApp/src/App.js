@@ -14,6 +14,8 @@ import EditDebate from "./view/MesRessources/Debate/EditRessource";
 import DebateList from "./view/MesRessources/Debate/DebateList";
 import Ressource from "./view/Ressource"
 import Profile from "./view/Profile"
+import Mentions from "./view/LegalPages/Mentions";
+import TermsOfUse from "./view/LegalPages/TermsOfUse";
 
 
 export default class App extends Component {
@@ -31,6 +33,9 @@ export default class App extends Component {
                 <Route exact path='/new-ressource' component={AddDebate}/>
                 <Route path='/edit-ressource/:id' component={EditDebate}/>
                 <Route path='/profile' component={Profile}/>
+
+                <Route path='/mentions-legales' component={Mentions}/>
+                <Route path='/condition-utilisation' component={TermsOfUse}/>
                 
                 
                 <Route path='/ressource/:id' component={Ressource}/>
