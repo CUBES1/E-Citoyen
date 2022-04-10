@@ -7,6 +7,9 @@ import {Spinner} from "react-bootstrap";
 import Avatar from "../../assets/avatar.png";
 import axios from "axios";
 import ToastCustom from "../../components/Toast";
+import moment from "moment";
+
+moment().format();
 
 class Profile extends React.Component {
     constructor(props) {
@@ -32,6 +35,8 @@ class Profile extends React.Component {
                     this.setState({user_data: data, currentUser: user});
                 })
         }
+        
+        console.log(this.state.user_data)
         /* End For user in session statement*/
     }
     
@@ -153,7 +158,7 @@ class Profile extends React.Component {
                                                 {this.state.user_data.firstName}
                                                 {' '}
                                                 {this.state.user_data.lastName}
-                                                <span className="font-weight-light">, 27 ans</span>
+                                                <span className="font-weight-light">, {moment().diff(this.state.user_data.dateOfBirth, 'years')} ans</span>
                                             </h3>
                                             <div className="h6 font-weight-300">
                                                 <i className="ni location_pin mr-2"/>
