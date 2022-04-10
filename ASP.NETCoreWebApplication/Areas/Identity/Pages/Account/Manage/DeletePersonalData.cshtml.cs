@@ -83,6 +83,12 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
                 _cxt.Ressources.Remove(ressources);
             }
             
+            foreach (var friend in _cxt.FriendShips)
+            {
+                if (friend.UserId != userId) continue;
+                _cxt.FriendShips.Remove(friend);
+            }
+            
             await _cxt.SaveChangesAsync();
             var result = await _userManager.DeleteAsync(user);
 

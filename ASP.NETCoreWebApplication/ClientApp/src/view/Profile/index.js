@@ -5,11 +5,13 @@ import authService from "../../components/api-authorization/AuthorizeService";
 import {Layout} from "../Layout"
 import {Spinner} from "react-bootstrap";
 import Avatar from "../../assets/avatar.png";
+import axios from "axios";
 
 class Profile extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            user_data: null,
             currentUser: null,
         }
     }
@@ -22,8 +24,12 @@ class Profile extends React.Component {
         if (auth) {
             user = await authService.getUser()
             user = user.sub
+            axios.get(`https://localhost:5001/api/User/${user}`)
+                .then(res => {
+                    const data = res.data;
+                    this.setState({user_data: data, currentUser: user});
+                })
         }
-        await this.setState({currentUser: user})
         /* End For user in session statement*/
 
         /* TODO get user info with currentUser var*/
@@ -91,12 +97,12 @@ class Profile extends React.Component {
                                         </Row>
                                         <div className="text-center mt-5">
                                             <h3>
-                                                John Snow
+                                                {this.state.user_data.firstName}
                                                 <span className="font-weight-light"> , 27 ans</span>
                                             </h3>
                                             <div className="h6 font-weight-300">
                                                 <i className="ni location_pin mr-2"/>
-                                                Centre-Val-de-Loire, France
+                                                {this.state.user_data.country}
                                             </div>
                                         </div>
                                         <div className="mt-5 py-5 border-top text-center">

@@ -35,9 +35,9 @@ namespace ASP.NETCoreWebApplication.Data
             
             modelBuilder.Entity<FriendShip>()
                 .HasOne(pt => pt.UserFriend)
-                .WithMany(p => p.FriendsOf) // <--
+                .WithMany(p => p.FriendsOf)
                 .HasForeignKey(pt => pt.UserFriendId)
-                .OnDelete(DeleteBehavior.NoAction); // see the note at the end
+                .OnDelete(DeleteBehavior.NoAction); 
 
             modelBuilder.Entity<FriendShip>()
                 .HasOne(pt => pt.User)
@@ -67,7 +67,7 @@ namespace ASP.NETCoreWebApplication.Data
             var Phillip = new ApplicationUser()
           {
               Id = "6c6f5a3c-f8dc-42f5-afb5-805f3ac827d5",
-              Email = "bertrand@exemple.com",
+              Email = "phil@exemple.com",
               FirstName = "Phillip",
               LastName = "Du Chateau",
               City = "Tours",
@@ -80,29 +80,20 @@ namespace ASP.NETCoreWebApplication.Data
           var categorie = new ResourceCategory()
           {
               Id = new Guid("6c6f5a3c-f8dc-42f5-afb5-805f3ac827e3"),
-              Description = "Racontez tous vos voyages",
-              Label = "Voyage"
+              Description = "Exercices / Atelier",
+              Label = "Intelligence émotionnelle"
           };
 
+          
           var Post1 = new Post()
           {
               Id = new Guid("6c6f5a3c-f8dc-42f5-afb5-805f3ac823c4"),
-              Title = "Mon voyage en Crète",
+              Title = "Reconnaître ses émotions",
               Visibility = Visibility.Public,
-              Description = "Trop bien le soleil, je vous conseille leur fameuse feta",
+              Description = "L’objectif de cet exercice est de reconnaître les émotions sur soi. Pour ce faire, nous noterons dans un petit cahier prévu à cet effet, à des moments prédéfinis de la journée, comment nous nous senton émotionnellement. Quelle émotion nous habite ? Cette émotion est-elle positive ou négative ? "
+               + "Quel a été le facteur déclencheur ? Nous répèterons la démarche durant une semaine.",
               ReleaseDate = DateTime.Now,
               UserId = Phillip.Id,
-              ResourceCategoryId = categorie.Id
-          };
-          
-          var Post2 = new Post()
-          {
-              Id = new Guid("6c6f5a3c-f8dc-42f5-afb5-805f3ac823c1"),
-              Title = "Mon voyage au maroc",
-              Visibility = Visibility.Public,
-              ReleaseDate = DateTime.Now,
-              Description = "C'était vraiment sympa les promenades en dromadaire, le thé à le menthe est bon",
-              UserId = bertrand.Id,
               ResourceCategoryId = categorie.Id
           };
 
@@ -110,7 +101,6 @@ namespace ASP.NETCoreWebApplication.Data
           builder.Entity<ApplicationUser>().HasData(Phillip);  
           builder.Entity<ResourceCategory>().HasData(categorie);  
           builder.Entity<Post>().HasData(Post1);  
-          builder.Entity<Post>().HasData(Post2);  
         }  
         
         public DbSet<Ressource> Ressources { get; set; }

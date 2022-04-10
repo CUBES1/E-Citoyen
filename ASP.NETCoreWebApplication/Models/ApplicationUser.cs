@@ -31,6 +31,8 @@ namespace ASP.NETCoreWebApplication.Models
         
         public int? Rating { get; set; }
         
+        public byte[]? ProfilePicture { get; set; }
+        
         [JsonIgnore]
         public List<Ressource>? Ressources { get; set; }
         

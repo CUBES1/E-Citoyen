@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ASP.NETCoreWebApplication.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -60,6 +62,9 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            
+            [Display(Name = "Profile Picture")]
+            public byte[] ProfilePicture { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -71,6 +76,7 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
             var country = user.Country;
             var region = user.Region;
             var city = user.City;
+            var profilePicture = user.ProfilePicture;
             Username = userName;
 
             Input = new InputModel
@@ -80,7 +86,8 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
                 LastName = lastName,
                 Country = country,
                 Region = region,
-                City = city
+                City = city,
+                ProfilePicture = profilePicture
             };
         }
 
@@ -116,6 +123,17 @@ namespace ASP.NETCoreWebApplication.Areas.Identity.Pages.Account.Manage
             var region = user.Region;
             var city = user.City;
             var birthDate = user.DateOfBirth;
+            
+            if (Request.Form.Files.Count > 0)
+            {
+                IFormFile file = Request.Form.Files.FirstOrDefault();
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    user.ProfilePicture = dataStream.ToArray();
+                }
+                await _userManager.UpdateAsync(user);
+            }
             
             if (Input.FirstName != firstName)
             {
