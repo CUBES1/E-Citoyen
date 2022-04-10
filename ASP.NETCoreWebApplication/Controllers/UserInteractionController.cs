@@ -23,9 +23,11 @@ namespace ASP.NETCoreWebApplication.Controllers
         // GET: api/UserInteraction/Like/5/4
         [HttpGet("{type}/{usrId}/{rscId}")]
         public async Task<ActionResult<Boolean>> GetFavorite(string type, string usrId, Guid rscId)
-            => UserInteraction.StringToUserInteractionType(type) == UserInteraction.UserInteractionType.None ?
-                BadRequest($"UserInteraction specified type \"{type}\" does not exist") :
-            await _context.UserInteraction.AnyAsync(ui => ui.UserId == usrId && ui.RessourceId == rscId);
+        {
+            UserInteraction.UserInteractionType uiType = UserInteraction.StringToUserInteractionType(type);
+            return uiType == UserInteraction.UserInteractionType.None ? BadRequest($"UserInteraction specified type \"{type}\" does not exist")
+                : await _context.UserInteraction.AnyAsync(ui => ui.UserId == usrId && ui.RessourceId == rscId && ui.Type == uiType);
+        }
 
         // GET: api/UserInteraction/Like/usr/5
         [HttpGet("{type}/usr/{usrId}")]
