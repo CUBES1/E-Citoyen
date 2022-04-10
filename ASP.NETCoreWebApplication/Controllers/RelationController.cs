@@ -1,9 +1,7 @@
-﻿
-
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
+using System.Web.Http;
 using ASP.NETCoreWebApplication.Data;
 using ASP.NETCoreWebApplication.Models;
 using Microsoft.AspNetCore.Identity;
@@ -12,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ASP.NETCoreWebApplication.Controllers
 {
-    [Route("api/[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     [ApiController]
     
     public class RelationController : Controller
@@ -27,7 +25,7 @@ namespace ASP.NETCoreWebApplication.Controllers
         }
         
         //api/Relation
-        [HttpPost ("{id}")]
+        [Microsoft.AspNetCore.Mvc.HttpPost ("{id}")]
         public async Task<ActionResult<ApplicationUser>> AddFriend(string id)
         {
             var friend = await _userManager.FindByIdAsync(id);
@@ -47,6 +45,11 @@ namespace ASP.NETCoreWebApplication.Controllers
             {
                 return NoContent();
             }
+
+            if (joinFriendTable.UserFriendId.Contains(friendId))
+            {
+                return Content("L'utilisateur est déjà dans votre liste d'amis");
+            }
             
             _context.FriendShips.Add(joinFriendTable);
             currentUser.Friends.Add(joinFriendTable);
@@ -57,7 +60,7 @@ namespace ASP.NETCoreWebApplication.Controllers
             
         }
         
-        [HttpGet]
+        [Microsoft.AspNetCore.Mvc.HttpGet]
         public async Task<DbSet<FriendShip>> Friends()
         {
             var user = await _userManager.GetUserAsync(User);
