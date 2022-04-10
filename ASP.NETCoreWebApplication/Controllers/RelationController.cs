@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -46,7 +48,7 @@ namespace ASP.NETCoreWebApplication.Controllers
                 return NoContent();
             }
 
-            if (joinFriendTable.UserFriendId.Contains(friendId))
+            if (_context.FriendShips.Any(u => u.UserFriendId == id))
             {
                 return Content("L'utilisateur est déjà dans votre liste d'amis");
             }
@@ -66,6 +68,26 @@ namespace ASP.NETCoreWebApplication.Controllers
             var user = await _userManager.GetUserAsync(User);
             var friends = _context.FriendShips;
             return friends;
+        }
+
+        //api/Relation/{guid}
+        [Microsoft.AspNetCore.Mvc.HttpGet("{id}")]
+        public async Task<ActionResult<int>> DataFriendForUser(string id)
+        {
+            var user = await _context.Users.FindAsync(id);
+            int nbFriend = 0;
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var friend in _context.FriendShips.Where(u => u.UserId == id))
+            {
+                nbFriend++;
+            }
+            
+            return (nbFriend);
         }
     }
 }
