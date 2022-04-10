@@ -32,7 +32,25 @@ const caseList =
             title: "Supression ressource",
             body: "Votre ressource n'a pas pus être supprimer",
             color: "rgba(255, 0, 4, 0.62)",
-        }
+        },
+        {
+            id: "addFriendOk",
+            title: "Relation",
+            body: "Vous avez une nouvelle relation",
+            color: "rgba(0, 203, 81, 0.62)",
+        },
+        {
+            id: "addFriendNok",
+            title: "Relation",
+            body: "Erreur lors de l'ajout de la relation",
+            color: "rgba(255, 0, 4, 0.62)",
+        },
+        {
+            id: "addFriendAlready",
+            title: "Relation",
+            body: "L'utilisateur est déjà l'une de vos relation",
+            color: "rgba(255,183,0,0.62)",
+        },
     ]
 
 class ToastCustom extends Component {

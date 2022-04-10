@@ -21,6 +21,8 @@ import authService from "../../components/api-authorization/AuthorizeService";
 import ModalCustom from "../../components/Modal";
 import ToastCustom from "../../components/Toast";
 import moment from 'moment';
+import Link from "react-router-dom/es/Link";
+
 moment().format();
 
 class Index extends Component {
@@ -39,7 +41,7 @@ class Index extends Component {
         this.likeResource = this.likeResource.bind(this);
         this.bookmarkResource = this.bookmarkResource.bind(this);
     }
-    
+
     likeResource = async () => {
         let isLiked = await this.state.isLiked;
 
@@ -257,10 +259,20 @@ class Index extends Component {
                                         <div className="col-md-7">
                                             <div>
                                                 <div className="userHeader">
-                                                    <img alt="toto" src={Avatar} className="avatarHoverRessource"/>
+                                                    <Link to={{
+                                                        pathname: `/profile/${this.state.data.id}`,
+                                                        state: {rUserId: this.state.data.user.id}
+                                                    }}>
+                                                        <img alt="toto" src={Avatar} className="avatarHoverRessource"/>
+                                                    </Link>
                                                     <div className={"ressourcePropInfos"}>
-                                                        <p className="ressourcePropTitle">{this.state.data.title}</p>
-                                                        <p className="ressourcePropUser">{this.state.data.user.firstName + " " + this.state.data.user.lastName}</p>
+                                                        <p className="ressourcePropTitle" >{this.state.data.title}</p>
+                                                        <Link to={{
+                                                            pathname: `/profile/${this.state.data.id}`,
+                                                            state: {rUserId: this.state.data.user.id}
+                                                        }} style={{textDecoration: "none", color: "black"}}>
+                                                            <p className="ressourcePropUser" style={{textDecoration: "none", color: "black"}}>{this.state.data.user.firstName + " " + this.state.data.user.lastName}</p>
+                                                        </Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -271,7 +283,8 @@ class Index extends Component {
                                             <div className="row justify-content-md-center">
                                                 <div className="col-md-12">
                                                     <Chip className={"ressourcePropCat space-between mt-4"} size="small"
-                                                          color="grey" label={this.state.optionsCat[this.state.optionsCat.findIndex(e => e.value === this.state.data.resourceCategoryId)].label}/>
+                                                          color="grey"
+                                                          label={this.state.optionsCat[this.state.optionsCat.findIndex(e => e.value === this.state.data.resourceCategoryId)].label}/>
                                                 </div>
                                                 <div className="col-md-7 ressourcePropContent">
                                                     <p>
@@ -282,7 +295,7 @@ class Index extends Component {
 
                                                 <div className="row justify-content-md-center">
                                                     <div className="col-md-7 ressourcePropDate">
-                                                        <p>  { moment(this.state.data.updatedAt ? this.state.data.updatedAt : this.state.data.releaseDate, 'YYYY-MM-DD[T]HH:mm:ss').format("DD/MM/YYYY HH:mm") } {this.state.data.updatedAt ? "• Modifié" : ""}</p>
+                                                        <p>  {moment(this.state.data.updatedAt ? this.state.data.updatedAt : this.state.data.releaseDate, 'YYYY-MM-DD[T]HH:mm:ss').format("DD/MM/YYYY HH:mm")} {this.state.data.updatedAt ? "• Modifié" : ""}</p>
                                                     </div>
                                                 </div>
                                                 <div className="row justify-content-md-center">

@@ -136,8 +136,8 @@ export default class CardRessources extends Component {
         }
 
     }
-    editRessource () {
-        let redirect = "/edit-ressource/"+ this.props.id;
+    editRessource() {
+        let redirect = "/edit-ressource/" + this.props.id;
         this.props.history.push({
             pathname: redirect,
         });
@@ -147,20 +147,19 @@ export default class CardRessources extends Component {
         return (<Card className="cardStyle">
             <Card.Body>
                 <div className="containerUser">
-                    <Link to={`/profile/`} className={"linkBlank"}>
+                    <Link to={{
+                        pathname: `/profile/${this.props.rUserId}`,
+                        state: {rUserId: this.props.rUserId}
+                    }} className={"linkBlank"}>
                         <img alt="toto" src={Avatar} className="avatarOnRessource"/>
                     </Link>
-                    <Link to={`/profile/`} className={"linkBlank"}>
+                    <Link to={{
+                        pathname: `/profile/${this.props.rUserId}`,
+                        state: {rUserId: this.props.rUserId}
+                    }} className={"linkBlank"}>
                         <p className="userName">{this.props.username}</p>
                     </Link>
-                    {/* Adding friend */
-                        !this.props.isUserRess ?
-                            <Card.Link
-                                onClick={() => this.addFriend()}
-                                className={"actionLink mx-2"}><PersonAddIcon
-                                sx={{color: "#24A5AD"}}
-                                fontSize="medium"/></Card.Link>
-                            : ''}
+                  
                 </div>
 
                 <Link to={{
