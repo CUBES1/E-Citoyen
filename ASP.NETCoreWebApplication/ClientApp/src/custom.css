@@ -36,11 +36,11 @@ code {
 }
 
 .sideContainer {
-    width: 27% !important;
-    height: 700px;
+    width: 26% !important;
     padding-top: 24px !important;
-    padding-right: 25px;
-    left: 79%;
+    /*padding-right: 25px;*/
+    left: 74%;
+    height: 80%;
     position: sticky;
     top: 0;
 }
@@ -168,7 +168,7 @@ code {
 .avatarHoverRessource {
     height: 125px;
     margin: 0px 0px 0px 0px;
-    border-radius: 9999px;
+    
     cursor: pointer;
     border: 5px solid #FFFFFF;
     transition: ease all 0.25s;
@@ -255,7 +255,7 @@ code {
     position: relative;
 }
 
-.profile-page .card-profile .card-profile-image img {
+.profile-page .card-profile .card-profile-image .avatar {
     max-width: 180px;
     border-radius: 0.25rem;
     transform: translate(-50%, -30%);
@@ -264,7 +264,7 @@ code {
     transition: all 0.15s ease;
 }
 
-.profile-page .card-profile .card-profile-image img:hover {
+.profile-page .card-profile .card-profile-image .avatar:hover {
     transform: translate(-50%, -33%);
 }
 

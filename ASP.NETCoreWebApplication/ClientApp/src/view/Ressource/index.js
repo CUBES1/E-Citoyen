@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import {Layout} from '../Layout'
-import Avatar from "../../assets/avatar.png";
+import Avatar from 'react-avatar';
 import {Button, Card, Spinner} from "react-bootstrap";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -263,15 +263,21 @@ class Index extends Component {
                                                         pathname: `/profile/${this.state.data.id}`,
                                                         state: {rUserId: this.state.data.user.id}
                                                     }}>
-                                                        <img alt="toto" src={Avatar} className="avatarHoverRessource"/>
+                                                        <Avatar name={this.state.data.user.firstName + " " + this.state.data.user.lastName}
+                                                                size={125}
+                                                                round={true}
+                                                                className="avatarHoverRessource"/>
                                                     </Link>
                                                     <div className={"ressourcePropInfos"}>
-                                                        <p className="ressourcePropTitle" >{this.state.data.title}</p>
+                                                        <p className="ressourcePropTitle">{this.state.data.title}</p>
                                                         <Link to={{
                                                             pathname: `/profile/${this.state.data.id}`,
                                                             state: {rUserId: this.state.data.user.id}
                                                         }} style={{textDecoration: "none", color: "black"}}>
-                                                            <p className="ressourcePropUser" style={{textDecoration: "none", color: "black"}}>{this.state.data.user.firstName + " " + this.state.data.user.lastName}</p>
+                                                            <p className="ressourcePropUser" style={{
+                                                                textDecoration: "none",
+                                                                color: "black"
+                                                            }}>{this.state.data.user.firstName + " " + this.state.data.user.lastName}</p>
                                                         </Link>
                                                     </div>
                                                 </div>

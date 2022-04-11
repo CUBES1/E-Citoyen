@@ -1,38 +1,78 @@
-import React, { Component } from 'react'
-import { Container, Card, Col, Row } from 'react-bootstrap';
+import React, {Component} from 'react'
+import {Container, Card, Col, Row} from 'react-bootstrap';
 import './style.css';
-import Avatar from '../../assets/avatar.png'
-import { flexbox, textAlign } from '@mui/system';
+import Avatar from 'react-avatar';
+import {flexbox, textAlign} from '@mui/system';
+
+let fakeDataTableToDemo = [
+    {
+        id: 1,
+        name: 'Jean Michel',
+        like: 12,
+        title: "Les recettes de notres enfances",
+    },
+    {
+        id: 2,
+        name: 'Pierre Henry',
+        like: 10,
+        title: "L'homme et la lune, la marche des morts",
+    },
+    {
+        id: 3,
+        name: 'Pierre Lachaise',
+        like: 9,
+        title: "Un passé et un avenir",
+    },
+    {
+        id: 4,
+        name: 'Anne-Marie Lefevre',
+        like: 9,
+        title: "La rue de la paix",
+    },
+    {
+        id: 5,
+        name: 'Axel Bélanger',
+        like: 9,
+        title: "Le monde de la guerre",
+    },
+    {
+        id: 6,
+        name: 'Thierry Cazalet',
+        like: 8,
+        title: "Portrait de l'homme",
+    },
+    
+]
+
 
 export default class CardCustom extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
+        this.state = {}
     }
+
     render() {
         return (
-            <Card className="cardStyle" >
+            <Card className="cardStyle">
                 <Card.Body>
 
                     <Card.Title>Nos meilleurs ressources</Card.Title>
                     {
-                        [1, 2, 3, 4, 5, 6].map((x, i) =>
+                        fakeDataTableToDemo.map((x, i) =>
                             <Card className="SideBarCardStyle" key={i}>
                                 <div className="cardContainer-sidebar">
                                     <div className="containerUser">
-                                        <img alt="toto" src={Avatar} className="avatarOnSidbar" />
+                                        <Avatar className="avatar-sidebar" size={50} round="50px" name={x.name} className={"avatarOnSidbar"}/>
                                     </div>
                                     <div className="textContainer">
                                         <div>
-                                            <p className="topTitle">Je suis un titre plutôt long qui défini une réssource</p>
+                                            <p className="topTitle">{x.title}</p>
                                         </div>
                                         <div>
-                                            <p className="topUserName">Abib Assam</p>
+                                            <p className="topUserName">{x.name}</p>
                                         </div>
                                         <div>
-                                            <p className="topLike">{i} likes</p>
+                                            <p className="topLike">{x.like} j'aimes</p>
                                         </div>
                                     </div>
                                 </div>
