@@ -10,6 +10,7 @@ using ASP.NETCoreWebApplication.Models;
 using Humanizer;
 using System.Linq;
 using System.Runtime.Versioning;
+using ASP.NETCoreWebApplication.ViewModel;
 
 namespace ASP.NETCoreWebApplication.Controllers
 {
@@ -28,7 +29,7 @@ namespace ASP.NETCoreWebApplication.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ressource>>> GetRessources()
         {
-            return await _context.Ressources.Include(a=>a.User).OrderByDescending(b => b.ReleaseDate).ToListAsync();
+            return await _context.Ressources.Include(a=>a.User).OrderByDescending(b => b.ReleaseDate).Where(b => b.Visibility == Visibility.Public).ToListAsync();
         }
 
         // GET: api/Ressource/usr/5
@@ -45,7 +46,7 @@ namespace ASP.NETCoreWebApplication.Controllers
         }
         
         // GET: api/Ressource/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<Ressource>> GetRessource(Guid id)
         {
             var ressource = await _context.Ressources.Include(a=>a.User).SingleAsync(a => a.Id == id);
@@ -54,6 +55,16 @@ namespace ASP.NETCoreWebApplication.Controllers
             {
                 return NotFound();
             }
+
+            return ressource;
+        }
+        
+        
+        // GET: api/Ressource/{Firstname}
+        [HttpGet (("{searchString}"))]
+        public IQueryable<Ressource> Search(string searchString)
+        { 
+            var ressource = _context.Ressources.Where(o => o.Title.Contains(searchString));
 
             return ressource;
         }

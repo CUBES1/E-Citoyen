@@ -84,6 +84,12 @@ namespace ASP.NETCoreWebApplication.Data
               Label = "Intelligence émotionnelle"
           };
 
+          var categorie1 = new ResourceCategory()
+          {
+              Id = new Guid("6c6f5a3c-f8dc-42f5-afb5-805f3ac827a3"),
+              Description = "Un Article",
+              Label = "Article"
+          };
           
           var Post1 = new Post()
           {
@@ -96,11 +102,25 @@ namespace ASP.NETCoreWebApplication.Data
               UserId = Phillip.Id,
               ResourceCategoryId = categorie.Id
           };
+          
+          var Post2 = new Post()
+          {
+              Id = new Guid("6c6f5a3c-f8dc-42f5-afb5-805f3ac823a4"),
+              Title = "La situation en ukraine",
+              Visibility = Visibility.Public,
+              Description = "La Russie a attaqué l'ukraine, ce qui déclenche des probléme partout dans le monde "
+                            + "Quel a été le facteur déclencheur ? Dans ma série d'article vous trouverez les raisons de cette invasion.",
+              ReleaseDate = DateTime.Now,
+              UserId = bertrand.Id,
+              ResourceCategoryId = categorie1.Id
+          };
 
           builder.Entity<ApplicationUser>().HasData(bertrand);  
           builder.Entity<ApplicationUser>().HasData(Phillip);  
           builder.Entity<ResourceCategory>().HasData(categorie);  
+          builder.Entity<ResourceCategory>().HasData(categorie1);  
           builder.Entity<Post>().HasData(Post1);  
+          builder.Entity<Post>().HasData(Post2);  
         }  
         
         public DbSet<Ressource> Ressources { get; set; }

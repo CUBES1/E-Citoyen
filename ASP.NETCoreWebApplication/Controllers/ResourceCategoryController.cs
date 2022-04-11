@@ -27,11 +27,21 @@ namespace ASP.NETCoreWebApplication.Controllers
                 .OrderBy(rc => rc.Label)
                 .ToListAsync();
         
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<ResourceCategory>> GetResourceCategory(Guid id)
             => await _context.ResourceCategories
                 .FindAsync(id);
                 
+        
+        // GET: api/ResourceCategory
+        [HttpGet (("{searchString}"))]
+        public IQueryable<ResourceCategory> Search(string searchString)
+        { 
+            var categorie = _context.ResourceCategories.Where(o => o.Label.Contains(searchString));
+
+            return categorie;
+        }
+        
         [HttpPost]
         public async Task<ActionResult<ResourceCategory>> PostResourceCategory(ResourceCategory resourceCategory)
         {
