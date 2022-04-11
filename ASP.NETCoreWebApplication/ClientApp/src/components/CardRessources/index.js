@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Container, Card, Col, Button} from 'react-bootstrap';
 import './style.css';
-import Avatar from '../../assets/avatar.png'
+import Avatar from "react-avatar";
 import {textAlign} from '@mui/system';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -151,7 +151,7 @@ export default class CardRessources extends Component {
                         pathname: `/profile/${this.props.rUserId}`,
                         state: {rUserId: this.props.rUserId}
                     }} className={"linkBlank"}>
-                        <img alt="toto" src={Avatar} className="avatarOnRessource"/>
+                        <Avatar name={this.props.username} size={35} round={true} className="avatarOnRessource"/>
                     </Link>
                     <Link to={{
                         pathname: `/profile/${this.props.rUserId}`,

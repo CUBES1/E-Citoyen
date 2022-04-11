@@ -4,7 +4,7 @@ import getUserAuth from "../../helpers/getUserAuth";
 import authService from "../../components/api-authorization/AuthorizeService";
 import {Layout} from "../Layout"
 import {Spinner} from "react-bootstrap";
-import Avatar from "../../assets/avatar.png";
+import Avatar from "react-avatar";
 import axios from "axios";
 import ToastCustom from "../../components/Toast";
 import moment from "moment";
@@ -89,11 +89,10 @@ class Profile extends React.Component {
                                             <Col className="order-lg-2" lg="3">
                                                 <div className="card-profile-image">
                                                     <a href="#" onClick={e => e.preventDefault()}>
-                                                        <img
-                                                            alt="..."
-                                                            className="rounded-circle"
-                                                            src={Avatar}
-                                                        />
+                                                        <Avatar name={this.state.user_data.firstName + " " + this.state.user_data.lastName}
+                                                                size={180}
+                                                                round={true}
+                                                                className="rounded-circle avatar"/>
                                                     </a>
                                                 </div>
                                             </Col>
