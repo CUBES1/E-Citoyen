@@ -63,7 +63,7 @@ export class LoginMenu extends Component {
                         </Link>
                     </NavLink>
                 </NavItem>
-                <NavDropdown eventKey={1}
+                <NavDropdown alignRight eventKey={1}
                              title={
                                  <div className="pull-left">
                                      <img className="avatarNavBar"
@@ -110,6 +110,19 @@ export class LoginMenu extends Component {
 
     anonymousView(registerPath, loginPath) {
         return (<Fragment>
+            <NavDropdown alignRight
+                         title={
+                             <div className="pull-left">
+                                 <AdminPanelSettingsOutlinedIcon fontSize="large" className="iconAddMargin"/>
+                             </div>}
+                         id="basic-nav-dropdown">
+                <NavLink tag={Link} className="text-dark"
+                         style={{fontSize: "12px", textDecoration: "underline", marginBottom: "-15px", marginTop: "-15px"}}
+                         to="/mentions-legales">Mentions légales</NavLink>
+                <NavLink tag={Link} className="text-dark"
+                         style={{fontSize: "12px", textDecoration: "underline", marginBottom: "-15px"}}
+                         to="/condition-utilisation">Conditions d’utilisation</NavLink>
+            </NavDropdown>
             <NavItem>
                 <NavLink tag={Link} className="text-dark" to={registerPath}><Button variant="primary">Créer un
                     compte</Button></NavLink>
@@ -118,23 +131,6 @@ export class LoginMenu extends Component {
                 <NavLink tag={Link} className="text-dark" to={loginPath}><Button
                     variant="secondary">S'identifier</Button></NavLink>
             </NavItem>
-
-            <NavDropdown title={
-                <div className="pull-left">
-                    <AdminPanelSettingsOutlinedIcon fontSize="large" className="iconAddMargin"/>
-                </div>}
-                         id="basic-nav-dropdown">
-                <NavLink tag={Link} className="text-dark"
-                         style={{
-                             fontSize: "12px",
-                             textDecoration: "underline",
-                             marginBottom: "-15px",
-                             marginTop: "-10px"
-                         }} to="/mentions-legales">Mentions légales</NavLink>
-                <NavLink tag={Link} className="text-dark"
-                         style={{fontSize: "12px", textDecoration: "underline", marginBottom: "-15px"}}
-                         to="/condition-utilisation">Conditions d’utilisation</NavLink>
-            </NavDropdown>
         </Fragment>);
     }
 }
