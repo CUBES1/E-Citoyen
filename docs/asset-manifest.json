@@ -1,0 +1,41 @@
+{
+  "files": {
+    "0.c2e35d77.iframe.bundle.js": "./0.c2e35d77.iframe.bundle.js",
+    "0.c2e35d77.iframe.bundle.js.map": "./0.c2e35d77.iframe.bundle.js.map",
+    "1.c4962ae5.iframe.bundle.js": "./1.c4962ae5.iframe.bundle.js",
+    "1.c4962ae5.iframe.bundle.js.map": "./1.c4962ae5.iframe.bundle.js.map",
+    "2.2faeaeb1.iframe.bundle.js": "./2.2faeaeb1.iframe.bundle.js",
+    "3.4f6f9c0e.iframe.bundle.js": "./3.4f6f9c0e.iframe.bundle.js",
+    "main.css": "./static/css/main.5e461c6b.chunk.css",
+    "main.js": "./main.76514452.iframe.bundle.js",
+    "main.css.map": "./static/css/main.5e461c6b.chunk.css.map",
+    "runtime~main.js": "./runtime~main.1aa3bc5d.iframe.bundle.js",
+    "vendors~main.js": "./vendors~main.1702b8b4.iframe.bundle.js",
+    "vendors~main.js.map": "./vendors~main.1702b8b4.iframe.bundle.js.map",
+    "7.d2e7272a.iframe.bundle.js": "./7.d2e7272a.iframe.bundle.js",
+    "7.d2e7272a.iframe.bundle.js.map": "./7.d2e7272a.iframe.bundle.js.map",
+    "8.31f6f233.iframe.bundle.js": "./8.31f6f233.iframe.bundle.js",
+    "9.789a1e68.iframe.bundle.js": "./9.789a1e68.iframe.bundle.js",
+    "10.c0059fda.iframe.bundle.js": "./10.c0059fda.iframe.bundle.js",
+    "10.c0059fda.iframe.bundle.js.map": "./10.c0059fda.iframe.bundle.js.map",
+    "11.7711c2ff.iframe.bundle.js": "./11.7711c2ff.iframe.bundle.js",
+    "11.7711c2ff.iframe.bundle.js.map": "./11.7711c2ff.iframe.bundle.js.map",
+    "0.c2e35d77.iframe.bundle.js.LICENSE.txt": "./0.c2e35d77.iframe.bundle.js.LICENSE.txt",
+    "1.c4962ae5.iframe.bundle.js.LICENSE.txt": "./1.c4962ae5.iframe.bundle.js.LICENSE.txt",
+    "10.c0059fda.iframe.bundle.js.LICENSE.txt": "./10.c0059fda.iframe.bundle.js.LICENSE.txt",
+    "11.7711c2ff.iframe.bundle.js.LICENSE.txt": "./11.7711c2ff.iframe.bundle.js.LICENSE.txt",
+    "7.d2e7272a.iframe.bundle.js.LICENSE.txt": "./7.d2e7272a.iframe.bundle.js.LICENSE.txt",
+    "iframe.html": "./iframe.html",
+    "precache-manifest.d4fbfcd5cdf536148d377594e5832be8.js": "./precache-manifest.d4fbfcd5cdf536148d377594e5832be8.js",
+    "service-worker.js": "./service-worker.js",
+    "static/media/avatar.png": "./static/media/avatar.c632e17b.png",
+    "static/media/wave.abbefd51.svg": "./static/media/wave.abbefd51.svg",
+    "vendors~main.1702b8b4.iframe.bundle.js.LICENSE.txt": "./vendors~main.1702b8b4.iframe.bundle.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "runtime~main.1aa3bc5d.iframe.bundle.js",
+    "vendors~main.1702b8b4.iframe.bundle.js",
+    "static/css/main.5e461c6b.chunk.css",
+    "main.76514452.iframe.bundle.js"
+  ]
+}
