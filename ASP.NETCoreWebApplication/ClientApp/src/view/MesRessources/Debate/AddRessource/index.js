@@ -156,14 +156,14 @@ export default class AddDebate extends React.Component {
                             <Row>
                                 <Row className={"px-0"}>
                                     <Col xs={7}>
-                                        <Label for="name" sm={2}>Titre</Label>
-                                        <Input type="text" name="Title" onChange={this.handleChange}
+                                        <Label for="Title" sm={2}>Titre</Label>
+                                        <Input type="text" data-testid="titre" name="Title" onChange={this.handleChange}
                                                value={this.state.Title} className="form-control"
                                                placeholder="Donner un titre a votre ressource"/>
                                     </Col>
 
                                     <Col>
-                                        <Label for="name" sm={2}>Catégorie</Label>
+                                        <Label for="Genre" data-testid="category" sm={2}>Catégorie</Label>
                                         <Select
                                             className="basic-single"
                                             classNamePrefix="select"
@@ -195,8 +195,8 @@ export default class AddDebate extends React.Component {
 
 
                                 <Row className={"mt-4"}>
-                                    <Label for="name" sm={2}>Description</Label>
-                                    <Input type="textarea" name="Description" rows={8} onChange={this.handleChange}
+                                    <Label for="Description" sm={2}>Description</Label>
+                                    <Input type="textarea" data-testid="desc" name="Description" rows={8} onChange={this.handleChange}
                                            value={this.state.Description} className="form-control"
                                            placeholder="Que souhaitez vous dire ?"/>
 
@@ -272,7 +272,7 @@ export default class AddDebate extends React.Component {
 
                             <Row className={"mt-4"} align="center">
                                 <Col sm={12}>
-                                    <button type="button" onClick={this.Adddebate}
+                                    <button type="button" onClick={this.Adddebate} data-testid="validateButton"
                                             className="btn btn-primary">Publier la ressource
                                     </button>
                                 </Col>

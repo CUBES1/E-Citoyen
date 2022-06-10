@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import {Layout} from '../Layout'
 import Avatar from 'react-avatar';
-import {Button, Card, Spinner} from "react-bootstrap";
+import {Button, Card, Spinner, Badge} from "react-bootstrap";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
@@ -10,7 +10,6 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import ReplyIcon from "@mui/icons-material/Reply";
 import DownloadIcon from '@mui/icons-material/Download';
 import ReportIcon from '@mui/icons-material/Report';
-import {Chip} from "@material-ui/core";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import EditIcon from "@mui/icons-material/Edit";
@@ -288,9 +287,9 @@ class Index extends Component {
                                         <div className="col-md-auto">
                                             <div className="row justify-content-md-center">
                                                 <div className="col-md-12">
-                                                    <Chip className={"ressourcePropCat space-between mt-4"} size="small"
+                                                    <Badge pill className={"ressourcePropCat space-between mt-4"} size="small"
                                                           color="grey"
-                                                          label={this.state.optionsCat[this.state.optionsCat.findIndex(e => e.value === this.state.data.resourceCategoryId)].label}/>
+                                                    >{this.state.optionsCat[this.state.optionsCat.findIndex(e => e.value === this.state.data.resourceCategoryId)].label}</Badge>
                                                 </div>
                                                 <div className="col-md-7 ressourcePropContent">
                                                     <p>
