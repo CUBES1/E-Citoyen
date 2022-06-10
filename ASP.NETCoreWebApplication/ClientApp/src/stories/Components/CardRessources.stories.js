@@ -35,7 +35,7 @@ Full.args =
         isUserRess: true,
         canEdit: true,
         img: `https://source.unsplash.com/random/800x400`,
-        title: "Testing Ressources ",
+        title: "Testing Ressources",
         dateTime: "2020-01-01 10:20:30",
         id: 1,
         key: 1,
