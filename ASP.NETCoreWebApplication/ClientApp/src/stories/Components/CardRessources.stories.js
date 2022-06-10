@@ -31,7 +31,7 @@ Empty.storyName = 'Empty';
 export const Full = Template.bind({});
 Full.args =
     {
-        username: "Jean Pierre",
+        username: "Jean Louis",
         isUserRess: true,
         canEdit: true,
         img: `https://source.unsplash.com/random/800x400`,
