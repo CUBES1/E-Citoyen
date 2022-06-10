@@ -1,7 +1,7 @@
 name: Build and Deploy StoryBook
 on:
   push:
-    paths: ["ClientApp/src/stories/**", "ClientApp/src/components/**"] # Trigger the action only when files change in the folders defined here
+    paths: ["ASP.NETCoreWebApplication/ClientApp/src/stories/**", "ASP.NETCoreWebApplication/ClientApp/src/components/**"] # Trigger the action only when files change in the folders defined here
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -12,7 +12,7 @@ jobs:
           persist-credentials: false
       - name: Install and Build 🔧
         run: | # Install npm packages and build the Storybook files
-          cd ClientApp
+          cd ASP.NETCoreWebApplication/ClientApp
           npm install
           npm run build-storybook
       - name: Deploy 🚀
