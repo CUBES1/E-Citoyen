@@ -20,6 +20,6 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: StoryBook # The branch the action should deploy to.
-          FOLDER: ClientApp/docs-build # The folder that the build-storybook script generates files.
+          FOLDER: ASP.NETCoreWebApplication/ClientApp/docs-build # The folder that the build-storybook script generates files.
           CLEAN: true # Automatically remove deleted files from the deploy branch
           TARGET_FOLDER: docs # The folder that we serve our Storybook files from
