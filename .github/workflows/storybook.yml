@@ -17,8 +17,6 @@ jobs:
           npm run build-storybook
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.6.2
-        permissions:
-          contents: write
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: StoryBook # The branch the action should deploy to.
