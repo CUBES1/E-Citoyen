@@ -46,18 +46,39 @@ namespace ASP.NETCoreWebApplication.Controllers
 
         // PUT: api/Post/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut]
-        public async Task<ActionResult> PutPost(Post post)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> PutPost(Guid id, Post post)
         {
+            if (id != post.Id)
+            {
+                return BadRequest();
+            }
+
             if (!await _context.Posts.AnyAsync(p => p.Id == post.Id))
                 return NotFound($"No ImagePost with id {post.Id}");
 
             if (!await _context.ResourceCategories.AnyAsync(rc => rc.Id == post.ResourceCategoryId))
                 return BadRequest($"No ResourceCategory with id {post.ResourceCategoryId}");
+                
 
             post.UpdatedAt = DateTime.Now;
             _context.Entry(post).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PostExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return NoContent();
         }
