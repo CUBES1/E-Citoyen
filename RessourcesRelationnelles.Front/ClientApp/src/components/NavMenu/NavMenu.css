@@ -1,0 +1,76 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+
+.mainTitle {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 42px;
+  padding-top: 10px;
+}
+
+.subTitle {
+  font-size: 24px;
+}
+
+
+.avatarNavBar {
+  height: 60px;
+  width: auto;
+  margin: 0px 0px 0px 30px;
+  border: 2px solid lighten(var(--bs-secondary), 15%);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: ease all 0.25s;
+}
+
+
+@media screen and (max-width: 700px){
+  .subTitle {
+      display: none;
+  }
+  
+}
+
+
+@media screen and (max-width: 800px) {
+  .subTitle {
+    display: none;
+  }
+  .background {
+    transform: scale(1.7);
+    margin-top: 40px;
+    position: absolute;
+    /* top: 0;
+    left: 0; */
+    z-index: -10;
+    /* width:100%;height:100%;position:fixed;top:0;left:0;bottom:0;right:0; */
+  }
+}
+
+.background {
+  height: auto;
+  /*width: 100vw;*/
+  position: absolute;
+  /* top: 0;
+  left: 0; */
+  z-index: -10;
+  /* width:100%;height:100%;position:fixed;top:0;left:0;bottom:0;right:0; */
+}
+
+.customNav {
+  background-color: transparent;
+  border: none;
+}

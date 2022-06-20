@@ -1,0 +1,47 @@
+﻿<div class="header">
+    <h2>Manage your account</h2>
+    <h4 class="setting">Change your account settings</h4>
+<hr />
+</div>
+<div>
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="body">
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+
+<style scoped>
+    ul{
+        margin: auto;
+    }
+    h2 {
+        background: #00cab9;
+        text-align: center;
+        height: 50px ;
+    }
+    .header {
+        background: #00cab9;
+        text-align: center;      
+    }
+    .body {
+        width: 100%;
+    }
+    .row {
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+    .col-md-9 { 
+        width: 100%;
+    }
+</style>
+
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

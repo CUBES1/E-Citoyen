@@ -1,0 +1,213 @@
+@page
+@using RessourcesRelationnelles.Front.Areas.Identity.Pages.Account
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+@*Old version !*@
+
+@*<h1>@ViewData["Title"]</h1>*@
+@*<div class="row">
+    <div class="col-md-4">
+        <section>
+            <form id="account" method="post">
+                <h4>Use a local account to log in.</h4>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Input.Email"></label>
+                    <input asp-for="Input.Email" class="form-control" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Password"></label>
+                    <input asp-for="Input.Password" class="form-control" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label asp-for="Input.RememberMe">
+                            <input asp-for="Input.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                    </p>
+                    <p>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    </p>
+                    <p>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h4>Use another service to log in.</h4>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                            for details on setting up this ASP.NET application to support logging in via external services.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>*@
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Connexion</title>
+    <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/site.css">
+</head>
+
+<body style="background-color: #00cba9">
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <div class="container">
+        <div class="card login-card">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <img src="/img/illu.jpeg" alt="login" class="login-card-img">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body" style="text-align: center;">
+                        <div class="brand-wrapper">
+                            <a href="/">
+                                <img src="/img/Logo Ressources Relationnelles.svg" alt="logo" class="logo">
+                            </a>
+                        </div>
+                        <p class="login-card-description">Connexion</p>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <form id="account" method="post" style=" margin-left: auto;margin-right: auto;">
+                            <div class="form-group">
+                                <label asp-for="Input.Email" class="sr-only"></label>
+                                <input asp-for="Input.Email" class="form-control" placeholder="Adresse e-mail ou username"/>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label asp-for="Input.Password" class="sr-only"></label>
+                                <input asp-for="Input.Password" class="form-control" placeholder="Mot de passe"/>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <div class="checkbox" style="">
+                                        <label asp-for="Input.RememberMe">
+                                        <input asp-for="Input.RememberMe"/>
+                                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Se connecter">
+                        </form>
+
+                        <div>
+                            <div style="width: 80%; height: 14px; border-bottom: 1px solid black; text-align: center;margin-left: auto;margin-right: auto;">
+                                <span style="font-size: 18px; background-color: #ffffff; padding: 0 10px;">
+                                    OU
+                                </span>
+                            </div>
+                            <div style="display: flex;justify-content: center;">
+                                <a href="#!">
+                                    <img src="/img/franceconnect-bouton.png" class="franceConnectButton"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="login-card-footer-last-item">
+                            <a asp-page="./ForgotPassword" class="forgot-password-link">Mot de passe oublié</a>
+                            <p class="forgot-password-link">
+                                <a asp-page="./Register"  asp-route-returnUrl="@Model.ReturnUrl" class="text-reset">
+                                    Pas encore de compte ? Inscrivez vous
+                                    !
+                                </a>
+                            </p>
+                        </div>
+                        <nav class="login-card-footer-nav ">
+                            @*<div>
+                                <a href="#!">
+                                    <img src="/img/app_store_icon.png" class="downloadIcons"/>
+                                </a>
+                                <a href="#!">
+                                    <img src="/img/GooglePlay2-FR.png" class="downloadIcons"/>
+                                </a>
+                            </div>*@
+                            <a href="#!">Conditions général d'utilisation</a>
+                            <br/>
+                            <a href="#!">Politique de confidentialité</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="card login-card">
+            <img src="assets/images/login.jpg" alt="login" class="login-card-img">
+            <div class="card-body">
+                <h2 class="login-card-title">Login</h2>
+                <p class="login-card-description">Sign in to your account to continue.</p>
+                <form action="#!">
+                    <div class="form-group">
+                        <label for="email" class="sr-only">Email</label>
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="sr-only">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="form-prompt-wrapper">
+                        <div class="custom-control custom-checkbox login-card-check-box">
+                            <input type="checkbox" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">Remember me</label>
+                        </div>              
+                        <a href="#!" class="text-reset">Forgot password?</a>
+                    </div>
+                    <input name="login" id="login" class="btn btn-block login-btn mb-4" type="button" value="Login">
+                </form>
+                <p class="login-card-footer-text">Don't have an account? <a href="#!" class="text-reset">Register here</a></p>
+            </div>
+        </div> -->
+    </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

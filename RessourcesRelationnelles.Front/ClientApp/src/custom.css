@@ -1,0 +1,340 @@
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+code {
+    color: #E01A76;
+}
+
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: rgb(248, 249, 250);
+}
+
+code {
+    font-family: 'Roboto',
+    monospace;
+}
+
+
+.cardContainer {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    /* padding: 0px 20px 0px 10px; */
+    justify-content: center;
+}
+
+.mainContainer {
+    width: 75% !important;
+}
+
+.sideContainer {
+    width: 26% !important;
+    padding-top: 24px !important;
+    /*padding-right: 25px;*/
+    left: 74%;
+    height: 80%;
+    position: sticky;
+    top: 0;
+}
+
+
+@media screen and (max-width: 800px) {
+    .mainContainer {
+        width: auto !important;
+        justify-content: center;
+    }
+
+    .sideContainer {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1308px) {
+    .mainContainer {
+        width: auto !important;
+    }
+
+    .sideContainer {
+        display: none !important;
+    }
+}
+
+
+.dropdown-toggle:after {
+    display: none !important;
+}
+
+.addRessources {
+    margin: auto;
+}
+
+
+.iconAddMargin {
+    margin-right: 5px;
+}
+
+
+@media screen and (min-width: 1308px) {
+    .customLoading {
+        margin-left: 45%;
+    }
+}
+
+.customLoading {
+    font-size: 40px;
+    width: 100px;
+    height: 100px;
+}
+
+.customLoading2 {
+    width: 120px;
+    height: 120px;
+    position: fixed;
+    left: 45%;
+    top: 45%;
+}
+
+.customLoadingSection {
+    margin: auto;
+}
+
+.identityLoading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+
+.linkBlank {
+    text-decoration: none;
+    color: black;
+    width: auto;
+}
+
+.linkBlank:hover {
+    text-decoration: none;
+    color: black;
+}
+
+/* display page of 1 ressources */
+.ressourceHeader {
+    min-width: 75%;
+    display: grid;
+
+}
+
+.userHeader {
+    display: flex;
+    flex-direction: row;
+    line-height: 36px;
+    margin-top: -40px;
+    padding-left: 7px;
+    margin-bottom: -8px;
+    position: relative;
+}
+
+.ressourcePropInfos {
+    display: flex;
+    flex-direction: column;
+    line-height: 36px;
+    margin-top: 49px;
+}
+
+.ressourceHeaderImg {
+    border-radius: 20px;
+    max-height: 100%;
+    height: 400px;
+    width: 800px;
+    object-fit: cover;
+}
+
+.profileHeaderImg {
+    border-radius: 20px;
+    max-height: 100%;
+    height: 300px;
+    width: 1200px;
+    object-fit: cover;
+}
+
+.avatarHoverRessource {
+    height: 125px;
+    margin: 0px 0px 0px 0px;
+    
+    cursor: pointer;
+    border: 5px solid #FFFFFF;
+    transition: ease all 0.25s;
+}
+
+.ressourcePropTitle {
+    margin-left: 20px;
+    font-size: 28px;
+    padding-right: 40px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.ressourcePropUser {
+    margin-top: -15px;
+    margin-left: 20px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.ressourcePropContent {
+    margin-top: 2%;
+    min-width: 100%;
+
+}
+
+.buttonDownloadRess {
+    margin-left: 2%;
+    float: right;
+}
+
+.ressourcePropDate {
+    margin-top: 40px;
+    margin-bottom: -1em;
+    font-weight: 200;
+    width: 100%;
+}
+
+.space-between {
+    margin: 10px 5px 10px 5px;
+}
+
+.ressourcePropSection {
+    padding-bottom: 40px;
+    width: 60%;
+    margin: auto;
+}
+
+@media screen and (max-width: 1000px) {
+    .ressourcePropSection {
+        padding-bottom: 40px;
+        width: 98%;
+    }
+
+    .buttonDownloadRess span {
+        display: none;
+    }
+
+    .ressourceHeaderImg {
+        width: 100%;
+    }
+
+    .profileHeaderImg {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .userRow {
+        max-width: 63%;
+    }
+
+}
+
+
+/* Custom profile */
+
+.profile-page .card-profile {
+    margin-top: 10em;
+    border-radius: 30px;
+}
+
+.profile-page .card-profile .card-profile-image {
+    position: relative;
+}
+
+.profile-page .card-profile .card-profile-image .avatar {
+    max-width: 180px;
+    border-radius: 0.25rem;
+    transform: translate(-50%, -30%);
+    position: absolute;
+    left: 50%;
+    transition: all 0.15s ease;
+}
+
+.profile-page .card-profile .card-profile-image .avatar:hover {
+    transform: translate(-50%, -33%);
+}
+
+.profile-page .card-profile .card-profile-stats {
+    padding: 1rem 0;
+}
+
+.profile-page .card-profile .card-profile-stats > div {
+    text-align: center;
+    margin-right: 1rem;
+    padding: .875rem;
+}
+
+.profile-page .card-profile .card-profile-stats > div:last-child {
+    margin-right: 0;
+}
+
+.profile-page .card-profile .card-profile-stats > div .heading {
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: block;
+}
+
+.profile-page .card-profile .card-profile-stats > div .description {
+    font-size: .875rem;
+    color: #adb5bd;
+}
+
+.profile-page .card-profile .card-profile-actions {
+    padding: .875rem;
+}
+
+@media (max-width: 575.98px) {
+    .profile-page .card-profile .card-profile-actions {
+        margin-top: 110px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .profile-page .card-profile .card-profile-stats {
+        margin-top: 30px;
+    }
+}
+
+
+.mentions p {
+    font-size: 18px;
+    width: 90%;
+}
+
+.mentions p .centeredText{
+    font-size: 18px;
+    width: 100%;
+}
+
+.mentions h1 {
+    font-size: 56px;
+    margin-bottom: 4%;
+    text-align: center;
+}
+
+.mentions h2 {
+    font-size: 48px;
+    margin-bottom: 2%;
+    margin-top: 4%;
+    color: #027763;
+}
+
+.mentions h3 {
+    font-size: 36px;
+    margin-bottom: 2%;
+    color: #00cba9;
+}
