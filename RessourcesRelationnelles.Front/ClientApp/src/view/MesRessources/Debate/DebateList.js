@@ -10,7 +10,7 @@ export default class DebateList extends Component {
 
 
     componentDidMount() {
-        axios.get(`https://localhost:5001/api/Debat`)
+        axios.get(`https://localhost:7155/api/Debat`)
             .then(res => {
                 const debate = res.data;
                 this.setState({ debate });
@@ -18,9 +18,9 @@ export default class DebateList extends Component {
     }
 
     deleteContact (id) {
-        axios.delete(`https://localhost:5001/api/Debat/${id}`)
+        axios.delete(`https://localhost:7155/api/Debat/${id}`)
             .then(() => {
-                return axios.get(`https://localhost:5001/api/Debat/`)
+                return axios.get(`https://localhost:7155/api/Debat/`)
             })
             .then(res => {
                 // Update users in state as per-usual

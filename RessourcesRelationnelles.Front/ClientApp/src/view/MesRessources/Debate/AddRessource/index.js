@@ -54,7 +54,7 @@ export default class AddDebate extends React.Component {
         let id = null;
         let history = this.props.history;
         
-        await axios.post('https://localhost:5001/api/Post', {
+        await axios.post('https://localhost:7155/api/Publication', {
 
             Title: this.state.Title,
             Age: this.state.Age,
@@ -127,7 +127,7 @@ export default class AddDebate extends React.Component {
         await this.setState({currentUser: user})
         /* End For user in session statement*/
 
-        await axios.get('https://localhost:5001/api/ResourceCategory')
+        await axios.get('https://localhost:7155/api/ResourceCategory')
             .then(res => {
                 let options = [];
                 res.data.forEach(element => {

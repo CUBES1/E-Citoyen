@@ -29,10 +29,10 @@ export default class CardRessources extends Component {
     }
 
     deleteRessource(id) {
-        axios.delete(`https://localhost:5001/api/Ressource/${id}`)
+        axios.delete(`https://localhost:7155/api/Resource/${id}`)
             .then(() => {
                 window.location.reload()
-                return axios.get(`https://localhost:5001/api/Ressource/`)
+                return axios.get(`https://localhost:7155/api/Resource/`)
             })
             .then(res => {
                 // Update users in state as per-usual
@@ -42,7 +42,7 @@ export default class CardRessources extends Component {
     }
 
     addFriend() {
-        axios.post(`https://localhost:5001/api/Relation/${this.props.rUserId}`)
+        axios.post(`https://localhost:7155/api/Relation/${this.props.rUserId}`)
             .then(() => {
                 {
                     alert("You have add friend");
@@ -72,7 +72,7 @@ export default class CardRessources extends Component {
 
         /* Check if already liked to delete, or post on the call to the API */
         if (isLiked) {
-            await axios.delete(`https://localhost:5001/api/UserInteraction/Like/${this.props.userId}/${this.props.id}`)
+            await axios.delete(`https://localhost:7155/api/UserInteraction/Like/${this.props.userId}/${this.props.id}`)
                 .then(function (response) {
                     isLiked = false
                 })
@@ -80,7 +80,7 @@ export default class CardRessources extends Component {
                     /*TODO Needing add of error output or actions, to define */
                 });
         } else {
-            await axios.post('https://localhost:5001/api/UserInteraction/Like', {
+            await axios.post('https://localhost:7155/api/UserInteraction/Like', {
                 UserId: this.props.userId, RessourceId: this.props.id,
             })
                 .then(function (response) {
@@ -100,7 +100,7 @@ export default class CardRessources extends Component {
 
         /* Check if already bookmarked to delete, or post on the call to the API */
         if (isBookmark) {
-            await axios.delete(`https://localhost:5001/api/UserInteraction/Favorite/${this.props.userId}/${this.props.id}`)
+            await axios.delete(`https://localhost:7155/api/UserInteraction/Favorite/${this.props.userId}/${this.props.id}`)
                 .then(function (response) {
                     isBookmark = false
                 })
@@ -108,7 +108,7 @@ export default class CardRessources extends Component {
                     /*TODO Needing add of error output or actions, to define */
                 });
         } else {
-            await axios.post('https://localhost:5001/api/UserInteraction/Favorite', {
+            await axios.post('https://localhost:7155/api/UserInteraction/Favorite', {
                 UserId: this.props.userId, RessourceId: this.props.id,
             })
                 .then(function (response) {
@@ -125,7 +125,7 @@ export default class CardRessources extends Component {
 
     deleteRessource() {
         if (window.confirm("Voulez vous vraiment suprimmer la ressource \"" + this.props.title + "\"")) {
-            axios.delete(`https://localhost:5001/api/Ressource/${this.props.id}`)
+            axios.delete(`https://localhost:7155/api/Resource/${this.props.id}`)
                 .then(res => {
                     /*TODO Error handling*/
                     /*Going back in history after delete*/

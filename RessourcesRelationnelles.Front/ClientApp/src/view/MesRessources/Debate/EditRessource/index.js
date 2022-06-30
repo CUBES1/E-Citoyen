@@ -51,7 +51,7 @@ export default class Edit extends React.Component {
         let id = null;
         let history = this.props.history;
         
-        await axios.put(`https://localhost:5001/api/Post`, {
+        await axios.put(`https://localhost:7155/api/Publication`, {
             title: this.state.Title,
             id: this.state.rId,
             description: this.state.Description,
@@ -105,7 +105,7 @@ export default class Edit extends React.Component {
         await this.setState({currentUser: user})
         /* End For user in session statement*/
 
-        await axios.get('https://localhost:5001/api/Ressource/' + this.props.match.params.id)
+        await axios.get('https://localhost:7155/api/Resource/' + this.props.match.params.id)
             .then(res => {
                 this.setState({
                     rId: res.data.id,
@@ -123,7 +123,7 @@ export default class Edit extends React.Component {
             })
 
 
-        await axios.get('https://localhost:5001/api/ResourceCategory')
+        await axios.get('https://localhost:7155/api/ResourceCategory')
             .then(res => {
                 let options = [];
                 res.data.forEach(element => {

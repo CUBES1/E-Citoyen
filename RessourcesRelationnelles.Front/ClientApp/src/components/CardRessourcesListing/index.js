@@ -32,14 +32,14 @@ class Index extends Component {
         /* Is this view is only for the user or not*/
         const userOnly = this.props.userOnly;
         if (userOnly) {
-            axios.get(`https://localhost:5001/api/Ressource/usr/${this.state.currentUser}`)
+            axios.get(`https://localhost:7155/api/Resource/usr/${this.state.currentUser}`)
                 .then(res => {
                     const data = res.data;
                     this.setState({resources_data: data});
                 })
             
         } else {
-            axios.get(`https://localhost:5001/api/Ressource`)
+            axios.get(`https://localhost:7155/api/Resource`)
                 .then(res => {
                     const data = res.data;
                     this.setState({resources_data: data});
@@ -54,7 +54,7 @@ class Index extends Component {
 
         let result = null;
         try {
-            const response = await axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.state.currentUser}/${id}`);
+            const response = await axios.get(`https://localhost:7155/api/UserInteraction/Like/${this.state.currentUser}/${id}`);
             result = response.data
             return result
         } catch (err) {
@@ -67,7 +67,7 @@ class Index extends Component {
 
         let result = null;
         try {
-            const response = await axios.get(`https://localhost:5001/api/UserInteraction/Favorite/${this.state.currentUser}/${id}`);
+            const response = await axios.get(`https://localhost:7155/api/UserInteraction/Favorite/${this.state.currentUser}/${id}`);
             result = response.data
             return result
         } catch (err) {

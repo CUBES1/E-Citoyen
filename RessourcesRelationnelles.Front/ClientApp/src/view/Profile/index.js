@@ -29,7 +29,7 @@ class Profile extends React.Component {
         if (auth) {
             user = await authService.getUser()
             user = user.sub
-            await axios.get(`https://localhost:5001/api/User/${this.props.location.state.rUserId}`)
+            await axios.get(`https://localhost:7155/api/User/${this.props.location.state.rUserId}`)
                 .then(res => {
                     const data = res.data;
                     this.setState({user_data: data, currentUser: user});
@@ -40,7 +40,7 @@ class Profile extends React.Component {
     
     
     addFriend(e) {
-        axios.post(`https://localhost:5001/api/Relation/${this.props.location.state.rUserId}`)
+        axios.post(`https://localhost:7155/api/Relation/${this.props.location.state.rUserId}`)
             .then((res => {
                 console.log(res)
                 if (res.data === 'L\'utilisateur est déjà dans votre liste d\'amis') {

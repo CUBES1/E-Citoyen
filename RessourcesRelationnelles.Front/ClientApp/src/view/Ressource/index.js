@@ -47,7 +47,7 @@ class Index extends Component {
 
         /* Check if already liked to delete, or post on the call to the API */
         if (isLiked) {
-            await axios.delete(`https://localhost:5001/api/UserInteraction/Like/${this.props.location.state.userId}/${this.props.location.state.id}`)
+            await axios.delete(`https://localhost:7155/api/UserInteraction/Like/${this.props.location.state.userId}/${this.props.location.state.id}`)
                 .then(function (response) {
                     isLiked = false
                 })
@@ -55,7 +55,7 @@ class Index extends Component {
                     /*TODO Needing add of error output or actions, to define */
                 });
         } else {
-            await axios.post('https://localhost:5001/api/UserInteraction/Like', {
+            await axios.post('https://localhost:7155/api/UserInteraction/Like', {
                 UserId: this.props.location.state.userId,
                 RessourceId: this.props.location.state.id,
             })
@@ -75,7 +75,7 @@ class Index extends Component {
 
         /* Check if already bookmarked to delete, or post on the call to the API */
         if (isBookmark) {
-            await axios.delete(`https://localhost:5001/api/UserInteraction/Favorite/${this.props.location.state.userId}/${this.props.location.state.id}`)
+            await axios.delete(`https://localhost:7155/api/UserInteraction/Favorite/${this.props.location.state.userId}/${this.props.location.state.id}`)
                 .then(function (response) {
                     isBookmark = false
                 })
@@ -83,7 +83,7 @@ class Index extends Component {
                     /*TODO Needing add of error output or actions, to define */
                 });
         } else {
-            await axios.post('https://localhost:5001/api/UserInteraction/Favorite', {
+            await axios.post('https://localhost:7155/api/UserInteraction/Favorite', {
                 UserId: this.props.location.state.userId,
                 RessourceId: this.props.location.state.id,
             })
@@ -101,7 +101,7 @@ class Index extends Component {
     deleteRessource() {
         let history = this.props.history;
 
-        axios.delete(`https://localhost:5001/api/Ressource/${this.state.data.id}`)
+        axios.delete(`https://localhost:7155/api/Resource/${this.state.data.id}`)
             .then(res => {
                 /*TODO Error handling*/
                 /*Going back in history after delete*/
@@ -142,19 +142,19 @@ class Index extends Component {
 
         const id = this.props.match.params.id;
 
-        axios.get(`https://localhost:5001/api/UserInteraction/Like/${this.state.currentUser}/${this.props.match.params.id}`)
+        axios.get(`https://localhost:7155/api/UserInteraction/Like/${this.state.currentUser}/${this.props.match.params.id}`)
             .then(res => {
                 const data = res.data;
                 this.setState({isLiked: data});
             })
 
-        axios.get(`https://localhost:5001/api/UserInteraction/Favorite/${this.state.currentUser}/${this.props.match.params.id}`)
+        axios.get(`https://localhost:7155/api/UserInteraction/Favorite/${this.state.currentUser}/${this.props.match.params.id}`)
             .then(res => {
                 const data = res.data;
                 this.setState({isBookmark: data});
             })
 
-        await axios.get('https://localhost:5001/api/ResourceCategory')
+        await axios.get('https://localhost:7155/api/ResourceCategory')
             .then(res => {
                 let options = [];
                 res.data.forEach(element => {
@@ -165,7 +165,7 @@ class Index extends Component {
 
         window.scrollTo(0, 0);
 
-        axios.get(`https://localhost:5001/api/Ressource/${id}`)
+        axios.get(`https://localhost:7155/api/Resource/${id}`)
             .then(res => {
                 const data = res.data;
                 this.setState({
