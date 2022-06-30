@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace RessourcesRelationnelles.Front.Controllers;
@@ -16,6 +17,7 @@ public class OidcConfigurationController : Controller
 
     public IClientRequestParametersProvider ClientRequestParametersProvider { get; }
 
+    [AllowAnonymous]
     [HttpGet("_configuration/{clientId}")]
     public IActionResult GetClientRequestParameters([FromRoute] string clientId)
     {
