@@ -27,7 +27,7 @@ public class UserInteraction
     [JsonIgnore]
     public UserInteractionType Type { get; set; } = UserInteractionType.None;
     
-    public DateTime? CreatedAt { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; } = DateTime.Now;
 
     [NotMapped]
     public string StringType

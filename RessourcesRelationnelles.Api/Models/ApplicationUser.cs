@@ -30,16 +30,16 @@ public class ApplicationUser : IdentityUser
     public int? Rating { get; set; }
     
     [JsonIgnore]
-    public List<Resource>? Ressources { get; set; }
+    public List<Resource>? Resources { get; set; }
 
     public byte[]? ProfilePicture { get; set; }
     
     [JsonIgnore]
-    public virtual List<FriendShip> Friends { get; set; } = null!;
+    public virtual List<FriendShip>? Friends { get; set; }
         
     [JsonIgnore]
-    public virtual List<FriendShip> FriendsOf { get; set; } = null!;
+    public virtual List<FriendShip>? FriendsOf { get; set; }
     
     [JsonIgnore]
-    public List<UserInteraction> Interactions { get; set; }
+    public List<UserInteraction>? Interactions { get; set; }
 }

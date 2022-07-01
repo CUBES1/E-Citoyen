@@ -6,13 +6,13 @@ namespace RessourcesRelationnelles.Api.Models;
 
 public class FriendShip
 {
-    public string? UserId { get; set; }
+    public string UserId { get; set; }
         
     [JsonIgnore]
     [ForeignKey("UserId")]
     public virtual ApplicationUser User { get; set; }
         
-    public string? UserFriendId { get; set; }
+    public string UserFriendId { get; set; }
         
     [JsonIgnore]
     [ForeignKey("UserFriendId")]
