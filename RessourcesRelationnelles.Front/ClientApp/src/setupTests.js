@@ -12,10 +12,10 @@ window.fetch = () => {
     {
       ok: true,
       json: () => Promise.resolve({
-        "authority": "https://localhost:5001",
+        "authority": "https://localhost:7018",
         "client_id": "RessourcesRelationnelles.Front",
-        "redirect_uri": "https://localhost:5001/authentication/login-callback",
-        "post_logout_redirect_uri": "https://localhost:5001/authentication/logout-callback",
+        "redirect_uri": "https://localhost:7018/authentication/login-callback",
+        "post_logout_redirect_uri": "https://localhost:7018/authentication/logout-callback",
         "response_type": "id_token token",
         "scope": "RessourcesRelationnelles.FrontAPI openid profile"
      })
