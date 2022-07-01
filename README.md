@@ -73,35 +73,47 @@ Identity est utilisé pour générer les pages liées à identity.
 
 ### Prerequisites
 
-Avoir sur son poste de travail NodeJS et Dotnet 5.0
+Avoir sur son poste de travail NodeJS et un [SDK .NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 
 ### Installation
 
-1. Clone le repo
+1. Clone the github repo
    ```
    git clone https://github.com/CUBES1/E-Citoyen.git
    ```
 2. Install NPM packages
    ```
-   cd ASP.NETCoreWebApplication/ClientApp && npm install
+   cd RessourcesRelationnelles.Front/ClientApp
+   npm install
    ```
-3. Changer la terminaison de la base de données dans Startup.cs, ligne 32
+3. Change the database connection in [RessourcesRelationnelles.Front/Program.cs](RessourcesRelationnelles.Front/Program.cs), [here](https://github.com/CUBES1/E-Citoyen/blob/cdfcf8c9457948c8cc02115fed932503fdf7b2ea/RessourcesRelationnelles.Front/Program.cs#L16), and in [RessourcesRelationnelles.Api/Program.cs](RessourcesRelationnelles.Api/Program.cs), [here](https://github.com/CUBES1/E-Citoyen/blob/cdfcf8c9457948c8cc02115fed932503fdf7b2ea/RessourcesRelationnelles.Api/Program.cs#L15)
+   ```csharp
+   optionsBuilder.UseSqlServer(builder.Configuration.GetConnectionString("Your_config_name_from_appsettings.json"));
    ```
-   Configuration.GetConnectionString("NomDeLaConnexionConfigDansAppSettings")));
-   ```
-   
-### Executer
-
-
-1. Se rendre à la racine du projet, dans le dossier ASASP.NETCoreWebApplication
-	```
-	cd ASP.NETCoreWebApplication
-	```
-2. Lancer le projet
-   ```
-   dotnet run
-   ```
-
+### Migrations
+1. Start the dedicated database service, like Microsoft SQL Server (on Windows)
+    ```
+    net start mssqlserver
+    ```
+2. Se rendre dans le projet API
+    ```
+    cd RessourcesRelationnelles.Api
+    ```
+3. Mettre à jour la base de données
+    ```
+    dotnet ef database update
+    ```
+### Execution
+1. Api
+    ```
+    cd RessourcesRelationnelles.Api
+    dotnet run
+    ```
+2. Front
+    ```
+    cd ../RessourcesRelationnelles.Front
+    dotnet run
+    ```
 <p align="right">(<a href="#top">Revenir en haut</a>)</p>
 
 
