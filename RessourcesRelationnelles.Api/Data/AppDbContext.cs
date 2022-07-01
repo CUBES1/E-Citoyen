@@ -14,33 +14,44 @@ public class AppDbContext : ApiAuthorizationDbContext<ApplicationUser>
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // UserInteraction build
             modelBuilder.Entity<UserInteraction>(mb =>
             {
                 mb.HasKey(ui => new { ui.UserId, ui.RessourceId, ui.Type });
                 mb  
                     .HasOne(ui => ui.User)
                     .WithMany(au => au.Interactions)
-                    .HasForeignKey(ui => ui.UserId);
+                    .HasForeignKey(ui => ui.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
                 mb
                     .HasOne(ui => ui.Resource)
                     .WithMany(r => r.Interactions)
-                    .HasForeignKey(ui => ui.RessourceId);
+                    .HasForeignKey(ui => ui.RessourceId)
+                    .OnDelete(DeleteBehavior.Cascade);;
             });
-            
-            modelBuilder.Entity<FriendShip>()
-                .HasKey(bc => new { bc.UserId, bc.UserFriendId });  
-            
-            modelBuilder.Entity<FriendShip>()
-                .HasOne(pt => pt.UserFriend)
-                .WithMany(p => p.FriendsOf)
-                .HasForeignKey(pt => pt.UserFriendId)
-                .OnDelete(DeleteBehavior.NoAction); 
 
-            modelBuilder.Entity<FriendShip>()
-                .HasOne(pt => pt.User)
-                .WithMany(t => t.Friends)
-                .HasForeignKey(pt => pt.UserId)
+            // ApplicationUser build
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Interactions)
+                .WithOne(ui => ui.User)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            // FriendShip build
+            modelBuilder.Entity<FriendShip>(mb =>
+            {
+                mb.HasKey(fs => new {fs.UserId, fs.UserFriendId});
+                mb
+                    .HasOne(fs => fs.UserFriend)
+                    .WithMany(u => u.FriendsOf)
+                    .HasForeignKey(fs => fs.UserFriendId)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+                mb
+                    .HasOne(fs => fs.User)
+                    .WithMany(u => u.Friends)
+                    .HasForeignKey(fs => fs.UserId)
+                    .OnDelete(DeleteBehavior.NoAction);
+            });
             
             base.OnModelCreating(modelBuilder);
             SeedUsers(modelBuilder); 
