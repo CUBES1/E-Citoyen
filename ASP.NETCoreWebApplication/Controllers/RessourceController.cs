@@ -71,18 +71,38 @@ namespace ASP.NETCoreWebApplication.Controllers
 
         // PUT: api/Ressource/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut]
-        public async Task<IActionResult> PutRessource(Ressource ressource)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutRessource(Guid id, Ressource ressource)
         {
-            if (!await _context.Ressources.AnyAsync(r => r.Id == ressource.Id))
-                return NotFound($"No Ressource with id {ressource.Id}");
+        
+        if (!await _context.Ressources.AnyAsync(r => r.Id == ressource.Id))
+            return NotFound($"No Ressource with id {ressource.Id}");
+
+        if (!await _context.ResourceCategories.AnyAsync(rc => rc.Id == ressource.ResourceCategoryId))
+            return BadRequest($"No ResourceCategory with id {ressource.ResourceCategoryId}");
             
-            if (!await _context.ResourceCategories.AnyAsync(rc => rc.Id == ressource.ResourceCategoryId))
-                return BadRequest($"No ResourceCategory with id {ressource.ResourceCategoryId}");
-            
+            if (id != ressource.Id)
+            {
+                return BadRequest();
+            }
             ressource.UpdatedAt = DateTime.Now;
             _context.Entry(ressource).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!RessourceExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return NoContent();
         }
